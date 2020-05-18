@@ -1,0 +1,4 @@
+include ':app', ':scanner'
+rootProject.name='testScan'
+include ':navigation'
+include ':testasm'
