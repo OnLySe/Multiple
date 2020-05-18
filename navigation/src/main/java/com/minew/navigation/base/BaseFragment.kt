@@ -23,8 +23,6 @@ import com.minew.navigation.R
  */
 open abstract class BaseFragment : SimpleImmersionFragment() {
 
-    protected lateinit var nextFragment: BaseFragment
-
     protected abstract fun getLayoutId(): Int
     protected lateinit var defaultToolbar: Toolbar
 
@@ -37,17 +35,17 @@ open abstract class BaseFragment : SimpleImmersionFragment() {
 
     @IdRes
     @Nullable
-    protected fun setToolbarId():Int? = R.id.toolbar
+    protected fun setToolbarId(): Int? = R.id.toolbar
+
     /**
      * {@link HasDefaultViewModelProviderFactory#getDefaultViewModelProviderFactory() default factory}
      *  不应使onCreateView变成可重写，需要用final做限制，如有必要，可使用apply！
-     *
      */
     final override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         return inflater.inflate(getLayoutId(), container, false).apply {
             defaultToolbar = if (setToolbarId() == null) {
                 findViewById(R.id.toolbar)
-            }else{
+            } else {
                 findViewById(setToolbarId()!!)
             }
             setToolbar(defaultToolbar)
@@ -58,7 +56,7 @@ open abstract class BaseFragment : SimpleImmersionFragment() {
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
         //TODO 如此创建或有不妥之处！
-        homeViewModel = ViewModelProvider(this).get(HomeViewModel::class.java)
+        homeViewModel = ViewModelProvider(requireActivity()).get(HomeViewModel::class.java)
     }
 
     /**

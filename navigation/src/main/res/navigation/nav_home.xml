@@ -17,6 +17,9 @@
         <action
             android:id="@+id/action_homeFragment_to_secondFragment"
             app:destination="@id/secondFragment" />
+        <action
+            android:id="@+id/action_homeFragment_to_thirdFragment"
+            app:destination="@id/thirdFragment" />
     </fragment>
     <fragment
         android:id="@+id/firstFragment"
@@ -68,4 +71,9 @@
         android:name="com.minew.navigation.SettingFragment"
         android:label="fragment_setting"
         tools:layout="@layout/fragment_setting" />
+    <fragment
+        android:id="@+id/thirdFragment"
+        android:name="com.minew.navigation.ThirdFragment"
+        android:label="fragment_third"
+        tools:layout="@layout/fragment_third" />
 </navigation>

@@ -18,8 +18,10 @@ class HomeFragment : BaseFragment(),View.OnClickListener {
     override fun initView(view: View) {
         val btnFirst: Button = view.findViewById(R.id.btn_first)
         val btnSecond: Button = view.findViewById(R.id.btn_second)
+        val btnThird: Button = view.findViewById(R.id.btn_third)
         btnFirst.setOnClickListener(this)
         btnSecond.setOnClickListener(this)
+        btnThird.setOnClickListener(this)
 
         val tvTitle: TextView = view.findViewById(R.id.tv_title)
         tvTitle.text = "Home!"
@@ -36,6 +38,11 @@ class HomeFragment : BaseFragment(),View.OnClickListener {
                 R.id.btn_second -> {
                     val bundle = bundleOf(Pair("start","second"), Pair("data", "date"))
                     navigate(R.id.action_homeFragment_to_secondFragment, bundle)
+                }
+
+                R.id.btn_third -> {
+                    val bundle = bundleOf(Pair("start","second"), Pair("data", "date"))
+                    navigate(R.id.action_homeFragment_to_thirdFragment, bundle)
                 }
             }
         }

@@ -20,4 +20,11 @@
         android:layout_marginTop="15dp"
         android:text="secondClick" />
 
+    <Button
+        android:id="@+id/btn_third"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="15dp"
+        android:text="thirdClick" />
+
 </LinearLayout>
