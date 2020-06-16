@@ -1,4 +1,4 @@
-package com.minew.testasm
+package com.zzq.saf
 
 import org.junit.Test
 

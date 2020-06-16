@@ -1,4 +1,4 @@
-package com.minew.testasm
+package com.zzq.saf
 
 import androidx.test.platform.app.InstrumentationRegistry
 import androidx.test.ext.junit.runners.AndroidJUnit4
@@ -19,6 +19,6 @@ class ExampleInstrumentedTest {
     fun useAppContext() {
         // Context of the app under test.
         val appContext = InstrumentationRegistry.getInstrumentation().targetContext
-        assertEquals("com.minew.testasm", appContext.packageName)
+        assertEquals("com.zzq.saf", appContext.packageName)
     }
 }
