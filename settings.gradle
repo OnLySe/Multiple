@@ -1,4 +1,6 @@
 include ':room'
 include ':saf'
-rootProject.name='testScan'
+rootProject.name='Multiple'
 include ':navigation'
+include ':coroutine'
+include ':ItemDecoration'

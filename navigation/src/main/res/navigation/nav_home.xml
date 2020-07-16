@@ -7,7 +7,7 @@
 
     <fragment
         android:id="@+id/homeFragment"
-        android:name="com.minew.navigation.HomeFragment"
+        android:name="com.zzq.navigation.HomeFragment"
         android:label="fragment_home"
         tools:layout="@layout/fragment_home">
         <action
@@ -23,7 +23,7 @@
     </fragment>
     <fragment
         android:id="@+id/firstFragment"
-        android:name="com.minew.navigation.FirstFragment"
+        android:name="com.zzq.navigation.FirstFragment"
         android:label="fragment_first"
         tools:layout="@layout/fragment_first">
         <action
@@ -36,7 +36,7 @@
     </fragment>
     <fragment
         android:id="@+id/secondFragment"
-        android:name="com.minew.navigation.SecondFragment"
+        android:name="com.zzq.navigation.SecondFragment"
         android:label="fragment_second"
         tools:layout="@layout/fragment_second">
         <action
@@ -50,7 +50,7 @@
     </fragment>
     <fragment
         android:id="@+id/firstDetailFragment"
-        android:name="com.minew.navigation.FirstDetailFragment"
+        android:name="com.zzq.navigation.FirstDetailFragment"
         android:label="fragment_first_detail"
         tools:layout="@layout/fragment_first_detail">
         <action
@@ -59,7 +59,7 @@
     </fragment>
     <fragment
         android:id="@+id/secondDetailFragment"
-        android:name="com.minew.navigation.SecondDetailFragment"
+        android:name="com.zzq.navigation.SecondDetailFragment"
         android:label="fragment_second_detail"
         tools:layout="@layout/fragment_second_detail">
         <action
@@ -68,12 +68,12 @@
     </fragment>
     <fragment
         android:id="@+id/settingFragment"
-        android:name="com.minew.navigation.SettingFragment"
+        android:name="com.zzq.navigation.SettingFragment"
         android:label="fragment_setting"
         tools:layout="@layout/fragment_setting" />
     <fragment
         android:id="@+id/thirdFragment"
-        android:name="com.minew.navigation.ThirdFragment"
+        android:name="com.zzq.navigation.ThirdFragment"
         android:label="fragment_third"
         tools:layout="@layout/fragment_third" />
 </navigation>
