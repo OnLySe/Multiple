@@ -1,5 +1,8 @@
 package com.zzq.navigation
 
+import android.content.Context
+import android.os.Bundle
+import android.util.Log
 import android.view.View
 import android.widget.Button
 import android.widget.TextView
@@ -16,6 +19,7 @@ class HomeFragment : BaseFragment(),View.OnClickListener {
     override fun getLayoutId(): Int =R.layout.fragment_home
 
     override fun initView(view: View) {
+        Log.e("tetetetete", "HomeFragment ${toString()} onCreateView")
         val btnFirst: Button = view.findViewById(R.id.btn_first)
         val btnSecond: Button = view.findViewById(R.id.btn_second)
         val btnThird: Button = view.findViewById(R.id.btn_third)
@@ -48,4 +52,46 @@ class HomeFragment : BaseFragment(),View.OnClickListener {
         }
 
     }
+
+
+    override fun onAttach(context: Context) {
+        super.onAttach(context)
+        Log.e("tetetetete", "HomeFragment ${toString()} onAttach")
+    }
+
+    override fun onDetach() {
+        super.onDetach()
+        Log.e("tetetetete", "HomeFragment ${toString()} onDetach")
+    }
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        Log.e("tetetetete", "HomeFragment ${toString()} onCreate")
+    }
+
+    override fun onResume() {
+        super.onResume()
+        Log.e("tetetetete", "HomeFragment ${toString()} onResume")
+    }
+
+    override fun onStart() {
+        super.onStart()
+        Log.e("tetetetete", "HomeFragment ${toString()} onStart")
+    }
+
+    override fun onPause() {
+        super.onPause()
+        Log.e("tetetetete", "HomeFragment ${toString()} onPause")
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        Log.e("tetetetete", "HomeFragment ${toString()} onDestroy")
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        Log.e("tetetetete", "HomeFragment ${toString()} onDestroyView")
+    }
+
 }
