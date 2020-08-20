@@ -5,7 +5,7 @@ import retrofit2.Call
 import retrofit2.http.GET
 
 interface WanApi {
-    @GET("wxarticle/chapters/json")
+    @GET("sssssssssssssssssssssssswxarticle/chapters/json")
     fun getArticles(): Call<Articles>
 
     @GET("wxarticle/chapters/json")
