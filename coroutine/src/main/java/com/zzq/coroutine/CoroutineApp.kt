@@ -11,19 +11,19 @@ class CoroutineApp : Application() {
         super.onCreate()
         instance = this
 
-        val retrofit = Retrofit.Builder()
+        wanApi = Retrofit.Builder()
                 .client(OkHttpClient.Builder().addInterceptor(LogPrintInterceptor()).build())
                 .baseUrl("https://wanandroid.com/")
                 .addConverterFactory(GsonConverterFactory.create())
                 .build()
-        wanApi = retrofit.create(WanApi::class.java)
+                .create(WanApi::class.java)
     }
 
     companion object {
-        private lateinit var instance:CoroutineApp
+        private lateinit var instance: CoroutineApp
         private lateinit var wanApi: WanApi
 
-        fun getInstance() :CoroutineApp{
+        fun getInstance(): CoroutineApp {
             return instance
         }
 
