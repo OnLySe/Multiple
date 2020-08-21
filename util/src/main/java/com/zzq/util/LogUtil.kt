@@ -10,6 +10,10 @@ object LogUtil {
         Log.e(this.javaClass.simpleName, msg)
     }
 
+    fun AppCompatActivity.iLog(msg: String) {
+        Log.i(this.javaClass.simpleName, msg)
+    }
+
     /**
      * 打印ViewModel消息
      * 但是需要注意：只适合在debug环境使用，release可能会混淆类名
