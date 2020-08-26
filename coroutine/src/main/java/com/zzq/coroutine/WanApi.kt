@@ -10,8 +10,12 @@ interface WanApi {
 
     @GET("wxarticle/chapters/json")
     suspend fun getArticles2(): Deferred<Articles>
+
     @GET("wxarticle/chapters/json")
     suspend fun getArticles21(): Articles
+
+    @GET("qqqqqqqqwxarticle/chapters/json")
+    suspend fun getArticles22(): Articles
 
     @GET("sssssssssssssssssssssssswxarticle/chapters/json")
     fun getArticles3(): Call<Articles>

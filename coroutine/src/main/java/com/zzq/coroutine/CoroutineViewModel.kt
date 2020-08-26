@@ -7,23 +7,18 @@ import kotlinx.coroutines.*
 class CoroutineViewModel : ViewModel() {
 
     private val wanApi = CoroutineApp.getWanApi()
+
     private val exceptionHandler = CoroutineExceptionHandler { coroutineContext, throwable ->
-        eLog("出现了个异常： ${Thread.currentThread().name} ${throwable.message}")
+        eLog("出现了个异常： ${Thread.currentThread().name} $throwable")
     }
 
     fun getArticle() {
 
         viewModelScope.launch(Dispatchers.Main + exceptionHandler) {
-            eLog("start ${Thread.currentThread().name}")
-            val result = async(Dispatchers.IO) {
-                eLog("inside ${Thread.currentThread().name}")
-                wanApi.getArticles21()
-            }
+            val result = async(Dispatchers.IO) { wanApi.getArticles22() }
             val articles = result.await()
             eLog("end ${Thread.currentThread().name} $articles")
-            eLog("end nothing! ${Thread.currentThread().name}")
         }
-        eLog("outside ${Thread.currentThread().name}")
     }
 
     fun getArticle2(): LiveData<Articles> {
@@ -41,6 +36,16 @@ class CoroutineViewModel : ViewModel() {
         return getArticle2().switchMap { liveData { emit(it.data) } }
     }
 
+    fun getArticle4(): LiveData<List<Articles.DataBean>> {
+        return getArticle2().map { it.data }
+    }
+
+    suspend fun getArticle5(): List<Articles.DataBean> {
+        val data = withContext(Dispatchers.IO + exceptionHandler) {
+            async { wanApi.getArticles21() }
+        }
+        return data.await().data
+    }
 
 //    override fun onCleared() {
 //        super.onCleared()

@@ -5,13 +5,14 @@ import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.*
 import com.zzq.util.LogUtil.eLog
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 
 class MainActivity : AppCompatActivity() {
 
-    private lateinit var tvTitle:TextView
-    private lateinit var viewModel:CoroutineViewModel
+    private lateinit var tvTitle: TextView
+    private lateinit var viewModel: CoroutineViewModel
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
@@ -24,54 +25,50 @@ class MainActivity : AppCompatActivity() {
 //            eLog(it.toString())
 //            tvTitle.text = it.toString()
 //        })
+//        viewModel.getArticle3().observe(this, Observer {
+//            eLog(it.toString())
+//            tvTitle.text = it.toString()
+//        })
 
-        viewModel.getArticle3().observe(this, Observer {
+        /*viewModel.getArticle4().observe(this, Observer {
             eLog(it.toString())
             tvTitle.text = it.toString()
-        })
-
-        testLiveData()
-//        test2()
-    }
-
-    private val mediatorLiveData = MediatorLiveData<String>()
-    private val firstLiveData = MutableLiveData<Int>()
-    private val secondLiveData = MutableLiveData<Float>()
-    private fun testLiveData() {
-
-        firstLiveData.observe(this, Observer { run { eLog("first $it") } })
-        secondLiveData.observe(this, Observer { run { eLog("second $it") } })
-        mediatorLiveData.addSource(firstLiveData) { eLog("mediator first $it") }
-        mediatorLiveData.addSource(secondLiveData) { eLog("mediator second $it") }
-        mediatorLiveData.observe(this, Observer { eLog("mediator data change $it") })
+        })*/
 
         lifecycleScope.launch {
-            eLog("稍等，即将发出新变动")
+            //EmptyCoroutineContext默认不切换线程
+            eLog("getData ${Thread.currentThread().name}")
             delay(2000)
-//            firstLiveData.value = 10
-//            secondLiveData.value = 3.33F
-
-            mediatorLiveData.value = "67895AC"
+            val article5 = viewModel.getArticle5()
+            tvTitle.text = article5.toString()
         }
+
+        testLiveData()
     }
 
 
-    /*private fun test2() {
-        val mediator = MediatorLiveData<List<String>>();
-        val strLive = MutableLiveData<List<String>>();
-        mediator.addSource(strLive, Observer {
-            iLog("onchange"+it.size);
-            mediator.value = it.filter {
-                it.length>4
-            }
-        })
+    private fun testLiveData() {
+        val firstLiveData = MutableLiveData<Int>()
+        val secondLiveData = MutableLiveData<Float>()
+        val mediatorLiveData = MediatorLiveData<String>()
+        firstLiveData.observe(this, Observer { run { eLog("first lifeCycle onChanged $it") } })
+        secondLiveData.observe(this, Observer { run { eLog("second lifeCycle onChanged $it") } })
+        mediatorLiveData.observe(this, Observer { eLog("mediator onChanged $it") })
 
-        mediator.observe(this, Observer {
-            iLog("size==="+it.size)
-        })
+        mediatorLiveData.addSource(firstLiveData) {
+            eLog("mediator addSource first $it")
+            mediatorLiveData.value = "first onChange $it"
+        }
+        mediatorLiveData.addSource(secondLiveData) {
+            eLog("mediator addSource second $it")
+            mediatorLiveData.value = "second onChange $it"
+        }
 
-        val arrayList = ArrayList<String>()
-        arrayList.add("8848 8848 88488")
-        strLive.value = arrayList
-    }*/
+        lifecycleScope.launch(Dispatchers.IO) {
+            delay(500L)
+            firstLiveData.postValue(10)
+            delay(30L)
+            secondLiveData.postValue(3.33F)
+        }
+    }
 }
