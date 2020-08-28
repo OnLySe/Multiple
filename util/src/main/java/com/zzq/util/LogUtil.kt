@@ -6,11 +6,11 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModel
 
 object LogUtil {
-    fun AppCompatActivity.eLog(tag: String? = null, msg: String? = null) {
+    fun AppCompatActivity.eLog( msg: String? = null) {
         if (msg == null) {
             return
         }
-        Log.e(tag ?: this.javaClass.simpleName, msg)
+        Log.e( this.javaClass.simpleName, msg)
     }
 
     /**

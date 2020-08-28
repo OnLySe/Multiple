@@ -47,8 +47,18 @@ class CoroutineViewModel : ViewModel() {
         return data.await().data
     }
 
-//    override fun onCleared() {
-//        super.onCleared()
-//        viewModelScope.cancel()
-//    }
+    /*suspend fun getArticle6():List<Articles>{
+        val continuation = object:Continuation<Articles>{
+            override val context: CoroutineContext
+                get() = TODO("Not yet implemented")
+
+            override fun resumeWith(result: Result<Articles>) {
+
+            }
+
+        }
+
+        val coroutineScope = CoroutineScope(Dispatchers.Main)
+        val mainScope = MainScope()
+    }*/
 }
