@@ -12,7 +12,7 @@ android {
         minSdkVersion 21
         targetSdkVersion 29
         versionCode 1
-        versionName "1.0.0"
+        versionName "v1.0.0"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
@@ -31,7 +31,7 @@ android {
     }
 
     //命名变体维度。所有变种都必须属于一个指定的变种维度，即一个产品变种组
-    flavorDimensions "side"/*, "version"*/
+    flavorDimensions "side", "api"
 
     //配置产品变种
     productFlavors {
@@ -46,6 +46,18 @@ android {
             //外部使用
             dimension "side"
             applicationIdSuffix ".outside"
+        }
+
+        api21 {
+            dimension "api"
+        }
+
+        api29 {
+            dimension "api"
+        }
+
+        api30 {
+            dimension "api"
         }
 
     }
@@ -113,16 +125,20 @@ android {
     }
 
     sourceSets {
+
+        main {
+//            java.srcDirs += ['src/main/java']
+            java.srcDirs += ['src/main/api21']
+            java.srcDirs += ['src/main/api29']
+            java.srcDirs += ["src/main/api30"]
+        }
+
         outside {
             java.srcDirs = ['src/outside/java']
         }
 
         inside {
             java.srcDirs = ['src/inside/java']
-        }
-
-        main {
-            java.srcDirs += ['src/main/java']
         }
     }
 
