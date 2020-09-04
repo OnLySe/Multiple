@@ -1,3 +1,5 @@
+include ':gradlebuild'
+include ':keyevent'
 include ':util'
 include ':recyclerview'
 include ':room'
