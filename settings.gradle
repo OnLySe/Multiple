@@ -1,3 +1,4 @@
+include ':Animator'
 include ':gradlebuild'
 include ':keyevent'
 include ':util'
