@@ -16,6 +16,43 @@ android {
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
 
+    flavorDimensions "animatorType"
+
+    productFlavors {
+
+        viewPropertyType {
+            dimension "animatorType"
+            versionNameSuffix "viewPropertyType-"
+        }
+
+        activityType {
+            dimension "animatorType"
+            versionNameSuffix "activityType-"
+        }
+
+        dialogType {
+            dimension "animatorType"
+            versionNameSuffix "dialogType-"
+        }
+
+        fragmentType {
+            dimension "animatorType"
+            versionNameSuffix "fragmentType"
+        }
+
+        dialogFragmentType {
+            dimension "animatorType"
+            versionNameSuffix "dialogFragmentType"
+        }
+    }
+
+    sourceSets {
+        viewPropertyType {
+            java.srcDirs = ['src/viewPropertyType/java']
+            manifest.srcFile 'src/viewPropertyType/AndroidManifest.xml'
+        }
+    }
+
     buildTypes {
         release {
             minifyEnabled false

@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
+import com.zzq.animator.activity.ViewPropertyActivity
 import com.zzq.animator.databinding.ActivityMainBinding
 import com.zzq.util.ToastUtil
 
@@ -19,7 +20,7 @@ class MainActivity : AppCompatActivity() {
         )
 
         binding.viewPropertyListener = View.OnClickListener {
-            startActivity(Intent(this,ViewPropertyActivity::class.java))
+            startActivity(Intent(this, ViewPropertyActivity::class.java))
         }
         binding.activityListener = View.OnClickListener {
             ToastUtil.showToast(this@MainActivity, "activityListener")
