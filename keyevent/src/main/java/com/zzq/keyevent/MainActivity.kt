@@ -8,7 +8,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import com.zzq.keyevent.databinding.ActivityMainBinding
 import com.zzq.util.LogUtil.eLog
-import com.zzq.util.ToastUtil.shortToast
+import com.zzq.util.ToastUtil.showToast
 
 class MainActivity : AppCompatActivity() {
 
@@ -40,15 +40,15 @@ class MainActivity : AppCompatActivity() {
                 .setOnKeyListener { dialog, keyCode, event ->
                     eLog("setOnKeyListener $keyCode")
                     val returnValue = false
-                    shortToast(this, "setOnKeyListener  $keyCode $returnValue")
+                    showToast(this, "setOnKeyListener  $keyCode $returnValue")
                     return@setOnKeyListener returnValue
                 }
                 .setNegativeButton("取消吧") { dialog, _ ->
-                    shortToast(this, "好吧")
+                    showToast(this, "好吧")
                     dialog.dismiss()
                 }
                 .setPositiveButton("可以了") { dialog, _ ->
-                    shortToast(this, "我信了")
+                    showToast(this, "我信了")
                     dialog.dismiss()
                 }
                 .create().also { it.show() }

@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <!--属性动画-->
+        <variable
+            name="viewPropertyListener"
+            type="android.view.View.OnClickListener" />
+
+        <variable
+            name="activityListener"
+            type="android.view.View.OnClickListener" />
+
+        <variable
+            name="dialogListener"
+            type="android.view.View.OnClickListener" />
+
+        <variable
+            name="fragmentListener"
+            type="android.view.View.OnClickListener" />
+
+        <variable
+            name="dialogFragmentListener"
+            type="android.view.View.OnClickListener" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context=".MainActivity">
+
+        <Button
+            android:id="@+id/btn_1"
+            android:layout_width="match_parent"
+            android:text="View 属性动画"
+            android:onClick="@{viewPropertyListener}"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            android:layout_height="wrap_content" />
+
+        <Button
+            android:id="@+id/btn_2"
+            android:layout_width="match_parent"
+            android:text="Activity动画"
+            android:layout_marginTop="10dp"
+            android:onClick="@{activityListener}"
+            app:layout_constraintTop_toBottomOf="@id/btn_1"
+            app:layout_constraintStart_toStartOf="parent"
+            android:layout_height="wrap_content" />
+
+        <Button
+            android:id="@+id/btn_3"
+            android:layout_width="match_parent"
+            android:text="Dialog动画"
+            android:layout_marginTop="10dp"
+            android:onClick="@{dialogListener}"
+            app:layout_constraintTop_toBottomOf="@id/btn_2"
+            app:layout_constraintStart_toStartOf="parent"
+            android:layout_height="wrap_content" />
+
+        <Button
+            android:id="@+id/btn_4"
+            android:layout_width="match_parent"
+            android:text="Fragment动画"
+            android:layout_marginTop="10dp"
+            android:onClick="@{fragmentListener}"
+            app:layout_constraintTop_toBottomOf="@id/btn_3"
+            app:layout_constraintStart_toStartOf="parent"
+            android:layout_height="wrap_content" />
+
+        <Button
+            android:id="@+id/btn_5"
+            android:layout_width="match_parent"
+            android:text="DialogFragment动画"
+            android:layout_marginTop="10dp"
+            android:onClick="@{dialogFragmentListener}"
+            app:layout_constraintTop_toBottomOf="@id/btn_4"
+            app:layout_constraintStart_toStartOf="parent"
+            android:layout_height="wrap_content" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>
