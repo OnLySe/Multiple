@@ -1,8 +1,14 @@
-为方便调试，在build.gradle中创建了多个构建变体，如下：
+为方便调试，在`build.gradle`中创建了多个构建变体：
 
-![](../images/animator_1.png)
+![构建变体清单图](../images/animator_1.png)
 
-其中，单独为viewPropertyType这个flavor设置是sourceSets，如下：
+这些构建变体的命名是“产品变体+构建类型”，在`build.gradle`中配置产品变体和构建类型后，由`Gradle`创建的。并且为这些构建变体创建了指定的`sourceSet`，不过并未在`build.gradle`的`sourceSets`中指定。
+
+![image-20200908162754982](../images/animator_2.png)
+
+创建这些`sourceSet`主要就是为了能在调试特定模块时，不需要点击就能直接抵达指定页面，减少在开发阶段时的繁琐操作。所以只要在运行指定构建变体时，使用指定清单文件，这样就会直接跳转到指定页面。当然，前提是为每个构建变体的源码集配置好清单文件。
+
+其中，`viewPropertyType`意味着属性动画部分，单独为这个变体设置了`sourceSets`：
 
 ```groovy
 sourceSets {
@@ -13,11 +19,7 @@ sourceSets {
 }
 ```
 
-主要就是为了能在调试属性动画时，能直接一步到位，不需要点击就能直接抵达指定页面，所以只要在运行指定变体类型时，使用指定清单文件，这样就会直接跳转到指定页面
-
-![image-20200908162754982](../images/animator_2.png)
-
-创建变体和设置sourceSets后，就开始创建指定目录和清单文件，清单文件内容如下：
+创建变体和设置`sourceSets`后，就开始创建指定目录和清单文件，清单文件内容如下：
 
 ```xml
 <?xml version="1.0" encoding="utf-8"?>

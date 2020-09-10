@@ -1,5 +1,6 @@
 package com.zzq.animator.fragments
 
+import android.animation.TypeEvaluator
 import android.animation.ValueAnimator
 import android.graphics.Color
 import android.os.Bundle
@@ -81,10 +82,8 @@ class DashboardFragment : Fragment() {
             text = value
             setBackgroundColor(Color.parseColor(value))
         })
-        animator8 = createIntAnimator(textDashboard8, action = {
-            Log.e("tetetetete", "act ${it.animatedValue.toString()}")
-            text = "progress:${it.animatedValue.toString()}"
-        })
+
+        testOfObject()
 
         //TODO 标记，可自由设置哪些显示，哪些不显示
         setInVisible(
@@ -137,7 +136,40 @@ class DashboardFragment : Fragment() {
                 }
     }
 
-    //TODO object Animator
+    //对View的宽和颜色（缩放和颜色渐变）做动画，首先将这两部分进行封装
+    private  class Effect(val width: Int, val color: Int)
+
+    private fun testOfObject() {
+
+        val startEffect = Effect(800, 0xDE594B)
+        val endEffect = Effect(200, 0x359664)
+
+        Log.e("tetetetete","test start:" + startEffect.toString())
+        Log.e("tetetetete", "test enf:" + endEffect.toString())
+        animator8 = ValueAnimator.ofObject(object : TypeEvaluator<Effect> {
+            override fun evaluate(fraction: Float, startValue: Effect, endValue: Effect): Effect {
+                Log.e("tetetetete","evaluate start:" + startEffect.toString())
+                Log.e("tetetetete","evaluate end:" + endValue.toString())
+                val startWidth = startValue.width
+                var startColor = startValue.color
+                val endWidth = endValue.width
+                val endColor = endValue.color
+                val newWidth = startWidth + fraction * (endWidth - startWidth)
+                val newColor = startColor + fraction * (endColor - startColor)
+                return Effect(newWidth.toInt(), newColor.toInt())
+            }
+        }, startEffect, endEffect)
+        animator8.addUpdateListener {
+            val effect: Effect = it.animatedValue as Effect
+            textDashboard8.layoutParams.width = effect.width
+
+            val temp: Int = effect.color
+            val value = "#${Integer.toHexString(temp)}"
+//            textDashboard8.text = value
+            textDashboard8.setBackgroundColor(Color.parseColor(value))
+        }
+        animator8.setDuration(6000).start()
+    }
 
     private fun initView(dataBinding: FragmentDashboardBinding) {
         textDashboard1 = dataBinding.textDashboard1
