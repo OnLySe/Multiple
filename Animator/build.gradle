@@ -16,7 +16,7 @@ android {
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
 
-    flavorDimensions "animatorType"
+    flavorDimensions "animatorType", "mode"
 
     productFlavors {
 
@@ -44,6 +44,15 @@ android {
             dimension "animatorType"
             versionNameSuffix "dialogFragmentType"
         }
+
+        //正式版本
+        official {
+            dimension "mode"
+        }
+
+        selfUse {
+            dimension "mode"
+        }
     }
 
     sourceSets {
@@ -56,7 +65,35 @@ android {
     buildTypes {
         release {
             minifyEnabled false
+            buildConfigField "boolean", "isDebug", "false"
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+
+        debug {
+            minifyEnabled false
+            buildConfigField "boolean", "isDebug", "true"
+        }
+    }
+
+    //过滤不需要的构建变体
+    variantFilter { variant ->
+        def names = variant.flavors*.name
+        def buildTypeName = variant.buildType.name
+
+        println "变种维度有： " + names + " buildType：" + buildTypeName
+//        println "起来：" + variant
+//        println "还有：" + variant.flavors
+//        println "我在：" + buildTypes
+        // To check for a build type instead, use variant.buildType.name == "buildType"
+
+        if (buildTypeName.contains("release")) {
+            if (!names.contains("official")) {
+                setIgnore(true)
+            }
+        }else if (buildTypeName.contains("debug")) {
+            if (names.contains("official")) {
+                setIgnore(true)
+            }
         }
     }
 

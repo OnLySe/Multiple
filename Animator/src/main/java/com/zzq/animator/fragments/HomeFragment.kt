@@ -18,6 +18,9 @@ import com.zzq.animator.databinding.FragmentHomeBinding
 import com.zzq.animator.vm.ViewPropertyViewModel
 import com.zzq.util.DensityUtil
 
+/**
+ * ObjectAnimator演示
+ */
 class HomeFragment : Fragment() {
 
     private lateinit var viewModel: ViewPropertyViewModel
@@ -53,14 +56,23 @@ class HomeFragment : Fragment() {
     }
 
     private fun test3() {
+        //动画加速进行
         startAnimator(dataBinding.tvText3, AccelerateInterpolator())
+        //快速完成动画，超出再回到结束样式
         startAnimator(dataBinding.tvText4, OvershootInterpolator())
+        //先加速再减速
         startAnimator(dataBinding.tvText5, AccelerateDecelerateInterpolator())
+        //先退后再加速前进
         startAnimator(dataBinding.tvText6, AnticipateInterpolator())
+        //先退后再加速前进，超出终点后再回终点
         startAnimator(dataBinding.tvText7, AnticipateOvershootInterpolator())
+        //最后阶段弹球效果
         startAnimator(dataBinding.tvText8, BounceInterpolator())
+        //周期运动
         startAnimator(dataBinding.tvText9, CycleInterpolator(1F))
+        //减速
         startAnimator(dataBinding.tvText10, DecelerateInterpolator())
+        //匀速
         startAnimator(dataBinding.tvText11, LinearInterpolator())
     }
 
