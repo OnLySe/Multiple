@@ -1,4 +1,7 @@
-include ':keyevent'
+include ':Dialog'
+include ':Animator'
+include ':gradlebuild'
+include ':KeyEvent'
 include ':util'
 include ':recyclerview'
 include ':room'
