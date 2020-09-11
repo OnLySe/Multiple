@@ -1,0 +1,131 @@
+apply plugin: 'com.android.application'
+apply plugin: 'kotlin-android'
+apply plugin: 'kotlin-android-extensions'
+
+android {
+    compileSdkVersion 29
+    buildToolsVersion "29.0.3"
+
+    defaultConfig {
+        applicationId "com.zzq.animator"
+        minSdkVersion 21
+        targetSdkVersion 29
+        versionCode 1
+        versionName "1.0"
+
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+    }
+
+    flavorDimensions "animatorType", "mode"
+
+    productFlavors {
+
+        viewPropertyType {
+            dimension "animatorType"
+            versionNameSuffix "viewPropertyType-"
+        }
+
+        activityType {
+            dimension "animatorType"
+            versionNameSuffix "activityType-"
+        }
+
+        dialogType {
+            dimension "animatorType"
+            versionNameSuffix "dialogType-"
+        }
+
+        fragmentType {
+            dimension "animatorType"
+            versionNameSuffix "fragmentType"
+        }
+
+        dialogFragmentType {
+            dimension "animatorType"
+            versionNameSuffix "dialogFragmentType"
+        }
+
+        //正式版本
+        official {
+            dimension "mode"
+        }
+
+        selfUse {
+            dimension "mode"
+        }
+    }
+
+    sourceSets {
+        viewPropertyType {
+            java.srcDirs = ['src/viewPropertyType/java']
+            manifest.srcFile 'src/viewPropertyType/AndroidManifest.xml'
+        }
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            buildConfigField "boolean", "isDebug", "false"
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+
+        debug {
+            minifyEnabled false
+            buildConfigField "boolean", "isDebug", "true"
+        }
+    }
+
+    //过滤不需要的构建变体
+    variantFilter { variant ->
+        def names = variant.flavors*.name
+        def buildTypeName = variant.buildType.name
+
+        println "变种维度有： " + names + " buildType：" + buildTypeName
+//        println "起来：" + variant
+//        println "还有：" + variant.flavors
+//        println "我在：" + buildTypes
+        // To check for a build type instead, use variant.buildType.name == "buildType"
+
+        if (buildTypeName.contains("release")) {
+            if (!names.contains("official")) {
+                setIgnore(true)
+            }
+        }else if (buildTypeName.contains("debug")) {
+            if (names.contains("official")) {
+                setIgnore(true)
+            }
+        }
+    }
+
+    buildFeatures {
+        dataBinding = true
+    }
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+    kotlinOptions {
+        jvmTarget = '1.8'
+    }
+}
+
+dependencies {
+    implementation fileTree(dir: "libs", include: ["*.jar"])
+    testImplementation 'junit:junit:4.13'
+    androidTestImplementation 'androidx.test.ext:junit:1.1.2'
+    androidTestImplementation 'androidx.test.espresso:espresso-core:3.3.0'
+    implementation project(path: ':util')
+
+    implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
+    implementation 'androidx.core:core-ktx:1.3.1'
+    implementation 'androidx.appcompat:appcompat:1.2.0'
+    implementation 'androidx.constraintlayout:constraintlayout:2.0.1'
+
+    implementation 'com.google.android.material:material:1.2.1'
+    implementation 'androidx.navigation:navigation-fragment:2.3.0'
+    implementation 'androidx.navigation:navigation-ui:2.3.0'
+    implementation 'androidx.lifecycle:lifecycle-extensions:2.2.0'
+    implementation 'androidx.navigation:navigation-fragment-ktx:2.3.0'
+    implementation 'androidx.navigation:navigation-ui-ktx:2.3.0'
+
+}
