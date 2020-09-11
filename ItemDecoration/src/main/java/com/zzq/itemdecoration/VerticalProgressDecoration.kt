@@ -6,6 +6,7 @@ import android.graphics.Paint
 import android.graphics.Rect
 import android.view.View
 import androidx.core.content.ContextCompat
+import com.zzq.util.DensityUtil
 import androidx.recyclerview.widget.RecyclerView
 
 class VerticalProgressDecoration(private val context: Context) : RecyclerView.ItemDecoration() {
