@@ -82,18 +82,19 @@ android {
 
 dependencies {
     implementation fileTree(dir: "libs", include: ["*.jar"])
-    implementation 'androidx.appcompat:appcompat:1.2.0'
-    testImplementation 'junit:junit:4.13'
-    androidTestImplementation 'androidx.test.ext:junit:1.1.2'
-    androidTestImplementation 'androidx.test.espresso:espresso-core:3.3.0'
+    implementation deps.app_compat
+    testImplementation deps.test.junit
+    androidTestImplementation deps.test.ext_junit
+    androidTestImplementation deps.espresso.core
+    implementation project(path: ':util')
 
-    implementation 'androidx.core:core-ktx:1.3.1'
-    implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
+    implementation deps.core_ktx
+    implementation deps.kotlin.stdlib
 
-    implementation 'androidx.constraintlayout:constraintlayout:2.0.1'
-    implementation 'com.google.android.material:material:1.2.1'
+    implementation deps.androidx_view.constraintlayout
+    implementation deps.google.material
 
-    rxJava2Implementation 'io.reactivex.rxjava2:rxjava:2.1.1'
+    rxJava2Implementation 'io.reactivex.rxjava2:rxjava:2.2.0'
     rxJava2Implementation 'io.reactivex.rxjava2:rxandroid:2.0.1'
 //    RxJava2Implementation 'com.squareup.retrofit2:adapter-rxjava2:2.4.0'
 
