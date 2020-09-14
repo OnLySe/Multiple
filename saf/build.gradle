@@ -22,14 +22,38 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
     }
+
+    buildFeatures {
+        dataBinding = true
+    }
+
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+    kotlinOptions {
+        jvmTarget = '1.8'
+    }
 }
 
 dependencies {
     implementation fileTree(dir: "libs", include: ["*.jar"])
     implementation deps.kotlin.stdlib
     implementation deps.core_ktx
+    implementation deps.kotlin_coroutines.core
+    implementation deps.kotlin_coroutines.android
+
+    implementation deps.lifecycle.runtime
+    implementation deps.lifecycle.viewmodel_ktx
+    implementation deps.lifecycle.livedata_ktx
+
     implementation deps.app_compat
     implementation deps.androidx_view.constraintlayout
+
+    implementation deps.navigation.fragment
+    implementation deps.navigation.ui
+    implementation deps.navigation.fragment_ktx
+    implementation deps.navigation.ui_ktx
     testImplementation deps.test.junit
     androidTestImplementation deps.test.ext_junit
     androidTestImplementation deps.espresso.core
