@@ -1,0 +1,104 @@
+apply plugin: 'com.android.application'
+apply plugin: 'kotlin-android'
+apply plugin: 'kotlin-android-extensions'
+
+android {
+    compileSdkVersion 30
+    buildToolsVersion "30.0.1"
+
+    defaultConfig {
+        applicationId "com.zzq.rxjava"
+        minSdkVersion 21
+        targetSdkVersion 30
+        versionCode 1
+        versionName "1.0"
+
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+    }
+
+    android {
+        compileOptions {
+            sourceCompatibility JavaVersion.VERSION_1_8
+            targetCompatibility JavaVersion.VERSION_1_8
+        }
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+    }
+
+    flavorDimensions "rxJavaVersion"
+
+    productFlavors {
+
+        //TODO 渠道名不要用大写开头！使用多渠道依赖会有问题
+        rxJava2 {
+            dimension "rxJavaVersion"
+            //applicationIdSuffix值应以“."为开头
+            applicationIdSuffix ".v2"
+        }
+
+        rxJava3 {
+            dimension "rxJavaVersion"
+            applicationIdSuffix ".v3"
+        }
+    }
+    sourceSets {
+        rxJava2 {
+            res {
+                srcDirs 'src/rxJava2/res', 'src/rxJava2/res/'
+            }
+        }
+        rxJava3 {
+            res {
+                srcDirs 'src/rxJava3/res', 'src/rxJava3/res/'
+            }
+        }
+    }
+
+    sourceSets {
+        rxJava2 {
+
+            java.srcDirs = ['src/RxJava2/java']
+//            manifest.srcFile  'src/RxJava2/AndroidManifest.xml'
+            res {
+                srcDirs 'src/RxJava2/res'
+            }
+
+        }
+
+        rxJava3 {
+            java.srcDirs = ['src/RxJava3/java']
+//            manifest.srcFile  "src/RxJava3/AndroidManifest.xml"
+            res {
+                srcDirs 'src/RxJava3/res'
+            }
+        }
+    }
+}
+
+dependencies {
+    implementation fileTree(dir: "libs", include: ["*.jar"])
+    implementation deps.app_compat
+    testImplementation deps.test.junit
+    androidTestImplementation deps.test.ext_junit
+    androidTestImplementation deps.espresso.core
+    implementation project(path: ':util')
+
+    implementation deps.core_ktx
+    implementation deps.kotlin.stdlib
+
+    implementation deps.androidx_view.constraintlayout
+    implementation deps.google.material
+
+    rxJava2Implementation 'io.reactivex.rxjava2:rxjava:2.2.0'
+    rxJava2Implementation 'io.reactivex.rxjava2:rxandroid:2.0.1'
+//    RxJava2Implementation 'com.squareup.retrofit2:adapter-rxjava2:2.4.0'
+
+    rxJava3Implementation 'io.reactivex.rxjava3:rxjava:3.0.0'
+    //RxAndroid的依赖包
+    rxJava3Implementation 'io.reactivex.rxjava3:rxandroid:3.0.0'
+}
