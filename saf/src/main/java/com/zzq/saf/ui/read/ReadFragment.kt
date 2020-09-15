@@ -14,7 +14,8 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
 import com.zzq.saf.R
 import com.zzq.saf.databinding.FragmentReadBinding
-import com.zzq.util.ToastUtil
+import com.zzq.saf.utils.StorageUtil.printStorageInfo
+import com.zzq.util.showToast
 import kotlinx.coroutines.launch
 
 class ReadFragment : Fragment() {
@@ -45,8 +46,9 @@ class ReadFragment : Fragment() {
             intent.type = "*/*"
             startActivityForResult(intent, CODE_1)
         }
-        dataBinding.read2Listener = View.OnClickListener { ToastUtil.showToast("未开放") }
+        dataBinding.read2Listener = View.OnClickListener { showToast("未开放") }
 
+        printStorageInfo()
         return dataBinding.root
     }
 
@@ -56,7 +58,7 @@ class ReadFragment : Fragment() {
         if (requestCode == CODE_1) {
             if (resultCode != Activity.RESULT_OK || data == null || data.data == null) {
                 //未选择文件
-                ToastUtil.showToast("未选择文件")
+                showToast("未选择文件")
                 return
             }
 

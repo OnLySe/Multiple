@@ -2,7 +2,6 @@ package com.zzq.saf.ui.write
 
 import android.content.Intent
 import android.os.Bundle
-import android.os.Environment
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
@@ -11,12 +10,10 @@ import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
-import androidx.lifecycle.ViewModelProviders
+import androidx.lifecycle.lifecycleScope
 import com.zzq.saf.R
-import java.io.File
-import java.io.FileOutputStream
-import java.io.IOException
-import java.io.OutputStream
+import com.zzq.saf.utils.WriteUtil
+import kotlinx.coroutines.launch
 
 class WriteFragment : Fragment() {
 
@@ -35,7 +32,9 @@ class WriteFragment : Fragment() {
             textView.text = it
         })
 
-        createFile("saf_2.txt", "MainActivity end!")
+        lifecycleScope.launch {
+            WriteUtil.writeDocument(requireContext(),"saf2.txt","WriteFragment")
+        }
         return root
     }
 
@@ -61,35 +60,6 @@ class WriteFragment : Fragment() {
                 val uri = it.data
                 Log.e("tetetetete", uri.toString())
             }
-        }
-    }
-
-    /**
-     * @param fileName 文件名
-     * @param text 写入文件的内容
-     */
-    private fun createFile(fileName: String, text: String) {
-        val filesDir: File = requireContext().getExternalFilesDir(Environment.DIRECTORY_MUSIC)!!
-        if (!filesDir.exists()) {
-            if (filesDir.mkdirs()) {
-            }
-        }
-        val file = File(filesDir, fileName)
-
-        try {
-            if (!file.exists()) {
-                if (!file.createNewFile()) {
-                    throw IOException("Cant able to create file")
-                }
-            }
-            Log.e("tetetetete", file.absolutePath)
-            val os: OutputStream = FileOutputStream(file)
-            val data = text.toByteArray()
-            os.write(data)
-            os.close()
-            Log.e("tetetetete", "File Path= " + file.toString())
-        } catch (e: IOException) {
-            e.printStackTrace()
         }
     }
 }
