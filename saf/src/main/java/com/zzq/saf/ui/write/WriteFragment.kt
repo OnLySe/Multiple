@@ -1,41 +1,77 @@
 package com.zzq.saf.ui.write
 
+import android.app.Activity
 import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
+import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
 import com.zzq.saf.R
+import com.zzq.saf.databinding.FragmentWriteBinding
 import com.zzq.saf.utils.WriteUtil
+import com.zzq.saf.utils.createRandomString
+import com.zzq.util.TimeUtil
+import com.zzq.util.showToast
 import kotlinx.coroutines.launch
+
 
 class WriteFragment : Fragment() {
 
     private lateinit var writeViewModel: WriteViewModel
+    private lateinit var  dataBinding:FragmentWriteBinding
+    private lateinit var tvInfo1 :TextView
+    private lateinit var tvInfo2 :TextView
 
     private val codeCreateFile = 123
+    private val codeRootDirectory = 183
     override fun onCreateView(
             inflater: LayoutInflater,
             container: ViewGroup?,
             savedInstanceState: Bundle?
     ): View? {
         writeViewModel = ViewModelProvider(this).get(WriteViewModel::class.java)
-        val root = inflater.inflate(R.layout.fragment_write, container, false)
-        val textView: TextView = root.findViewById(R.id.text_dashboard)
-        writeViewModel.text.observe(viewLifecycleOwner, Observer {
-            textView.text = it
-        })
+        dataBinding = DataBindingUtil.inflate(
+                inflater, R.layout.fragment_write, container, false)
+        tvInfo1 = dataBinding.tvInfo1
+        tvInfo2 = dataBinding.tvInfo2
+        initListener()
+        return dataBinding.root
+    }
 
-        lifecycleScope.launch {
-            WriteUtil.writeDocument(requireContext(),"saf2.txt","WriteFragment")
+    private fun initListener() {
+        dataBinding.writeClickListener1 = View.OnClickListener {
+            lifecycleScope.launch {
+                val string = createRandomString(1000)
+                val file = WriteUtil.textWritePrivateDirectory(requireContext(),
+                        "${TimeUtil.getTodayString()}_write1.txt", string)
+                tvInfo1.text = "path: ${file.absolutePath}\nlength: ${file.length()}"
+            }
         }
-        return root
+        dataBinding.writeClickListener2 = View.OnClickListener {
+            lifecycleScope.launch {
+                val string = createRandomString(1000)
+//                WriteUtil.textWriteRootDirectory(requireActivity().application,
+//                        "${TimeUtil.getTodayString()}_write1.txt", string)
+
+//                WriteUtil.test()
+                getRootDirectory()
+            }
+        }
+    }
+
+    private fun getRootDirectory() {
+        val intent = Intent(Intent.ACTION_OPEN_DOCUMENT_TREE)
+        //Intent.FLAG_GRANT_READ_URI_PERMISSION | Intent.FLAG_GRANT_PERSISTABLE_URI_PERMISSION
+        intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION or
+                Intent.FLAG_GRANT_PERSISTABLE_URI_PERMISSION)
+        startActivityForResult(intent, codeRootDirectory)
     }
 
     private fun createFile(fileName: String) {
@@ -59,6 +95,22 @@ class WriteFragment : Fragment() {
             data?.let {
                 val uri = it.data
                 Log.e("tetetetete", uri.toString())
+            }
+        } else if (requestCode == codeRootDirectory) {
+            if (resultCode == Activity.RESULT_OK) {
+                var uri: Uri? = null
+                if (data != null) {
+                    uri = data.data
+                    //返回的路径是：content://com.android.externalstorage.documents/tree/primary%3A这样形式
+                    Log.e("tetetetete", "onActivityResult root:${uri.toString()}")
+
+//                    lifecycleScope.launch {
+//                        WriteUtil.textWriteRootDirectory(requireActivity().application,
+//                                "${TimeUtil.getTodayString()}_write1.txt", "5435")
+//                    }
+                }
+            } else {
+                showToast("获取失败")
             }
         }
     }
