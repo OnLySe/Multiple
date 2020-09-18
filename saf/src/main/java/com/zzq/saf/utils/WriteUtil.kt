@@ -4,6 +4,7 @@ import android.app.Application
 import android.content.Context
 import android.os.Environment
 import android.util.Log
+import androidx.documentfile.provider.DocumentFile
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import java.io.*
@@ -62,20 +63,9 @@ object WriteUtil {
     /**
      * 写入到外部存储的根目录下
      */
-    suspend fun textWriteRootDirectory(context: Application, fileName: String, content: String) {
-        val parentFolder = "zzqSAF"
-        val dep = Environment.getExternalStorageDirectory()
-        Log.e("tetetetete", "textWriteRootDirectory dep ${dep.absolutePath}")
-
-        val file = context.getExternalFilesDir(null)!!
-        Log.e("tetetetete", "textWriteRootDirectory ${file.absolutePath} ${file.path}")
-        val rootFolder = file.parentFile.parentFile.parentFile.parentFile
-        Log.e("tetetetete", "textWriteRootDirectory rootFolder:${rootFolder.path}")
-        val ssr = rootFolder.absolutePath+"/$parentFolder/"
-        Log.e("tetetetete", "textWriteRootDirectory rootFolder22:$ssr")
-        val targetFolder = File(ssr)
-        val targetFile = checkFile(targetFolder, fileName)
-        writeData(targetFile, content)
+    suspend fun textWriteRootDirectory(context: Context, uri: DocumentFile, content: String) {
+        val outputStream = context.contentResolver.openOutputStream(uri.uri)!!
+        writeData(outputStream, content)
     }
 
     /**
@@ -106,10 +96,45 @@ object WriteUtil {
         return file
     }
 
-    fun test() {
-        val path = Environment.getExternalStorageDirectory().absolutePath
-        val foldName = path + "/EDACETE/"
-        Log.e("tetetetete","test foldName $foldName")
-        checkFile(File(foldName),"test")
+    private suspend fun writeData(outputStream: OutputStream, content: String) {
+        withContext(Dispatchers.IO) {
+            try {
+                //在原文件内容基础上增加新的内容，而不是直接覆盖原有内容
+                val writer = BufferedOutputStream(outputStream)
+//                val writer = file.bufferedWriter()
+                writer.write(content.toByteArray())
+                writer.flush()
+                writer.close()
+                Log.e("tetetetete", "writeData File Path= " /*+ file.absolutePath*/)
+            } catch (e: FileNotFoundException) {
+                e.printStackTrace()
+                Log.e("tetetetete", "writeData FileNotFoundException!! ${e.message}")
+            } catch (e: IOException) {
+                e.printStackTrace()
+                Log.e("tetetetete", "writeData IOException!! ${e.message}")
+            }
+        }
+//        return file
+    }
+
+    private suspend fun writeData(writer: BufferedWriter, content: String) {
+        withContext(Dispatchers.IO) {
+            try {
+                //在原文件内容基础上增加新的内容，而不是直接覆盖原有内容
+//                val writer = BufferedWriter(FileWriter(file, true))
+//                val writer = file.bufferedWriter()
+                writer.write(content)
+                writer.flush()
+                writer.close()
+                Log.e("tetetetete", "writeData File Path= "/* + file.absolutePath*/)
+            } catch (e: FileNotFoundException) {
+                e.printStackTrace()
+                Log.e("tetetetete", "writeData FileNotFoundException!! ${e.message}")
+            } catch (e: IOException) {
+                e.printStackTrace()
+                Log.e("tetetetete", "writeData IOException!! ${e.message}")
+            }
+        }
+//        return file
     }
 }

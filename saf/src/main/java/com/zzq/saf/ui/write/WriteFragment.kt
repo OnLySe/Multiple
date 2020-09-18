@@ -32,6 +32,10 @@ class WriteFragment : Fragment() {
 
     private val codeCreateFile = 123
     private val codeRootDirectory = 183
+
+    /***创建在根目录中的文件夹名**/
+    private val FOLD_NAME = "zzqSAF"
+
     override fun onCreateView(
             inflater: LayoutInflater,
             container: ViewGroup?,
@@ -112,17 +116,64 @@ class WriteFragment : Fragment() {
 //                            uri,
 //                            Intent.FLAG_GRANT_READ_URI_PERMISSION
 //                    )
-                    DocumentFile.fromTreeUri(requireContext(), uri)!!.listFiles().forEach {
+                    val fromTreeUri = DocumentFile.fromTreeUri(requireContext(), uri)!!
+                    //用来标记是否已经存在指定文件夹
+                    var hasNeedFolder = false
+
+                    //标记已经创建文件夹，但是有没有创建文件
+                    var hasNeedFile = false
+
+                    var childFileUri = fromTreeUri
+                    fromTreeUri.listFiles().forEach {
                         Log.e("tetetetete", "onActivityResult forEach: ${it.name}")
+                        if (it.name.equals(FOLD_NAME)) {
+                            hasNeedFolder = true
+
+                        }
                     }
+                    if (hasNeedFolder) {
+
+                        //已经创建文件夹，判断有没有创建文件
+                        if (hasNeedFile) {
+                            //如果已经有指定文件，可直接写入文件
 
 
-                    DocumentFile.fromTreeUri(requireContext(),uri)!!.createDirectory("zzqSAF")
+                        } else {
+                            //没有文件，可能未创建，或者被删除，那么需要创建文件
+                            //创建纯文本类型文件
+                            //createFile返回的正式我们需要的子目录，所以在这里赋值并把值传出去
+                            //TODO 这里也应该对创建文件失败后做处理
+                            childFileUri = fromTreeUri.createFile("text/plain", FOLD_NAME)!!
+                        }
+
+                        writeRootData(childFileUri, "content")
+                    } else {
+                        //不存在指定文件夹就创建
+
+                        val foldUri = fromTreeUri.createDirectory(FOLD_NAME)
+                        if (foldUri == null) {
+                            showToast("创建子目录${FOLD_NAME}失败")
+                        } else {
+                            //创建纯文本类型文件
+                            //createFile返回的正式我们需要的子目录，所以在这里赋值并把值传出去
+                            val childFileUri = foldUri.createFile("text/plain", FOLD_NAME)!!
+                            writeRootData(childFileUri, "content")
+                        }
+                    }
+                    //在已经存在zzqSaf文件夹的情况下，重复调用createDirectory()创建文件夹也会成功，生成如zzqSAF(1)这样的文件夹
+//                    DocumentFile.fromTreeUri(requireContext(),uri)!!.createDirectory("zzqSAF")
+
 
                 }
             } else {
-                showToast("获取失败")
+                showToast("未选择文件夹或文件")
             }
+        }
+    }
+
+    private fun writeRootData(uri: DocumentFile, content: String) {
+        lifecycleScope.launch {
+            WriteUtil.textWriteRootDirectory(requireContext(),uri,content)
         }
     }
 }
