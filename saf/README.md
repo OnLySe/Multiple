@@ -1,0 +1,1 @@
+SAF，全程为：[Storage Access Framework](https://developer.android.com/guide/topics/providers/document-provider)

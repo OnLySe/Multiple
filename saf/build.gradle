@@ -61,4 +61,6 @@ dependencies {
     implementation deps.google.material
     // ViewModel and LiveData
     implementation deps.lifecycle.extension
+
+    implementation "androidx.documentfile:documentfile:1.0.1"
 }

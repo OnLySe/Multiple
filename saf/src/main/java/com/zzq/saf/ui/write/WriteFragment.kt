@@ -10,6 +10,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import androidx.databinding.DataBindingUtil
+import androidx.documentfile.provider.DocumentFile
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
@@ -25,9 +26,9 @@ import kotlinx.coroutines.launch
 class WriteFragment : Fragment() {
 
     private lateinit var writeViewModel: WriteViewModel
-    private lateinit var  dataBinding:FragmentWriteBinding
-    private lateinit var tvInfo1 :TextView
-    private lateinit var tvInfo2 :TextView
+    private lateinit var dataBinding: FragmentWriteBinding
+    private lateinit var tvInfo1: TextView
+    private lateinit var tvInfo2: TextView
 
     private val codeCreateFile = 123
     private val codeRootDirectory = 183
@@ -102,12 +103,22 @@ class WriteFragment : Fragment() {
                 if (data != null) {
                     uri = data.data
                     //返回的路径是：content://com.android.externalstorage.documents/tree/primary%3A这样形式
-                    Log.e("tetetetete", "onActivityResult root:${uri.toString()}")
+                    Log.e("tetetetete", "onActivityResult root: ${uri.toString()}")
 
-//                    lifecycleScope.launch {
-//                        WriteUtil.textWriteRootDirectory(requireActivity().application,
-//                                "${TimeUtil.getTodayString()}_write1.txt", "5435")
-//                    }
+                    val fromSingleUri = DocumentFile.fromSingleUri(requireContext(), uri!!)
+                    Log.e("tetetetete", "onActivityResult root real: ${fromSingleUri!!.name}")
+
+//                    requireActivity().contentResolver.takePersistableUriPermission(
+//                            uri,
+//                            Intent.FLAG_GRANT_READ_URI_PERMISSION
+//                    )
+                    DocumentFile.fromTreeUri(requireContext(), uri)!!.listFiles().forEach {
+                        Log.e("tetetetete", "onActivityResult forEach: ${it.name}")
+                    }
+
+
+                    DocumentFile.fromTreeUri(requireContext(),uri)!!.createDirectory("zzqSAF")
+
                 }
             } else {
                 showToast("获取失败")
