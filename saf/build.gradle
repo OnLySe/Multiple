@@ -62,5 +62,5 @@ dependencies {
     // ViewModel and LiveData
     implementation deps.lifecycle.extension
 
-    implementation "androidx.documentfile:documentfile:1.0.1"
+    implementation deps.documentFile
 }
