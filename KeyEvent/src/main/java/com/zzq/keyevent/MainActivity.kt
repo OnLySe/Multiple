@@ -8,7 +8,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import com.zzq.keyevent.databinding.ActivityMainBinding
 import com.zzq.util.LogUtil.eLog
-import com.zzq.util.ToastUtil.showToast
+import com.zzq.util.showToast
 
 class MainActivity : AppCompatActivity() {
 
