@@ -2,6 +2,8 @@ package com.zzq.saf.ui.write
 
 import android.app.Activity
 import android.content.Intent
+import android.graphics.Bitmap
+import android.graphics.BitmapFactory
 import android.net.Uri
 import android.os.Bundle
 import android.util.Log
@@ -33,6 +35,7 @@ class WriteFragment : Fragment() {
     private lateinit var dataBinding: FragmentWriteBinding
     private lateinit var tvInfo1: TextView
     private lateinit var tvInfo2: TextView
+    private lateinit var tvInfo3: TextView
 
     private val SP_NAME = "Write"
     private val SP_KEY = "write_root"
@@ -55,6 +58,7 @@ class WriteFragment : Fragment() {
                 inflater, R.layout.fragment_write, container, false)
         tvInfo1 = dataBinding.tvInfo1
         tvInfo2 = dataBinding.tvInfo2
+        tvInfo3 = dataBinding.tvInfo3
 
         uriData = getDataFromSp(SP_NAME, SP_KEY)
         if (uriData != null && uriData!!.isNotEmpty()) {
@@ -74,8 +78,25 @@ class WriteFragment : Fragment() {
             }
         }
         dataBinding.writeClickListener2 = View.OnClickListener {
-            lifecycleScope.launch {
-                getRootDirectory()
+            getRootDirectory()
+        }
+        dataBinding.writeClickListener3 = View.OnClickListener {
+            createPublicFile()
+        }
+    }
+
+    /**
+     * 向公有目录插入文件，如DCIM、Music等
+     */
+    private fun createPublicFile() {
+        lifecycleScope.launch {
+            val bitmap: Bitmap = BitmapFactory.decodeResource(resources, R.drawable.insert1)
+            val uri = WriteUtil.imageWritePublicDirectory(requireContext(),
+                    "IMG_${TimeUtil.getMinuteString()}", bitmap)
+            if (uri == null) {
+                tvInfo3.text = "未能成功返回URI"
+            } else {
+                tvInfo3.text = uri.toString()
             }
         }
     }
@@ -134,6 +155,4 @@ class WriteFragment : Fragment() {
             WriteUtil.textWriteRootDirectory(requireContext(), uri, content)
         }
     }
-
-    //TODO 需要验证已经保存的URI是否依然有效，比如文件夹是否已经被用户给手动删除！
 }

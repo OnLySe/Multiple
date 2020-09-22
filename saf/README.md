@@ -55,6 +55,21 @@ startActivityForResult(intent, codeRootDirectory)
 
 获取到uri后，可以通过DocumentFile去创建文件夹和文件。
 
+保存之前通过选择器获取到的uri，通过这个uri创建文件夹和文件，创建文件后会获取到新的uri，保存这个uri，后续继续写入可不用再选择器写入，而是静默写入。这需要引入Java的URI类
+
+```kotlin
+//保存uri，先转化成java.net.URI类，再把URI类转换成String，保存到SP中
+val javaUri = URI(uri.uri.toString())
+uriData = javaUri.toString()
+saveDataToSp(SP_NAME, SP_KEY, uriData!!)
+
+//从SP中取出String，然后把这个String转换成android.net.Uri类对象，进而获取DocumentFile
+val uri = Uri.parse(uriData)
+val fromSingleUri = DocumentFile.fromSingleUri(requireContext(), uri)!!
+```
+
+
+
 ## 注意
 
 在module中单独添加了`DocumentFile`的依赖：
