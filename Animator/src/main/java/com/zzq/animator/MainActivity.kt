@@ -8,6 +8,7 @@ import androidx.databinding.DataBindingUtil
 import com.zzq.animator.activity.ViewPropertyActivity
 import com.zzq.animator.databinding.ActivityMainBinding
 import com.zzq.util.ToastUtil
+import com.zzq.util.showToast
 
 class MainActivity : AppCompatActivity() {
 
@@ -23,16 +24,16 @@ class MainActivity : AppCompatActivity() {
             startActivity(Intent(this, ViewPropertyActivity::class.java))
         }
         binding.activityListener = View.OnClickListener {
-            ToastUtil.showToast(this@MainActivity, "activityListener")
+            showToast(this@MainActivity, "activityListener")
         }
         binding.dialogListener = View.OnClickListener {
-            ToastUtil.showToast(this@MainActivity, "dialogListener")
+            showToast(this@MainActivity, "dialogListener")
         }
         binding.fragmentListener = View.OnClickListener {
-            ToastUtil.showToast(this@MainActivity, "fragmentListener")
+            showToast(this@MainActivity, "fragmentListener")
         }
         binding.dialogFragmentListener = View.OnClickListener {
-            ToastUtil.showToast(this@MainActivity, "dialogFragmentListener")
+            showToast(this@MainActivity, "dialogFragmentListener")
         }
     }
 }
