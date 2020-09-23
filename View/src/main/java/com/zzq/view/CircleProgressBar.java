@@ -115,6 +115,7 @@ public class CircleProgressBar extends View {
 
     @Override
     protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
+        //widthMeasureSpec和heightMeasureSpec是包含padding大小的
         setMeasuredDimension(
                 Math.max(getSuggestedMinimumWidth(),
                         resolveSize(size, widthMeasureSpec)),
@@ -133,7 +134,7 @@ public class CircleProgressBar extends View {
     @Override
     protected void onDraw(Canvas canvas) {
         super.onDraw(canvas);
-        Log.e(TAG, "onDraw size: " + getLeft() + " " + getTop() + " " + getRight() + " " + getBottom());
+        Log.e(TAG, "onDraw size: " + size + " " + getLeft() + " " + getTop() + " " + getRight() + " " + getBottom());
 
         //在xml中设置paddingStart或者paddingLeft，在这里获取到的paddingStart和paddingLeft都是一样的
         int paddingStart = getPaddingStart();
@@ -144,8 +145,8 @@ public class CircleProgressBar extends View {
 
         Log.e(TAG, "onDraw padding " + paddingStart + " " + paddingTop + " " + paddingEnd + " " + paddingBottom);
         //处理padding时，左边加，右边减
-        int centerX = (int) ((getRight() + getLeft() + paddingStart - paddingEnd + 0.5F) / 2);
-        int centerY = (int) ((getBottom() + getTop() + paddingTop - paddingBottom + 0.5F) / 2);
+        int centerX = size / 2 + paddingStart - paddingEnd;
+        int centerY = size / 2 + paddingTop - paddingBottom;
 
         Log.e(TAG, "onDraw center " + centerX + " " + centerY);
 
@@ -158,10 +159,11 @@ public class CircleProgressBar extends View {
 //      canvas.drawText(progress + "", centerX, centerY, progressValuePaint);
         canvas.drawText(progress + "", centerX, baseline, progressValuePaint);
 
+        //在下方，如果设置getLeft()如果在设置marginStart的情况下会变化，但事实上，getLeft()是获取子View左上角距父View左侧的距离，在画线，不需要这个！
         //画直线，两个点确定一条直线
         //竖线
-        canvas.drawLine(centerX, getTop() + paddingTop, centerX, getBottom() - paddingBottom, linePaint);
+        canvas.drawLine(centerX, paddingTop, centerX, size - paddingBottom, linePaint);
         //横线
-        canvas.drawLine(getLeft() + paddingStart, centerY, getRight() - paddingEnd, centerY, linePaint);
+        canvas.drawLine(paddingStart, centerY, size - paddingEnd, centerY, linePaint);
     }
 }

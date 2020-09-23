@@ -18,6 +18,9 @@
     <com.zzq.view.CircleProgressBar
         android:layout_width="100dp"
         android:layout_height="100dp"
+        android:layout_marginTop="30dp"
+        android:layout_marginStart="20dp"
+        android:paddingTop="20dp"
         android:background="@color/colorAccent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
