@@ -5,10 +5,12 @@ import android.content.Context;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
+import android.graphics.RectF;
 import android.util.AttributeSet;
 import android.util.Log;
 import android.view.View;
 
+import androidx.annotation.ColorInt;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
@@ -22,15 +24,40 @@ public class CircleProgressBar extends View {
     private ValueAnimator progressAnimator;
 
     private final int SIZE_DP = 80;
+    //最大进度
+    private int maxProgress = 100;
     //默认宽高80dp长度
     private int size;
 
+    //预留空间给弧度，防止弧被切割一部分，3到5dp之间
+    private int reservedWidth = DensityUtil.INSTANCE.dp2px(ViewApp.Companion.getInstance(), 2.8F);
+    //线粗，单位为dp
+    private final int lineWidth = DensityUtil.INSTANCE.dp2px(ViewApp.Companion.getInstance(), 1);
+
     private Paint progressValuePaint;
+    private Paint circlePaint;
+    private Paint linePaint;
+    //圆弧-进度，默认颜色画笔
+    private Paint mRingDefaultPaint;
+    //圆弧-进度，已经达到-进度，颜色画笔
+    private Paint ringPassPaint;
+
     private Paint.FontMetrics progressFontMetrics;
 
-    private Paint linePaint;
-    //线粗，单位为dp
-    private final float lineWidth = 0.33F;
+    //环 线宽，默认5dp
+
+    // 圆环背景颜色
+    @ColorInt
+    private int ringBackgroundColor = Color.parseColor("#FF0000");
+    //进度背景色
+    @ColorInt
+    private int progressBackgroundColor = Color.RED;
+
+    private RectF rectF;
+    private RectF passRectF;
+
+    //环形 宽度
+    private int ringWidth = DensityUtil.INSTANCE.dp2px(ViewApp.Companion.getInstance(), 5);
 
     public CircleProgressBar(Context context) {
         this(context, null);
@@ -47,6 +74,8 @@ public class CircleProgressBar extends View {
 
     private void initView(Context context) {
         size = DensityUtil.INSTANCE.dp2px(context, SIZE_DP);
+
+        ringBackgroundColor = Color.parseColor("#f5f3f3");
         initAnimator();
 
         progressValuePaint = new Paint();
@@ -60,7 +89,26 @@ public class CircleProgressBar extends View {
         linePaint = new Paint();
         linePaint.setAntiAlias(true);
         linePaint.setColor(Color.RED);
-        linePaint.setStrokeWidth(DensityUtil.INSTANCE.dp2px(context, lineWidth));
+        linePaint.setStrokeWidth(lineWidth);
+
+        circlePaint = new Paint();
+        circlePaint.setAntiAlias(true);
+        circlePaint.setColor(Color.YELLOW);
+        //填充
+        circlePaint.setStyle(Paint.Style.FILL);
+        circlePaint.setStrokeWidth(ringWidth);
+
+        mRingDefaultPaint = new Paint();
+        mRingDefaultPaint.setAntiAlias(true);
+        mRingDefaultPaint.setColor(ringBackgroundColor);
+        mRingDefaultPaint.setStyle(Paint.Style.STROKE);
+        mRingDefaultPaint.setStrokeWidth(ringWidth);
+
+        ringPassPaint = new Paint();
+        ringPassPaint.setAntiAlias(true);
+        ringPassPaint.setColor(progressBackgroundColor);
+        ringPassPaint.setStyle(Paint.Style.STROKE);
+        ringPassPaint.setStrokeWidth(ringWidth);
     }
 
     @Override
@@ -86,7 +134,7 @@ public class CircleProgressBar extends View {
     }
 
     private void initAnimator() {
-        progressAnimator = ValueAnimator.ofInt(0, 100).setDuration(10_000);
+        progressAnimator = ValueAnimator.ofInt(0, maxProgress+1).setDuration(10_000);
         progressAnimator.setRepeatCount(ValueAnimator.INFINITE);
         progressAnimator.setRepeatMode(ValueAnimator.RESTART);
         progressAnimator.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
@@ -129,6 +177,11 @@ public class CircleProgressBar extends View {
         super.onSizeChanged(w, h, oldw, oldh);
         //取小的那个
         size = Math.min(w, h);
+        rectF = new RectF(0, 0, size, size);
+
+        float newSize = size - reservedWidth;
+        rectF = new RectF(reservedWidth, reservedWidth, newSize, newSize);
+        passRectF = new RectF(reservedWidth, reservedWidth, newSize, newSize);
     }
 
     @Override
@@ -156,14 +209,22 @@ public class CircleProgressBar extends View {
         //备用，这种方式也可求得基线位置，从而使得文字居中！
         int baseline1 = (int) ((getMeasuredHeight() - fontMetrics.bottom + fontMetrics.top) / 2 - fontMetrics.top + 0.5);
 
-//      canvas.drawText(progress + "", centerX, centerY, progressValuePaint);
+        float newSize = size - reservedWidth;
+        //画圆
+        canvas.drawCircle(centerX, centerY, newSize / 2, circlePaint);
         canvas.drawText(progress + "", centerX, baseline, progressValuePaint);
 
         //在下方，如果设置getLeft()如果在设置marginStart的情况下会变化，但事实上，getLeft()是获取子View左上角距父View左侧的距离，在画线，不需要这个！
         //画直线，两个点确定一条直线
         //竖线
-        canvas.drawLine(centerX, paddingTop, centerX, size - paddingBottom, linePaint);
+//        canvas.drawLine(centerX, paddingTop, centerX, size - paddingBottom, linePaint);
         //横线
-        canvas.drawLine(paddingStart, centerY, size - paddingEnd, centerY, linePaint);
+//        canvas.drawLine(paddingStart, centerY, size - paddingEnd, centerY, linePaint);
+
+        canvas.drawArc(rectF, 0, 360, true, mRingDefaultPaint);
+        if (progress <= 0) {
+            return;
+        }
+        canvas.drawArc(passRectF, -90, ((float) progress / maxProgress) * 360, false, ringPassPaint);
     }
 }

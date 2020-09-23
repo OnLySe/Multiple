@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <declare-styleable name="CircleProgressBar">
+
+        <!--当前进度-->
+        <attr name="progress" format="integer" />
+        <!--已经完成后的进度条颜色-->
+        <attr name="passProgressColor" format="color" />
+        <!--默认进度条颜色-->
+        <attr name="defaultProgressColor" format="color" />
+        <!--文字颜色-->
+        <attr name="textColor" format="color" />
+    </declare-styleable>
+</resources>
