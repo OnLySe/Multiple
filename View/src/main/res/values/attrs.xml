@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <declare-styleable name="CircleProgressBar">
+    <declare-styleable name="CircleProgressView">
 
         <!--当前进度-->
         <attr name="progress" format="integer" />
@@ -8,7 +8,22 @@
         <attr name="passProgressColor" format="color" />
         <!--默认进度条颜色-->
         <attr name="defaultProgressColor" format="color" />
+        <!--进度文字背景，即其所在的圆形-->
+        <attr name="textBackground" format="reference|color" />
         <!--文字颜色-->
         <attr name="textColor" format="color" />
+        <!--最大进度-->
+        <attr name="maxProgress" format="integer" />
+        <!--进度开始位置-->
+<!--        <attr name="progressStart" format="enum" >-->
+<!--            &lt;!&ndash;x轴左边开始&ndash;&gt;-->
+<!--            <enum name="left" value="0" />-->
+<!--            &lt;!&ndash;y轴上方开始&ndash;&gt;-->
+<!--            <enum name="top" value="1" />-->
+<!--            &lt;!&ndash;x轴右边开始&ndash;&gt;-->
+<!--            <enum name="right" value="2" />-->
+<!--            &lt;!&ndash;y轴下方开始&ndash;&gt;-->
+<!--            <enum name="bottom" value="3" />-->
+<!--        </attr>-->
     </declare-styleable>
 </resources>

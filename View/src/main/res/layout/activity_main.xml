@@ -15,10 +15,13 @@
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <com.zzq.view.CircleProgressBar
+    <com.zzq.view.CircleProgressView
         android:layout_width="100dp"
         android:layout_height="100dp"
-        android:background="@color/colorAccent"
+        app:passProgressColor="#CB646D"
+        app:defaultProgressColor="#F0F0F0"
+        app:textColor="#21212A"
+        app:textBackground="#C792EA"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 </androidx.constraintlayout.widget.ConstraintLayout>

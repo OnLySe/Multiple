@@ -2,6 +2,7 @@ package com.zzq.view;
 
 import android.animation.ValueAnimator;
 import android.content.Context;
+import android.content.res.TypedArray;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
@@ -11,12 +12,16 @@ import android.util.Log;
 import android.view.View;
 
 import androidx.annotation.ColorInt;
+import androidx.annotation.IntDef;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
 import com.zzq.util.DensityUtil;
 
-public class CircleProgressBar extends View {
+import java.lang.annotation.Retention;
+import java.lang.annotation.RetentionPolicy;
+
+public class CircleProgressView extends View {
 
     private final String TAG = "CircleProgressBar";
     /***整数级变化 */
@@ -38,7 +43,7 @@ public class CircleProgressBar extends View {
     private Paint circlePaint;
     private Paint linePaint;
     //圆弧-进度，默认颜色画笔
-    private Paint mRingDefaultPaint;
+    private Paint ringDefaultPaint;
     //圆弧-进度，已经达到-进度，颜色画笔
     private Paint ringPassPaint;
 
@@ -48,10 +53,12 @@ public class CircleProgressBar extends View {
 
     // 圆环背景颜色
     @ColorInt
-    private int ringBackgroundColor = Color.parseColor("#FF0000");
+    private int ringDefaultColor = Color.parseColor("#F5F3F3");
     //进度背景色
     @ColorInt
-    private int progressBackgroundColor = Color.RED;
+    private int ringProgressColor = Color.RED;
+    @ColorInt
+    private int progressBackground = Color.WHITE;
 
     private RectF rectF;
     private RectF passRectF;
@@ -59,23 +66,36 @@ public class CircleProgressBar extends View {
     //环形 宽度
     private int ringWidth = DensityUtil.INSTANCE.dp2px(ViewApp.Companion.getInstance(), 5);
 
-    public CircleProgressBar(Context context) {
+    public CircleProgressView(Context context) {
         this(context, null);
     }
 
-    public CircleProgressBar(Context context, @Nullable AttributeSet attrs) {
+    public CircleProgressView(Context context, @Nullable AttributeSet attrs) {
         this(context, attrs, 0);
     }
 
-    public CircleProgressBar(Context context, @Nullable AttributeSet attrs, int defStyleAttr) {
+    public CircleProgressView(Context context, @Nullable AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
+
+        TypedArray typedArray = context.obtainStyledAttributes(attrs, R.styleable.CircleProgressView);
+        progress = typedArray.getInt(R.styleable.CircleProgressView_progress, 0);
+        maxProgress = typedArray.getInt(R.styleable.CircleProgressView_maxProgress, 100);
+        ringDefaultColor = typedArray.getColor(R.styleable.CircleProgressView_defaultProgressColor,
+                Color.parseColor("#F5F3F3"));
+        ringProgressColor = typedArray.getColor(R.styleable.CircleProgressView_passProgressColor, Color.RED);
+        progressBackground = typedArray.getColor(R.styleable.CircleProgressView_textBackground, Color.WHITE);
+        /**
+         * recycle() :官方的解释是：回收TypedArray，以便后面重用。在调用这个函数后，你就不能再使用这个TypedArray。
+         * 在TypedArray后调用recycle主要是为了缓存。当recycle被调用后，这就说明这个对象从现在可以被重用了。
+         *TypedArray 内部持有部分数组，它们缓存在Resources类中的静态字段中，这样就不用每次使用前都需要分配内存。
+         */
+        typedArray.recycle();
         initView(context);
     }
 
     private void initView(Context context) {
         size = DensityUtil.INSTANCE.dp2px(context, SIZE_DP);
 
-        ringBackgroundColor = Color.parseColor("#f5f3f3");
         initAnimator();
 
         progressValuePaint = new Paint();
@@ -93,20 +113,20 @@ public class CircleProgressBar extends View {
 
         circlePaint = new Paint();
         circlePaint.setAntiAlias(true);
-        circlePaint.setColor(Color.YELLOW);
+        circlePaint.setColor(progressBackground);
         //填充
         circlePaint.setStyle(Paint.Style.FILL);
         circlePaint.setStrokeWidth(ringWidth);
 
-        mRingDefaultPaint = new Paint();
-        mRingDefaultPaint.setAntiAlias(true);
-        mRingDefaultPaint.setColor(ringBackgroundColor);
-        mRingDefaultPaint.setStyle(Paint.Style.STROKE);
-        mRingDefaultPaint.setStrokeWidth(ringWidth);
+        ringDefaultPaint = new Paint();
+        ringDefaultPaint.setAntiAlias(true);
+        ringDefaultPaint.setColor(ringDefaultColor);
+        ringDefaultPaint.setStyle(Paint.Style.STROKE);
+        ringDefaultPaint.setStrokeWidth(ringWidth);
 
         ringPassPaint = new Paint();
         ringPassPaint.setAntiAlias(true);
-        ringPassPaint.setColor(progressBackgroundColor);
+        ringPassPaint.setColor(ringProgressColor);
         ringPassPaint.setStyle(Paint.Style.STROKE);
         ringPassPaint.setStrokeWidth(ringWidth);
     }
@@ -134,7 +154,7 @@ public class CircleProgressBar extends View {
     }
 
     private void initAnimator() {
-        progressAnimator = ValueAnimator.ofInt(0, maxProgress+1).setDuration(10_000);
+        progressAnimator = ValueAnimator.ofInt(0, maxProgress + 1).setDuration(10_000);
         progressAnimator.setRepeatCount(ValueAnimator.INFINITE);
         progressAnimator.setRepeatMode(ValueAnimator.RESTART);
         progressAnimator.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
@@ -203,11 +223,10 @@ public class CircleProgressBar extends View {
 
         Log.e(TAG, "onDraw center " + centerX + " " + centerY);
 
-        Paint.FontMetrics fontMetrics = progressValuePaint.getFontMetrics();
-        float distance = (fontMetrics.bottom - fontMetrics.top) / 2 - fontMetrics.bottom;
+        float distance = (progressFontMetrics.bottom - progressFontMetrics.top) / 2 - progressFontMetrics.bottom;
         float baseline = centerY + distance;
         //备用，这种方式也可求得基线位置，从而使得文字居中！
-        int baseline1 = (int) ((getMeasuredHeight() - fontMetrics.bottom + fontMetrics.top) / 2 - fontMetrics.top + 0.5);
+        int baseline1 = (int) ((getMeasuredHeight() - progressFontMetrics.bottom + progressFontMetrics.top) / 2 - progressFontMetrics.top + 0.5);
 
         float newSize = size - reservedWidth;
         //画圆
@@ -221,7 +240,7 @@ public class CircleProgressBar extends View {
         //横线
 //        canvas.drawLine(paddingStart, centerY, size - paddingEnd, centerY, linePaint);
 
-        canvas.drawArc(rectF, 0, 360, true, mRingDefaultPaint);
+        canvas.drawArc(rectF, 0, 360, true, ringDefaultPaint);
         if (progress <= 0) {
             return;
         }
