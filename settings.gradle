@@ -1,3 +1,4 @@
+include ':View'
 include ':Setting'
 include ':rxjava'
 include ':Dialog'

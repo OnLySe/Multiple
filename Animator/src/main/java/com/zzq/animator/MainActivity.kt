@@ -7,7 +7,6 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import com.zzq.animator.activity.ViewPropertyActivity
 import com.zzq.animator.databinding.ActivityMainBinding
-import com.zzq.util.ToastUtil
 import com.zzq.util.showToast
 
 class MainActivity : AppCompatActivity() {
