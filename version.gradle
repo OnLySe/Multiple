@@ -3,7 +3,7 @@ ext.deps = [:]
 //api deps就是一个map，它里面将我们的依赖名称和版本号以[key,value]的形式保存的
 def versions = [:]
 versions.activity = '1.1.0'
-versions.android_gradle_plugin = '4.0.1'
+versions.android_gradle_plugin = '4.0.2'
 versions.annotations = "1.0.0"
 versions.apache_commons = "2.5"
 versions.appcompat = "1.2.0"

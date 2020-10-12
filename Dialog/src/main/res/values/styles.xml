@@ -7,4 +7,34 @@
         <item name="colorAccent">@color/colorAccent</item>
     </style>
 
+    <style name="MD_ListItem">
+        <item name="android:background">@null</item>
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:focusable">true</item>
+        <item name="android:clickable">true</item>
+        <item name="android:gravity">center_vertical|start</item>
+        <item name="android:minHeight">@dimen/md_list_item_height</item>
+        <item name="android:orientation">vertical</item>
+    </style>
+
+    <style name="MD_ListItem_Control">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:background">@null</item>
+        <item name="android:clickable">false</item>
+        <item name="android:focusable">false</item>
+        <item name="android:gravity">start|center_vertical</item>
+        <item name="android:layout_gravity">start|center_vertical</item>
+    </style>
+
+    <style name="MD_ListItem.Choice">
+        <item name="android:background">@null</item>
+        <item name="android:descendantFocusability">blocksDescendants</item>
+        <item name="android:focusable">true</item>
+        <item name="android:minHeight">@dimen/md_list_item_height</item>
+        <item name="android:orientation">horizontal</item>
+        <item name="android:paddingLeft">@dimen/md_dialog_frame_margin_horizontal</item>
+        <item name="android:paddingRight">@dimen/md_dialog_frame_margin_horizontal</item>
+    </style>
 </resources>

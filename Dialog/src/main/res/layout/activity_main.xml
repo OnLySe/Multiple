@@ -6,7 +6,7 @@
     <data>
 
         <variable
-            name="firstListener"
+            name="singleChoiceListener"
             type="android.view.View.OnClickListener" />
     </data>
 
@@ -19,9 +19,9 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="5dp"
-            android:onClick="@{firstListener}"
+            android:onClick="@{singleChoiceListener}"
             android:padding="5dp"
-            android:text="First"
+            android:text="列表+单选弹框"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toTopOf="parent" />

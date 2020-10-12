@@ -1,9 +1,9 @@
 package com.zzq.dialog
 
 import android.os.Bundle
-import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
+import com.zzq.common.interfaces.ClickProxy
 import com.zzq.dialog.databinding.ActivityMainBinding
 
 class MainActivity : AppCompatActivity() {
@@ -17,8 +17,8 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun initListener() {
-        binding.firstListener = View.OnClickListener {
-            FirstDialogFragment().show(supportFragmentManager,"first")
+        binding.singleChoiceListener = ClickProxy {
+            SingleChoiceDialogFragment().show(supportFragmentManager, "first")
         }
     }
 }
