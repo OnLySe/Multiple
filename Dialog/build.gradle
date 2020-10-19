@@ -11,7 +11,7 @@ android {
         minSdkVersion 21
         targetSdkVersion 29
         versionCode 1
-        versionName "1.0.0"
+        versionName "v1.0.0"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
@@ -31,6 +31,7 @@ android {
 dependencies {
     implementation fileTree(dir: "libs", include: ["*.jar"])
     implementation project(path: ':util')
+    implementation project(path: ':common')
 
     testImplementation deps.test.junit
     androidTestImplementation deps.test.ext_junit
@@ -39,9 +40,9 @@ dependencies {
     implementation deps.core_ktx
     implementation deps.app_compat
     implementation deps.androidx_view.constraintlayout
+    implementation deps.androidx_view.recyclerview
 
     implementation deps.kotlin.stdlib
-    implementation deps.kotlin.stdlib_jdk7
-    implementation deps.kotlin_coroutines.core
-    implementation deps.kotlin_coroutines.android
+    implementation deps.google.material
+    implementation deps.lifecycle.extension
 }

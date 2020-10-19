@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="margin_top_to_toolbar">1dp</dimen>
+    <dimen name="margin_bottom_to_toolbar">2dp</dimen>
+
+
+</resources>
