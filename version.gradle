@@ -170,6 +170,7 @@ deps.lifecycle = lifecycle
 
 deps.app_compat = "androidx.appcompat:appcompat:$versions.appcompat"
 deps.documentFile = "androidx.documentfile:documentfile:$versions.documentFile"
+deps.annotation = "androidx.annotation:annotation:$versions.annotations"
 
 
 ext.deps = deps
