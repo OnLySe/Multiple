@@ -5,10 +5,9 @@ import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.zzq.recyclerview.R
+import com.zzq.common.utils.DensityUtil
 import com.zzq.recyclerview.adapter.MainAdapter
 import com.zzq.recyclerview.decoration.VerticalProgressDecoration
-import com.zzq.util.DensityUtil
 import java.util.*
 import kotlin.collections.ArrayList
 

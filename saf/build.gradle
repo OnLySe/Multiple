@@ -57,7 +57,7 @@ dependencies {
     testImplementation deps.test.junit
     androidTestImplementation deps.test.ext_junit
     androidTestImplementation deps.espresso.core
-    implementation project(path: ':util')
+    implementation project(path: ':common')
     implementation deps.google.material
     // ViewModel and LiveData
     implementation deps.lifecycle.extension

@@ -50,7 +50,7 @@ dependencies {
     implementation deps.kotlin.stdlib
 
     implementation deps.androidx_view.constraintlayout
-    implementation project(path: ':util')
+    implementation project(path: ':common')
 }
 ```
 

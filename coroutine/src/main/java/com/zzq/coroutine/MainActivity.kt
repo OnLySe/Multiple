@@ -6,7 +6,7 @@ import android.widget.TextView
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.*
-import com.zzq.util.LogUtil.eLog
+import com.zzq.common.utils.LogUtil.eLog
 import kotlinx.coroutines.*
 
 class MainActivity : AppCompatActivity() {

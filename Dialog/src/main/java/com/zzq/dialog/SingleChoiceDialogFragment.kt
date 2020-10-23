@@ -11,9 +11,9 @@ import android.widget.TextView
 import androidx.fragment.app.DialogFragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.zzq.common.utils.showToast
 import com.zzq.dialog.adapter.CompanyEntity
 import com.zzq.dialog.adapter.ListAdapter
-import com.zzq.util.showToast
 
 /**
  * List Dialog

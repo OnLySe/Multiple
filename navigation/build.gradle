@@ -46,7 +46,7 @@ dependencies {
     testImplementation deps.test.junit
     androidTestImplementation deps.test.ext_junit
     androidTestImplementation deps.espresso.core
-    implementation project(path: ':util')
+    implementation project(path: ':common')
     // navigation
     implementation "androidx.navigation:navigation-fragment-ktx:$nav_version"
     implementation "androidx.navigation:navigation-ui-ktx:$nav_version"

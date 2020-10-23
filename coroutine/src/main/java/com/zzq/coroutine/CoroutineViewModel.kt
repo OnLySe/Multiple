@@ -1,7 +1,7 @@
 package com.zzq.coroutine
 
 import androidx.lifecycle.*
-import com.zzq.util.LogUtil.eLog
+import com.zzq.common.utils.LogUtil.eLog
 import kotlinx.coroutines.*
 
 class CoroutineViewModel : ViewModel() {

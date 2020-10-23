@@ -1,4 +1,4 @@
-package com.zzq.util
+package com.zzq.common.utils
 
 import android.content.Context
 import android.os.Handler

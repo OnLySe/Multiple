@@ -48,5 +48,5 @@ dependencies {
     implementation deps.google.gson
 
     implementation deps.androidx_view.constraintlayout
-    implementation project(path: ':util')
+    implementation project(path: ':common')
 }

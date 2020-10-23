@@ -16,7 +16,7 @@ import androidx.lifecycle.ViewModelProvider
 import com.zzq.animator.R
 import com.zzq.animator.databinding.FragmentHomeBinding
 import com.zzq.animator.vm.ViewPropertyViewModel
-import com.zzq.util.DensityUtil
+import com.zzq.common.utils.DensityUtil
 
 /**
  * ObjectAnimator演示

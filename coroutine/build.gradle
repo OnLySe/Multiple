@@ -39,7 +39,7 @@ dependencies {
     testImplementation deps.test.junit
     androidTestImplementation deps.test.ext_junit
     androidTestImplementation deps.espresso.core
-    implementation project(path: ':util')
+    implementation project(path: ':common')
 
     implementation deps.app_compat
     implementation deps.core_ktx
@@ -52,7 +52,6 @@ dependencies {
     implementation deps.kotlin_coroutines.core
     implementation deps.kotlin_coroutines.android
 
-    def lifecycle_version = "2.2.0"
     implementation deps.lifecycle.runtime_ktx
     // ViewModel
     implementation deps.lifecycle.viewmodel_ktx

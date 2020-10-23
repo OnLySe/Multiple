@@ -30,7 +30,6 @@ android {
 
 dependencies {
     implementation fileTree(dir: "libs", include: ["*.jar"])
-    implementation project(path: ':util')
     implementation project(path: ':common')
 
     testImplementation deps.test.junit

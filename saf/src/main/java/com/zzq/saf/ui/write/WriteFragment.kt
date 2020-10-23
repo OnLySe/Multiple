@@ -16,15 +16,15 @@ import androidx.documentfile.provider.DocumentFile
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
+import com.zzq.common.utils.TimeUtil
+import com.zzq.common.utils.getDataFromSp
+import com.zzq.common.utils.saveDataToSp
+import com.zzq.common.utils.showToast
 import com.zzq.saf.R
 import com.zzq.saf.databinding.FragmentWriteBinding
 import com.zzq.saf.utils.WriteUtil
 import com.zzq.saf.utils.createFile
 import com.zzq.saf.utils.createRandomString
-import com.zzq.util.TimeUtil
-import com.zzq.util.getDataFromSp
-import com.zzq.util.saveDataToSp
-import com.zzq.util.showToast
 import kotlinx.coroutines.launch
 import java.net.URI
 
