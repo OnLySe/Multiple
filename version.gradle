@@ -165,7 +165,7 @@ lifecycle.service = "androidx.lifecycle:lifecycle-service:$versions.lifecycle"
 //optional - ProcessLifecycleOwner provides a lifecycle for the whole application process
 lifecycle.process = "androidx.lifecycle:lifecycle-process:$versions.lifecycle"
 //optional - Test helpers for LiveData
-lifecycle.core_testing = "androidx.arch.core:core-testing:2.1.0"
+lifecycle.core_testing = "androidx.arch.core:core-testing:$versions.arch_core"
 deps.lifecycle = lifecycle
 
 deps.app_compat = "androidx.appcompat:appcompat:$versions.appcompat"

@@ -49,7 +49,9 @@ dependencies {
     implementation deps.core_ktx
     implementation deps.kotlin.stdlib
 
+    implementation deps.app_compat
     implementation deps.androidx_view.constraintlayout
+    implementation deps.google.material
     implementation project(path: ':common')
 }
 ```
