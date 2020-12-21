@@ -1,3 +1,4 @@
+include ':concurrent'
 include ':Lifecycle'
 include ':Bitmap'
 include ':RecyclerView'
