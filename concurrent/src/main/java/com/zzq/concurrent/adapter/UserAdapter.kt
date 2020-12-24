@@ -19,7 +19,9 @@ class UserAdapter : RecyclerView.Adapter<UserAdapter.UserHolder>() {
     }
 
     class UserHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+        val tvUserIndex = itemView.findViewById<TextView>(R.id.tv_user_index)
         val tvUser = itemView.findViewById<TextView>(R.id.tv_user)
+        val tvUserRate = itemView.findViewById<TextView>(R.id.tv_user_rate)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): UserHolder {
@@ -29,7 +31,9 @@ class UserAdapter : RecyclerView.Adapter<UserAdapter.UserHolder>() {
     }
 
     override fun onBindViewHolder(holder: UserHolder, position: Int) {
-        holder.tvUser.text = "${holder.adapterPosition} ${data[holder.adapterPosition].toString()}"
+        holder.tvUserIndex.text = holder.adapterPosition.toString()
+        holder.tvUser.text = "${holder.adapterPosition} ${data[holder.adapterPosition].name}"
+        holder.tvUserRate.text = data[holder.adapterPosition].rate.toString()
     }
 
     override fun getItemCount(): Int {
