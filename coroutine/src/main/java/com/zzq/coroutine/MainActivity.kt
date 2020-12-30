@@ -38,6 +38,9 @@ class MainActivity : AppCompatActivity() {
             tvTitle.text = it.toString()
         })
 
+        //这行也是可以的，最为原始的方式
+//        viewModel.getArticle1()
+
 //        lifecycleScope.launch {
 //            //EmptyCoroutineContext默认不切换线程
 //            eLog("getData ${Thread.currentThread().name}")

@@ -3,6 +3,9 @@ package com.zzq.coroutine
 import androidx.lifecycle.*
 import com.zzq.common.utils.LogUtil.eLog
 import kotlinx.coroutines.*
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
 
 class CoroutineViewModel : ViewModel() {
 
@@ -19,6 +22,20 @@ class CoroutineViewModel : ViewModel() {
             val articles = result.await()
             eLog("end ${Thread.currentThread().name} $articles")
         }
+    }
+
+    fun getArticle1() {
+        wanApi.getArticles1().enqueue(object : Callback<Articles> {
+
+            override fun onResponse(call: Call<Articles>, response: Response<Articles>) {
+                eLog("getArticle1 onResponse")
+            }
+
+
+            override fun onFailure(call: Call<Articles>, t: Throwable) {
+                eLog("getArticle1 onFailure")
+            }
+        })
     }
 
     fun getArticle2(): LiveData<Articles> {
