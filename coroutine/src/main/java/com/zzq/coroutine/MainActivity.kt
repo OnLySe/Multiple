@@ -1,7 +1,6 @@
 package com.zzq.coroutine
 
 import android.os.Bundle
-import android.view.KeyEvent
 import android.widget.TextView
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
@@ -24,14 +23,14 @@ class MainActivity : AppCompatActivity() {
         eLog(targetSdkVersion.toString())
 //        viewModel.getArticle()
 
-//        viewModel.getArticle2().observe(this, Observer {
-//            eLog(it.toString())
-//            tvTitle.text = it.toString()
-//        })
-//        viewModel.getArticle3().observe(this, Observer {
-//            eLog(it.toString())
-//            tvTitle.text = it.toString()
-//        })
+        viewModel.getArticle2().observe(this, Observer {
+            eLog(it.toString())
+            tvTitle.text = it.toString()
+        })
+        viewModel.getArticle3().observe(this, Observer {
+            eLog(it.toString())
+            tvTitle.text = it.toString()
+        })
 
         viewModel.getArticle4().observe(this, Observer {
             eLog(it.toString())
@@ -52,23 +51,6 @@ class MainActivity : AppCompatActivity() {
 //        testLiveData()
 //        test1()
 //        test2()
-    }
-
-    override fun onKeyDown(keyCode: Int, event: KeyEvent?): Boolean {
-        val onKeyDown = super.onKeyDown(keyCode, event)
-        eLog("onKeyDown $onKeyDown $keyCode ${event!!.keyCode}")
-        return onKeyDown
-    }
-
-    override fun onKeyUp(keyCode: Int, event: KeyEvent?): Boolean {
-        val onKeyUp = super.onKeyUp(keyCode, event)
-        eLog("onKeyUp $onKeyUp $keyCode ${event!!.keyCode}")
-        return onKeyUp
-    }
-
-    override fun onBackPressed() {
-        eLog("onBackPressed")
-        super.onBackPressed()
     }
 
     private fun test1() {

@@ -18,8 +18,7 @@ class CoroutineViewModel : ViewModel() {
     fun getArticle() {
 
         viewModelScope.launch(Dispatchers.Main + exceptionHandler) {
-            val result = async(Dispatchers.IO) { wanApi.getArticles22() }
-            val articles = result.await()
+            val articles = async(Dispatchers.IO) { wanApi.getArticles22() }.await()
             eLog("end ${Thread.currentThread().name} $articles")
         }
     }
@@ -63,19 +62,4 @@ class CoroutineViewModel : ViewModel() {
         }
         return data.await().data
     }
-
-    /*suspend fun getArticle6():List<Articles>{
-        val continuation = object:Continuation<Articles>{
-            override val context: CoroutineContext
-                get() = TODO("Not yet implemented")
-
-            override fun resumeWith(result: Result<Articles>) {
-
-            }
-
-        }
-
-        val coroutineScope = CoroutineScope(Dispatchers.Main)
-        val mainScope = MainScope()
-    }*/
 }
