@@ -51,6 +51,54 @@ class MainActivity : AppCompatActivity() {
 //        testLiveData()
 //        test1()
 //        test2()
+
+        test3()
+        test4()
+    }
+
+    /**
+     * 在[test3]的基础上，测试切换协程执行函数，是否也能切换到指定协程运行。
+     * 目的是在调用处，或者说挂起点就切换协程，不需要在函数内部切换协程
+     * 结果是成功的。
+     */
+    private fun test4() {
+        eLog("test4 ${Thread.currentThread().name}")
+
+        GlobalScope.launch(Dispatchers.IO) {
+            test41()
+            delay(200)
+            test41()
+            withContext(Dispatchers.Main) {
+                test41()
+            }
+            test41()
+
+        }
+    }
+
+    private suspend fun test41() {
+        eLog("test41 ${Thread.currentThread().name}")
+        //以下这行在用IO执行会闪退，因为只有主线程能够更新UI
+//        tvTitle.text = "test41"
+    }
+
+    /**
+     * 测试协程切换是否有效
+     */
+    private fun test3() = runBlocking {
+        eLog("test3")
+
+        GlobalScope.launch(Dispatchers.IO) {
+            eLog("test3 " + Thread.currentThread().name)
+            delay(200)
+            eLog("test3 " + Thread.currentThread().name)
+            withContext(Dispatchers.Main) {
+                eLog("test3 " + Thread.currentThread().name)
+            }
+            eLog("test3 " + Thread.currentThread().name)
+
+        }
+//        delay(1000)
     }
 
     private fun test1() {
