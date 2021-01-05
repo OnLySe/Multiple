@@ -12,14 +12,10 @@ import android.util.Log;
 import android.view.View;
 
 import androidx.annotation.ColorInt;
-import androidx.annotation.IntDef;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
-import com.zzq.util.DensityUtil;
-
-import java.lang.annotation.Retention;
-import java.lang.annotation.RetentionPolicy;
+import com.zzq.common.utils.DensityUtil;
 
 public class CircleProgressView extends View {
 
