@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <dimen name="margin_default">10dp</dimen>
+    <!--缩进-->
+    <dimen name="margin_default_indent">30dp</dimen>
+</resources>

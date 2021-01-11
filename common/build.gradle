@@ -25,20 +25,23 @@ android {
 }
 
 dependencies {
-    implementation fileTree(dir: 'libs', include: ['*.jar'])
-    implementation deps.androidx_view.constraintlayout
-    testImplementation deps.test.junit
-    androidTestImplementation deps.test.ext_junit
-    androidTestImplementation deps.espresso.core
+    api fileTree(dir: 'libs', include: ['*.jar'])
+    api deps.androidx_view.constraintlayout
+    testApi deps.test.junit
+    androidTestApi deps.test.ext_junit
+    androidTestApi deps.espresso.core
 
-    implementation deps.app_compat
-    implementation deps.core_ktx
-    implementation deps.kotlin.stdlib
-    implementation deps.kotlin.stdlib_jdk7
+    api deps.app_compat
+    api deps.core_ktx
+    api deps.kotlin.stdlib
+    api deps.kotlin.stdlib_jdk7
 
-    implementation deps.lifecycle.runtime_ktx
+    api deps.google.material
+
+    api deps.lifecycle.runtime_ktx
     // ViewModel
-    implementation deps.lifecycle.viewmodel_ktx
+    api deps.lifecycle.viewmodel_ktx
     // LiveData
-    implementation deps.lifecycle.livedata_ktx
+    api deps.lifecycle.livedata_ktx
+
 }

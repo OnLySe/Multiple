@@ -2,15 +2,28 @@ package com.zzq.common.utils
 
 import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.LifecycleObserver
+import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModel
 
 object LogUtil {
-    fun AppCompatActivity.eLog( msg: String? = null) {
+
+    /**
+     * [AppCompatActivity]与[Fragment]都能直接使用，因为它们的父类都实现了[LifecycleOwner]接口
+     */
+    fun LifecycleOwner.eLog(msg: String? = null) {
         if (msg == null) {
             return
         }
-        Log.e( this.javaClass.simpleName, msg)
+        Log.e(this.javaClass.simpleName, msg)
+    }
+
+    fun LifecycleObserver.eLog(msg: String? = null) {
+        if (msg == null) {
+            return
+        }
+        Log.e(this.javaClass.simpleName, msg)
     }
 
     /**
@@ -21,9 +34,10 @@ object LogUtil {
         if (msg == null) {
             return
         }
-        Log.e(tag?:this.javaClass.simpleName, msg)
+        Log.e(tag ?: this.javaClass.simpleName, msg)
     }
-    fun ViewModel.eLog( msg: String? = null) {
+
+    fun ViewModel.eLog(msg: String? = null) {
         if (msg == null) {
             return
         }
@@ -38,6 +52,6 @@ object LogUtil {
         if (msg == null) {
             return
         }
-        Log.e(tag?:this.javaClass.simpleName, msg)
+        Log.e(tag ?: this.javaClass.simpleName, msg)
     }
 }
