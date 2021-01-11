@@ -110,12 +110,13 @@ class VerticalTextView @JvmOverloads constructor(context: Context?, attrs: Attri
         //点2，注意点1和点2的位置，那么在旋转后绘制坐标应该做相应的转变
         canvas.drawCircle(80F, 200F, 20F, pointPaint)
 
-        canvas.rotate(45F)
-        //这里是坐标没有转换的样子
-        canvas.drawText(text, startX, startY, mTextPaint)
+        //实现方式1
+        /*canvas.rotate(90F)
+        canvas.drawText(text, startY, -startX, mTextPaint)*/
 
-        canvas.rotate(45F)
-        canvas.drawText(text, startY, -startX, mTextPaint)
+        //实现方式2
+        canvas.rotate(90F, startX, startY)
+        canvas.drawText(text, startX, startY, mTextPaint)
         canvas.restore()
     }
 }
