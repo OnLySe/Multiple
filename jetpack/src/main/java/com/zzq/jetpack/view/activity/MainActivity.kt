@@ -22,8 +22,6 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-
-
         rvItems = findViewById(R.id.rv_items)
         rvItems.layoutManager = LinearLayoutManager(this)
         val list = createData()
@@ -32,13 +30,12 @@ class MainActivity : AppCompatActivity() {
 
     private fun createData(): List<ClickFunction> {
         val list = ArrayList<ClickFunction>()
+        list.add(ClickFunction("Lifecycle",{},Config.TYPE_TITLE))
         list.add(ClickFunction("Activity与Lifecycle", {startActivity(Intent(this,TestLifecycleActivity::class.java))}))
-
         list.add(ClickFunction("Service与Lifecycle", { showToast("展示Service与Lifecycle关系") }))
         serviceIntent = Intent(this, MyLifeCycleService::class.java)
         list.add(ClickFunction("startService", { startService(serviceIntent) }, Config.TYPE_SECOND))
         list.add(ClickFunction("stopService", { stopService(serviceIntent) }, Config.TYPE_SECOND))
-
 
         return list
     }

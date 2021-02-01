@@ -34,7 +34,7 @@ dependencies {
     api deps.app_compat
     api deps.core_ktx
     api deps.kotlin.stdlib
-    api deps.kotlin.stdlib_jdk7
+    api deps.kotlin.stdlib_jdk8
 
     api deps.google.material
 

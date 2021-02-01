@@ -9,8 +9,8 @@ android {
 
     defaultConfig {
         applicationId "com.zzq.gradlebuild"
-        minSdkVersion 21
-        targetSdkVersion 29
+        minSdkVersion 19
+        targetSdkVersion 19
         versionCode 1
         versionName "v1.0.0"
 
@@ -153,19 +153,21 @@ android {
 
 dependencies {
     implementation fileTree(dir: "libs", include: ["*.jar"])
-    implementation deps.androidx_view.constraintlayout
     testImplementation deps.test.junit
     androidTestImplementation deps.test.ext_junit
     androidTestImplementation deps.espresso.core
+    implementation deps.app_compat
+
+    implementation deps.core_ktx
+    implementation deps.kotlin.stdlib
+
+    implementation deps.app_compat
+    implementation deps.google.material
+    implementation deps.androidx_view.constraintlayout
+    implementation project(path: ':common')
 
     implementation deps.kotlin.stdlib
-    implementation deps.kotlin.stdlib_jdk7
-    implementation deps.kotlin_coroutines.core
-    implementation deps.kotlin_coroutines.android
-
-    implementation deps.google.material
-    implementation deps.core_ktx
-    implementation deps.app_compat
+    implementation deps.kotlin.stdlib_jdk8
 }
 
 //对apk进行签名
