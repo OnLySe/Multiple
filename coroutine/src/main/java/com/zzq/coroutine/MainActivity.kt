@@ -1,12 +1,11 @@
 package com.zzq.coroutine
 
 import android.os.Bundle
-import android.view.KeyEvent
 import android.widget.TextView
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.*
-import com.zzq.util.LogUtil.eLog
+import com.zzq.common.utils.LogUtil.eLog
 import kotlinx.coroutines.*
 
 class MainActivity : AppCompatActivity() {
@@ -24,19 +23,22 @@ class MainActivity : AppCompatActivity() {
         eLog(targetSdkVersion.toString())
 //        viewModel.getArticle()
 
-//        viewModel.getArticle2().observe(this, Observer {
-//            eLog(it.toString())
-//            tvTitle.text = it.toString()
-//        })
-//        viewModel.getArticle3().observe(this, Observer {
-//            eLog(it.toString())
-//            tvTitle.text = it.toString()
-//        })
+        viewModel.getArticle2().observe(this, Observer {
+            eLog(it.toString())
+            tvTitle.text = it.toString()
+        })
+        viewModel.getArticle3().observe(this, Observer {
+            eLog(it.toString())
+            tvTitle.text = it.toString()
+        })
 
         viewModel.getArticle4().observe(this, Observer {
             eLog(it.toString())
             tvTitle.text = it.toString()
         })
+
+        //这行也是可以的，最为原始的方式
+//        viewModel.getArticle1()
 
 //        lifecycleScope.launch {
 //            //EmptyCoroutineContext默认不切换线程
@@ -49,23 +51,54 @@ class MainActivity : AppCompatActivity() {
 //        testLiveData()
 //        test1()
 //        test2()
+
+        test3()
+        test4()
     }
 
-    override fun onKeyDown(keyCode: Int, event: KeyEvent?): Boolean {
-        val onKeyDown = super.onKeyDown(keyCode, event)
-        eLog("onKeyDown $onKeyDown $keyCode ${event!!.keyCode}")
-        return onKeyDown
+    /**
+     * 在[test3]的基础上，测试切换协程执行函数，是否也能切换到指定协程运行。
+     * 目的是在调用处，或者说挂起点就切换协程，不需要在函数内部切换协程
+     * 结果是成功的。
+     */
+    private fun test4() {
+        eLog("test4 ${Thread.currentThread().name}")
+
+        GlobalScope.launch(Dispatchers.IO) {
+            test41()
+            delay(200)
+            test41()
+            withContext(Dispatchers.Main) {
+                test41()
+            }
+            test41()
+
+        }
     }
 
-    override fun onKeyUp(keyCode: Int, event: KeyEvent?): Boolean {
-        val onKeyUp = super.onKeyUp(keyCode, event)
-        eLog("onKeyUp $onKeyUp $keyCode ${event!!.keyCode}")
-        return onKeyUp
+    private suspend fun test41() {
+        eLog("test41 ${Thread.currentThread().name}")
+        //以下这行在用IO执行会闪退，因为只有主线程能够更新UI
+//        tvTitle.text = "test41"
     }
 
-    override fun onBackPressed() {
-        eLog("onBackPressed")
-        super.onBackPressed()
+    /**
+     * 测试协程切换是否有效
+     */
+    private fun test3() = runBlocking {
+        eLog("test3")
+
+        GlobalScope.launch(Dispatchers.IO) {
+            eLog("test3 " + Thread.currentThread().name)
+            delay(200)
+            eLog("test3 " + Thread.currentThread().name)
+            withContext(Dispatchers.Main) {
+                eLog("test3 " + Thread.currentThread().name)
+            }
+            eLog("test3 " + Thread.currentThread().name)
+
+        }
+//        delay(1000)
     }
 
     private fun test1() {

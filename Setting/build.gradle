@@ -9,7 +9,7 @@ android {
     defaultConfig {
         applicationId "com.zzq.setting"
         minSdkVersion 21
-        targetSdkVersion 29
+        targetSdkVersion 21
         versionCode 1
         versionName "1.0"
 
@@ -96,6 +96,6 @@ dependencies {
     implementation deps.core_ktx
     implementation deps.kotlin.stdlib
     implementation deps.androidx_view.constraintlayout
-    implementation project(path: ':util')
+    implementation project(path: ':common')
 
 }

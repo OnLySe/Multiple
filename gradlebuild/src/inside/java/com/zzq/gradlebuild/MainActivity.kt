@@ -1,6 +1,9 @@
 package com.zzq.gradlebuild
 
+import android.content.Context
+import android.net.wifi.WifiManager
 import android.os.Bundle
+import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import com.zzq.gradlebuild.databinding.ActivityMainBinding
@@ -12,6 +15,8 @@ class MainActivity : AppCompatActivity() {
         val dataBinding = DataBindingUtil.setContentView<ActivityMainBinding>(this,
                 R.layout.activity_main)
         dataBinding.tvInfo.text = generateData()
+
+        getWifiInfo()
     }
 
     private fun generateData(): String {
@@ -25,5 +30,14 @@ class MainActivity : AppCompatActivity() {
                 "packageName: ${applicationInfo.packageName}\n" +
                 "versionName: ${packageInfo.versionName}\n" +
                 "versionCode: ${packageInfo.versionCode}"
+    }
+
+    private fun getWifiInfo() {
+        val wifiManager = applicationContext.getSystemService(Context.WIFI_SERVICE) as WifiManager
+        val wifiList = wifiManager.scanResults
+        wifiList.forEach {
+            Log.e("tetetetete", it.toString())
+        }
+
     }
 }

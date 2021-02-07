@@ -44,7 +44,7 @@ dependencies {
     testImplementation deps.test.junit
     androidTestImplementation deps.test.ext_junit
     androidTestImplementation deps.espresso.core
-    implementation project(path: ':util')
+    implementation project(path: ':common')
 
     implementation deps.google.material
     implementation deps.kotlin.stdlib
@@ -52,4 +52,9 @@ dependencies {
     implementation deps.core_ktx
     implementation deps.app_compat
 
+    implementation deps.lifecycle.runtime_ktx
+    // ViewModel
+    implementation deps.lifecycle.viewmodel_ktx
+    // LiveData
+    implementation deps.lifecycle.livedata_ktx
 }

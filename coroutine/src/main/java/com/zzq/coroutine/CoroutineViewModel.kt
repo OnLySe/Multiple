@@ -1,8 +1,11 @@
 package com.zzq.coroutine
 
 import androidx.lifecycle.*
-import com.zzq.util.LogUtil.eLog
+import com.zzq.common.utils.LogUtil.eLog
 import kotlinx.coroutines.*
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
 
 class CoroutineViewModel : ViewModel() {
 
@@ -15,10 +18,23 @@ class CoroutineViewModel : ViewModel() {
     fun getArticle() {
 
         viewModelScope.launch(Dispatchers.Main + exceptionHandler) {
-            val result = async(Dispatchers.IO) { wanApi.getArticles22() }
-            val articles = result.await()
+            val articles = async(Dispatchers.IO) { wanApi.getArticles22() }.await()
             eLog("end ${Thread.currentThread().name} $articles")
         }
+    }
+
+    fun getArticle1() {
+        wanApi.getArticles1().enqueue(object : Callback<Articles> {
+
+            override fun onResponse(call: Call<Articles>, response: Response<Articles>) {
+                eLog("getArticle1 onResponse")
+            }
+
+
+            override fun onFailure(call: Call<Articles>, t: Throwable) {
+                eLog("getArticle1 onFailure")
+            }
+        })
     }
 
     fun getArticle2(): LiveData<Articles> {
@@ -46,19 +62,4 @@ class CoroutineViewModel : ViewModel() {
         }
         return data.await().data
     }
-
-    /*suspend fun getArticle6():List<Articles>{
-        val continuation = object:Continuation<Articles>{
-            override val context: CoroutineContext
-                get() = TODO("Not yet implemented")
-
-            override fun resumeWith(result: Result<Articles>) {
-
-            }
-
-        }
-
-        val coroutineScope = CoroutineScope(Dispatchers.Main)
-        val mainScope = MainScope()
-    }*/
 }

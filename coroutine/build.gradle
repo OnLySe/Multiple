@@ -34,30 +34,12 @@ android {
 }
 
 dependencies {
-    implementation fileTree(dir: 'libs', include: ['*.jar'])
-    implementation deps.androidx_view.constraintlayout
-    testImplementation deps.test.junit
-    androidTestImplementation deps.test.ext_junit
-    androidTestImplementation deps.espresso.core
-    implementation project(path: ':util')
 
-    implementation deps.app_compat
-    implementation deps.core_ktx
-    implementation deps.kotlin.stdlib
-    implementation deps.kotlin.stdlib_jdk7
-//    //依赖当前平台所对应的平台库
-//    implementation "org.jetbrains.kotlinx:kotlinx-coroutines-android:$kotlin_coroutines"
-//    //依赖协程核心库
-//    implementation "org.jetbrains.kotlinx:kotlinx-coroutines-core:$kotlin_coroutines"
+    implementation project(path: ':common')
+    
     implementation deps.kotlin_coroutines.core
     implementation deps.kotlin_coroutines.android
 
-    def lifecycle_version = "2.2.0"
-    implementation deps.lifecycle.runtime_ktx
-    // ViewModel
-    implementation deps.lifecycle.viewmodel_ktx
-    // LiveData
-    implementation deps.lifecycle.livedata_ktx
     // Saved state module for ViewModel
     implementation deps.lifecycle.viewmodel_savedstate
     // alternately - if using Java8, use the following instead of lifecycle-compiler

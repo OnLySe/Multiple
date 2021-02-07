@@ -6,9 +6,9 @@ import android.view.View
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
+import com.zzq.common.utils.LogUtil.eLog
+import com.zzq.common.utils.showToast
 import com.zzq.keyevent.databinding.ActivityMainBinding
-import com.zzq.util.LogUtil.eLog
-import com.zzq.util.showToast
 
 class MainActivity : AppCompatActivity() {
 

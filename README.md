@@ -36,21 +36,11 @@ buildFeatures {
 
 ## 创建module
 
-新创建的module一律采用Kotlin语言开发！对于新创建的module，需要统一配置，避免此前出现的各module依赖同个依赖库不同版本的情况。
+新创建的module一律采用Kotlin语言开发！对于新创建的module，需要统一配置，避免此前出现的各module依赖同个依赖库不同版本的情况。大部分需要的依赖已经在common模块中加上去了，而在common模块的依赖采用的是api的方式，而不是传统的implementation，所以可以直接使用common中添加的依赖。需要做的仅仅只是添加common依赖。
 
 ```groovy
 dependencies {
-    implementation fileTree(dir: "libs", include: ["*.jar"])
-    testImplementation deps.test.junit
-    androidTestImplementation deps.test.ext_junit
-    androidTestImplementation deps.espresso.core
-    implementation deps.app_compat
-
-    implementation deps.core_ktx
-    implementation deps.kotlin.stdlib
-
-    implementation deps.androidx_view.constraintlayout
-    implementation project(path: ':util')
+    implementation project(path: ':common')
 }
 ```
 

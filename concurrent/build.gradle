@@ -1,0 +1,46 @@
+plugins {
+    id 'com.android.application'
+}
+apply plugin: 'kotlin-android'
+
+android {
+    compileSdkVersion 29
+
+    defaultConfig {
+        applicationId "com.zzq.concurrent"
+        minSdkVersion 23
+        targetSdkVersion 29
+        versionCode 1
+        versionName "1.0"
+
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+    }
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+}
+
+dependencies {
+    implementation fileTree(dir: "libs", include: ["*.jar"])
+    testImplementation deps.test.junit
+    androidTestImplementation deps.test.ext_junit
+    androidTestImplementation deps.espresso.core
+    implementation deps.app_compat
+
+    implementation deps.core_ktx
+//    implementation deps.kotlin.stdlib
+    implementation deps.kotlin.stdlib_jdk7
+
+    implementation deps.app_compat
+    implementation deps.androidx_view.constraintlayout
+    implementation deps.google.material
+    implementation project(path: ':common')
+}

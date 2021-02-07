@@ -12,10 +12,10 @@ import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
+import com.zzq.common.utils.showToast
 import com.zzq.saf.R
 import com.zzq.saf.databinding.FragmentReadBinding
 import com.zzq.saf.utils.StorageUtil.printStorageInfo
-import com.zzq.util.showToast
 import kotlinx.coroutines.launch
 
 class ReadFragment : Fragment() {
