@@ -7,8 +7,8 @@ import android.graphics.Rect
 import android.view.View
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
-import com.zzq.recyclerview.R
-import com.zzq.util.DensityUtil
+import com.zzq.common.utils.DensityUtil
+import com.zzq.jetpack.R
 
 class VerticalProgressDecoration(private val context: Context) : RecyclerView.ItemDecoration() {
 

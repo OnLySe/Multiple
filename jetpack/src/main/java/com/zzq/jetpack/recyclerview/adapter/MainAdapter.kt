@@ -1,11 +1,11 @@
-package com.zzq.recyclerview.adapter
+package com.zzq.jetpack.recyclerview.adapter
 
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
-import com.zzq.recyclerview.R
+import com.zzq.jetpack.R
 
 class MainAdapter : RecyclerView.Adapter<MainAdapter.MainHolder>() {
     private val dataList = ArrayList<String>()

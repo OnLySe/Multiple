@@ -13,6 +13,9 @@
         <action
             android:id="@+id/action_mainFragment_to_homeFragment"
             app:destination="@id/homeFragment" />
+        <action
+            android:id="@+id/action_mainFragment_to_recyclerViewMainFragment"
+            app:destination="@id/recyclerViewMainFragment" />
     </fragment>
     <fragment
         android:id="@+id/homeFragment"
@@ -21,6 +24,11 @@
         tools:layout="@layout/fragment_home" >
 
     </fragment>
+    <fragment
+        android:id="@+id/recyclerViewMainFragment"
+        tools:layout="@layout/fragment_recyclerview_main"
+        android:name="com.zzq.jetpack.recyclerview.RecyclerViewMainFragment"
+        android:label="RecyclerViewMainFragment" />
 
 
 </navigation>
