@@ -39,10 +39,11 @@ class MainFragment : BaseFragment() {
         list.add(ClickFunction("ViewPager2", {}, Config.TYPE_TITLE))
 
         list.add(ClickFunction("Navigation", {}, Config.TYPE_TITLE))
-        list.add(ClickFunction("Navigation跳转Fragment", { navigate(R.id.action_mainFragment_to_homeFragment) }, Config.TYPE_SECOND))
+        list.add(ClickFunction("Navigation跳转Fragment", { navigate(R.id.action_mainFragment_to_homeFragment) }, Config.TYPE_FIRST))
 
         list.add(ClickFunction("RecyclerView", {}, Config.TYPE_TITLE))
-        list.add(ClickFunction("RecyclerView itemDecoration", { navigate(R.id.action_mainFragment_to_recyclerViewMainFragment) }, Config.TYPE_SECOND))
+        list.add(ClickFunction("RecyclerView itemDecoration", { navigate(R.id.action_mainFragment_to_rvItemDecorationFragment) }, Config.TYPE_FIRST))
+        list.add(ClickFunction("RecyclerView ConcatAdapter", { navigate(R.id.action_mainFragment_to_rvMergeAdapterFragment) }, Config.TYPE_FIRST))
 
         return list
     }
