@@ -1,5 +1,6 @@
 package com.zzq.jetpack.base
 
+import android.content.res.Configuration
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -9,32 +10,64 @@ import androidx.annotation.IdRes
 import androidx.annotation.Nullable
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
+import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import com.gyf.immersionbar.ImmersionBar
+import com.gyf.immersionbar.components.SimpleImmersionOwner
+import com.gyf.immersionbar.components.SimpleImmersionProxy
 import com.zzq.jetpack.R
-import com.zzq.jetpack.navigation.HomeViewModel
 
 /**
  * 需要注意：
  * 1. 必须是在导航图内的Fragment才能继承
  * 2. 每个子类都要有Toolbar，且Toolbar的默认id是toolbar（R.id.toolbar),可通过setToolbarId返回自定义的Toolbar Id
  */
-open abstract class BaseFragment : SimpleImmersionFragment() {
+open abstract class BaseFragment : Fragment(), SimpleImmersionOwner {
 
     protected abstract fun getLayoutId(): Int
     protected lateinit var defaultToolbar: Toolbar
 
     protected open fun initView(view: View) {}
 
-    /**
-     * 不能在 initView 中使用
-     */
-    protected lateinit var homeViewModel: HomeViewModel
-
     @IdRes
     @Nullable
     protected fun setToolbarId(): Int? = R.id.toolbar
+
+    /**
+     * ImmersionBar代理类
+     */
+    private val mSimpleImmersionProxy = SimpleImmersionProxy(this)
+
+    override fun setUserVisibleHint(isVisibleToUser: Boolean) {
+        super.setUserVisibleHint(isVisibleToUser)
+        mSimpleImmersionProxy.isUserVisibleHint = isVisibleToUser
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        mSimpleImmersionProxy.onDestroy()
+    }
+
+    override fun onHiddenChanged(hidden: Boolean) {
+        super.onHiddenChanged(hidden)
+        mSimpleImmersionProxy.onHiddenChanged(hidden)
+    }
+
+    override fun onConfigurationChanged(newConfig: Configuration) {
+        super.onConfigurationChanged(newConfig)
+        mSimpleImmersionProxy.onConfigurationChanged(newConfig)
+    }
+
+    /**
+     * 是否可以实现沉浸式，当为true的时候才可以执行initImmersionBar方法
+     * Immersion bar enabled boolean.
+     *
+     * @return the boolean
+     */
+    override fun immersionBarEnabled(): Boolean {
+        return true
+    }
 
     /**
      * {@link HasDefaultViewModelProviderFactory#getDefaultViewModelProviderFactory() default factory}
@@ -54,8 +87,7 @@ open abstract class BaseFragment : SimpleImmersionFragment() {
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-        //TODO 如此创建或有不妥之处！
-        homeViewModel = ViewModelProvider(requireActivity()).get(HomeViewModel::class.java)
+        mSimpleImmersionProxy.onActivityCreated(savedInstanceState)
     }
 
     /**

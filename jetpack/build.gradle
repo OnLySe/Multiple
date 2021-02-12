@@ -1,7 +1,7 @@
-plugins {
-    id 'com.android.application'
-    id 'kotlin-android'
-}
+apply plugin: 'com.android.application'
+apply plugin: 'kotlin-android'
+apply plugin: 'kotlin-android-extensions'
+apply plugin: 'kotlin-kapt'
 
 android {
     compileSdkVersion 30
@@ -32,6 +32,10 @@ android {
     kotlinOptions {
         jvmTarget = '1.8'
     }
+
+    buildFeatures{
+        viewBinding = true
+    }
 }
 
 dependencies {
@@ -45,9 +49,6 @@ dependencies {
     implementation "androidx.lifecycle:lifecycle-service:$versions.lifecycle"
     //lifecycle-extensions在2.2.0就被弃用，将使用lifecycle-process
     implementation "androidx.lifecycle:lifecycle-process:$versions.lifecycle"
-    implementation 'androidx.appcompat:appcompat:1.2.0'
-    implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
-    implementation 'androidx.constraintlayout:constraintlayout:2.0.4'
 
     //viewpager2
     implementation "androidx.viewpager2:viewpager2:1.0.0"
@@ -56,4 +57,34 @@ dependencies {
 
     implementation 'com.gyf.immersionbar:immersionbar:3.0.0'
     implementation 'com.gyf.immersionbar:immersionbar-components:3.0.0'
+
+
+
+    implementation fileTree(dir: "libs", include: ["*.jar"])
+    implementation deps.kotlin.stdlib
+    implementation deps.core_ktx
+    implementation deps.app_compat
+    implementation deps.androidx_view.constraintlayout
+    testImplementation deps.test.junit
+    androidTestImplementation deps.test.ext_junit
+    androidTestImplementation deps.espresso.core
+    implementation project(path: ':common')
+
+    //Room
+    kapt deps.room.compiler
+    implementation deps.room.runtime
+    implementation deps.room.ktx
+    implementation deps.room.testing
+
+    implementation deps.lifecycle.extension
+    implementation deps.lifecycle.runtime
+
+    //CardView
+//    implementation deps.androidx_view.cardview
+//    //Recyclerview
+//    implementation deps.androidx_view.recyclerview
+//    implementation deps.google.material
+
+    implementation deps.kotlin_coroutines.core
+    implementation deps.kotlin_coroutines.android
 }

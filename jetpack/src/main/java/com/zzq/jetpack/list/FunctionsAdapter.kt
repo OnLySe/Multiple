@@ -6,7 +6,7 @@ import android.view.ViewGroup
 import android.widget.Button
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
-import com.zzq.jetpack.Config
+import com.zzq.jetpack.app.Config
 import com.zzq.jetpack.R
 import com.zzq.jetpack.bean.ClickFunction
 
