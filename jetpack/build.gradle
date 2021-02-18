@@ -62,4 +62,10 @@ dependencies {
     implementation 'com.gyf.immersionbar:immersionbar-components:3.0.0'
 
     implementation "androidx.recyclerview:recyclerview:$versions.recyclerview"
+
+    //Room
+    kapt deps.room.compiler
+    implementation deps.room.runtime
+    implementation deps.room.ktx
+    implementation deps.room.testing
 }
