@@ -5,8 +5,8 @@ import android.view.View
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.zzq.common.utils.showToast
-import com.zzq.jetpack.Config
-import com.zzq.jetpack.MyLifeCycleService
+import com.zzq.jetpack.app.Config
+import com.zzq.jetpack.lifecycle.MyLifeCycleService
 import com.zzq.jetpack.R
 import com.zzq.jetpack.base.BaseFragment
 import com.zzq.jetpack.bean.ClickFunction
