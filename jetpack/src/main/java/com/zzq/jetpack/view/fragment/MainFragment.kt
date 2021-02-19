@@ -45,7 +45,7 @@ class MainFragment : BaseFragment() {
         list.add(ClickFunction("RecyclerView itemDecoration", { navigate(R.id.action_mainFragment_to_recyclerViewMainFragment) }, Config.TYPE_SECOND))
 
         list.add(ClickFunction("Room", {showToast("具体看下方Room使用")}, Config.TYPE_TITLE))
-        list.add(ClickFunction("Room Use", { navigate(R.id.action_mainFragment_to_roomMainFragment) }, Config.TYPE_SECOND))
+        list.add(ClickFunction("Room Add Item", { navigate(R.id.action_mainFragment_to_roomMainFragment) }, Config.TYPE_SECOND))
 
         return list
     }

@@ -4,9 +4,9 @@ import android.util.Log
 import android.view.View
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.zzq.jetpack.R
 import com.zzq.jetpack.base.BaseFragment
-import com.zzq.jetpack.databinding.FragmentRoomMainBinding
 import com.zzq.jetpack.room.data.AppDatabase
 import com.zzq.jetpack.room.data.User
 import kotlinx.coroutines.GlobalScope
@@ -15,30 +15,32 @@ import java.util.*
 
 class RoomMainFragment : BaseFragment() {
 
-    private var index = 0L
+    private var index = 1000L
     private lateinit var userListAdapter: UserListAdapter
     private lateinit var rvMain: RecyclerView
-    private var resetIndex = false
     private val dataSource = ArrayList<User>()
+
+    private lateinit var fabAdd:FloatingActionButton
 
     override fun getLayoutId(): Int {
         return R.layout.fragment_room_main
     }
     override fun initView(view: View) {
 
-        val binding = FragmentRoomMainBinding.inflate(layoutInflater)
+        //注意：[BaseFragment]不支持DataBinding!!!
+//        val binding = FragmentRoomMainBinding.inflate(layoutInflater)
 
         val userDao = AppDatabase.getInstance(requireContext()).userDao()
         val allUser = userDao.getAllUser()
-        rvMain = binding.rvMain
+        rvMain = view.findViewById(R.id.rv_main)
         rvMain.layoutManager = LinearLayoutManager(requireContext())
         userListAdapter = UserListAdapter()
         rvMain.adapter = userListAdapter
 
         subscribeUi()
 
-        binding.fabAdd.setOnClickListener {
-            resetIndex = true
+        fabAdd = view.findViewById(R.id.fab_add)
+        fabAdd.setOnClickListener {
             index++
             val user = User(index, "user_fab $index", System.currentTimeMillis(),
                     "$index user_fab $index")
@@ -54,7 +56,7 @@ class RoomMainFragment : BaseFragment() {
             }
         }
 
-        binding.fabAdd.setOnLongClickListener {
+        fabAdd.setOnLongClickListener {
             if (dataSource.isNotEmpty()) {
                 if (index >= 1) {
                     index--
@@ -75,7 +77,7 @@ class RoomMainFragment : BaseFragment() {
         AppDatabase.getInstance(requireContext()).userDao().getAllUser().observe(this, {
             Log.e("tetetetete", "data change ${it.size}")
             userListAdapter.submitList(it)
-            if (!resetIndex && it.isNotEmpty()) {
+            if (it.isNotEmpty()) {
                 index = it.last().userId
             }
 

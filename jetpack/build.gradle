@@ -35,6 +35,8 @@ android {
 
     buildFeatures{
         viewBinding = true
+        //不需要databinding！！未来该库可能会被移除！
+//        dataBinding = true
     }
 }
 

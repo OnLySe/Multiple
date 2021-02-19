@@ -11,7 +11,6 @@ import androidx.annotation.Nullable
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import com.gyf.immersionbar.ImmersionBar
 import com.gyf.immersionbar.components.SimpleImmersionOwner
@@ -22,6 +21,8 @@ import com.zzq.jetpack.R
  * 需要注意：
  * 1. 必须是在导航图内的Fragment才能继承
  * 2. 每个子类都要有Toolbar，且Toolbar的默认id是toolbar（R.id.toolbar),可通过setToolbarId返回自定义的Toolbar Id
+ *
+ * TODO 当前不支持DataBinding!
  */
 open abstract class BaseFragment : Fragment(), SimpleImmersionOwner {
 
