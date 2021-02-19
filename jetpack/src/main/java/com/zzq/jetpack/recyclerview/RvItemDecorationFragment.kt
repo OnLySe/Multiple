@@ -1,30 +1,28 @@
 package com.zzq.jetpack.recyclerview
 
-import android.os.Bundle
-import android.view.LayoutInflater
 import android.view.View
-import android.view.ViewGroup
 import android.widget.Button
 import android.widget.TextView
-import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.zzq.common.utils.DensityUtil
 import com.zzq.jetpack.R
+import com.zzq.jetpack.base.BaseFragment
 import com.zzq.jetpack.recyclerview.adapter.MainAdapter
 import com.zzq.recyclerview.decoration.VerticalProgressDecoration
 import java.util.*
 import kotlin.collections.ArrayList
 
-class RecyclerViewMainFragment : Fragment(), View.OnClickListener {
+class RvItemDecorationFragment : BaseFragment(), View.OnClickListener {
 
     private val adapter = MainAdapter()
     private lateinit var rvMain: RecyclerView
     val random = Random()
+    override fun getLayoutId(): Int {
+        return R.layout.fragment_recyclerview_main
+    }
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        val view = inflater.inflate(R.layout.fragment_recyclerview_main, container, false)
-
+    override fun initView(view:View) {
         val tvTitle: TextView = view.findViewById(R.id.tv_title)
         tvTitle.text = "ItemDecoration"
 
@@ -37,7 +35,6 @@ class RecyclerViewMainFragment : Fragment(), View.OnClickListener {
         adapter.addNewData(createData())
 
         view.findViewById<Button>(R.id.btn_add).setOnClickListener(this)
-        return view
     }
 
     private fun createData(): ArrayList<String> {

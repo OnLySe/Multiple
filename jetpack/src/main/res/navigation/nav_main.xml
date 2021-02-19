@@ -14,8 +14,11 @@
             android:id="@+id/action_mainFragment_to_homeFragment"
             app:destination="@id/homeFragment" />
         <action
-            android:id="@+id/action_mainFragment_to_recyclerViewMainFragment"
+            android:id="@+id/action_mainFragment_to_rvItemDecorationFragment"
             app:destination="@id/recyclerViewMainFragment" />
+        <action
+            android:id="@+id/action_mainFragment_to_rvMergeAdapterFragment"
+            app:destination="@id/rvMergeAdapterFragment" />
         <action
             android:id="@+id/action_mainFragment_to_roomMainFragment"
             app:destination="@id/roomMainFragment" />
@@ -29,9 +32,15 @@
     </fragment>
     <fragment
         android:id="@+id/recyclerViewMainFragment"
-        android:name="com.zzq.jetpack.recyclerview.RecyclerViewMainFragment"
+        android:name="com.zzq.jetpack.recyclerview.RvItemDecorationFragment"
         android:label="RecyclerViewMainFragment"
         tools:layout="@layout/fragment_recyclerview_main" />
+    <fragment
+        android:id="@+id/rvMergeAdapterFragment"
+        android:name="com.zzq.jetpack.recyclerview.RvMergeAdapterFragment"
+        android:label="RvMergeAdapterFragment"
+        tools:layout="@layout/fragment_recyclerview_merge_adapter" />
+
     <fragment
         android:id="@+id/roomMainFragment"
         android:name="com.zzq.jetpack.room.RoomMainFragment"
