@@ -8,27 +8,35 @@
     <fragment
         android:id="@+id/mainFragment"
         android:name="com.zzq.jetpack.view.fragment.MainFragment"
-        tools:layout="@layout/fragment_main"
-        android:label="MainFragment" >
+        android:label="MainFragment"
+        tools:layout="@layout/fragment_main">
         <action
             android:id="@+id/action_mainFragment_to_homeFragment"
             app:destination="@id/homeFragment" />
         <action
             android:id="@+id/action_mainFragment_to_recyclerViewMainFragment"
             app:destination="@id/recyclerViewMainFragment" />
+        <action
+            android:id="@+id/action_mainFragment_to_roomMainFragment"
+            app:destination="@id/roomMainFragment" />
     </fragment>
     <fragment
         android:id="@+id/homeFragment"
         android:name="com.zzq.jetpack.navigation.HomeFragment"
         android:label="fragment_home"
-        tools:layout="@layout/fragment_home" >
+        tools:layout="@layout/fragment_home">
 
     </fragment>
     <fragment
         android:id="@+id/recyclerViewMainFragment"
-        tools:layout="@layout/fragment_recyclerview_main"
         android:name="com.zzq.jetpack.recyclerview.RecyclerViewMainFragment"
-        android:label="RecyclerViewMainFragment" />
+        android:label="RecyclerViewMainFragment"
+        tools:layout="@layout/fragment_recyclerview_main" />
+    <fragment
+        android:id="@+id/roomMainFragment"
+        android:name="com.zzq.jetpack.room.RoomMainFragment"
+        android:label="RoomMainFragment"
+        tools:layout="@layout/fragment_room_main" />
 
 
 </navigation>

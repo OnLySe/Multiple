@@ -5,11 +5,11 @@ import android.view.View
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.zzq.common.utils.showToast
-import com.zzq.jetpack.app.Config
-import com.zzq.jetpack.lifecycle.MyLifeCycleService
 import com.zzq.jetpack.R
+import com.zzq.jetpack.app.Config
 import com.zzq.jetpack.base.BaseFragment
 import com.zzq.jetpack.bean.ClickFunction
+import com.zzq.jetpack.lifecycle.MyLifeCycleService
 import com.zzq.jetpack.list.FunctionsAdapter
 import com.zzq.jetpack.view.activity.TestLifecycleActivity
 
@@ -43,6 +43,9 @@ class MainFragment : BaseFragment() {
 
         list.add(ClickFunction("RecyclerView", {}, Config.TYPE_TITLE))
         list.add(ClickFunction("RecyclerView itemDecoration", { navigate(R.id.action_mainFragment_to_recyclerViewMainFragment) }, Config.TYPE_SECOND))
+
+        list.add(ClickFunction("Room", {showToast("具体看下方Room使用")}, Config.TYPE_TITLE))
+        list.add(ClickFunction("Room Use", { navigate(R.id.action_mainFragment_to_roomMainFragment) }, Config.TYPE_SECOND))
 
         return list
     }
