@@ -118,7 +118,12 @@ class WriteFragment : Fragment() {
 
     private fun goDocumentTree() {
         val intent = Intent(Intent.ACTION_OPEN_DOCUMENT_TREE)
-        //Intent.FLAG_GRANT_READ_URI_PERMISSION | Intent.FLAG_GRANT_PERSISTABLE_URI_PERMISSION
+        /**
+         * 在https://developer.android.com/training/data-storage/shared/documents-files#persist-permissions中：
+         * 当您的应用打开文件进行读取或写入时，系统会向应用授予对该文件的 URI 的访问权限，该授权在用户重启设备
+         * 之前一直有效，如需在设备重启后保留对文件的访问权限并提供更出色的用户体验，您的应用可以“获取”系统提供
+         * 的永久性 URI 访问权限，即：Intent.FLAG_GRANT_READ_URI_PERMISSION orIntent.FLAG_GRANT_WRITE_URI_PERMISSION
+         */
         intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION or
                 Intent.FLAG_GRANT_PERSISTABLE_URI_PERMISSION)
         startActivityForResult(intent, codeRootDirectory)
