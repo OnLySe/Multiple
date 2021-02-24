@@ -31,10 +31,7 @@ object LogUtil {
      * 但是需要注意：只适合在debug环境使用，release可能会混淆类名
      */
     fun ViewModel.eLog(tag: String? = null, msg: String? = null) {
-        if (msg == null) {
-            return
-        }
-        Log.e(tag ?: this.javaClass.simpleName, msg)
+        e(tag, msg)
     }
 
     fun ViewModel.eLog(msg: String? = null) {
@@ -49,6 +46,10 @@ object LogUtil {
      * 但是需要注意：只适合在debug环境使用，release可能会混淆类名
      */
     fun <T> LiveData<T>.eLog(tag: String? = null, msg: String? = null) {
+        e(tag, msg)
+    }
+
+    fun e(tag: String? = null, msg: String? = null) {
         if (msg == null) {
             return
         }

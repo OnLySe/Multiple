@@ -1,8 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.zzq.lifecycle">
+    package="com.zzq.nfc">
 
+    <uses-permission android:name="android.permission.NFC" />
     <application
+        android:name=".NfcDemoApplication"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"

@@ -76,55 +76,48 @@ object WriteUtil {
     /**
      * 将图片写入到外部存储的公共目录下
      */
-    suspend fun imageWritePublicDirectory(context: Context, fileName: String, bitmap: Bitmap):Uri? {
+    suspend fun imageWritePublicDirectory(context: Context, fileName: String, bitmap: Bitmap): Uri? = withContext(Dispatchers.IO) {
         //注意：就目前而言（20200922），如果写入图片前，指定路径就已经有相同文件名文件，添加相同命名文件时，系统会在文件名后缀添加(1)等序号！！！
-        val result = withContext(Dispatchers.IO) {
 
-            //设置保存参数到ContentValues中
-            val contentValues = ContentValues()
-            //设置文件名
-            contentValues.put(MediaStore.Images.Media.DISPLAY_NAME, fileName)
-            //兼容Android Q和以下版本
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
-                //android Q中不再使用DATA字段，而用RELATIVE_PATH代替
-                //RELATIVE_PATH是相对路径不是绝对路径
-                //DCIM是系统文件夹，关于系统文件夹可以到系统自带的文件管理器中查看，不可以写没存在的名字
-                contentValues.put(MediaStore.Images.Media.RELATIVE_PATH, "DCIM/zzqSAF")
-                //contentValues.put(MediaStore.Images.Media.RELATIVE_PATH, "Music/signImage");
-            } else {
-                contentValues.put(MediaStore.Images.Media.DATA,
-                        Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES).path)
-            }
-            //设置文件类型
-            contentValues.put(MediaStore.Images.Media.MIME_TYPE, "image/JPEG")
-            contentValues.put(MediaStore.Images.Media.DESCRIPTION, "created from zzqSAF")
-//                contentValues.put(MediaStore.Files.FileColumns.TITLE, publicFileName)
-            //执行insert操作，向系统文件夹中添加文件
-            //EXTERNAL_CONTENT_URI代表外部存储器，该值不变
-            val uri = context.contentResolver.insert(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, contentValues)
-            if (uri == null) {
-                null
-            } else {
-                try {
-                    Log.e("tetetetete", "insert image uri: ${uri.toString()}")
-                    //若生成了uri，则表示该文件添加成功。使用流将内容写入该uri中即可
-                    context.contentResolver.openOutputStream(uri)?.let { outputStream ->
-                        bitmap.compress(Bitmap.CompressFormat.JPEG, 90, outputStream)
-                        outputStream.flush()
-                        outputStream.close()
-                    }
-                    uri
-                } catch (e: Exception) {
-                    Log.e("tetetetete", "image insert exception ${e.message}")
-                    null
-                }
-            }
+        //设置保存参数到ContentValues中
+        val contentValues = ContentValues()
+        //设置文件名
+        contentValues.put(MediaStore.Images.Media.DISPLAY_NAME, fileName)
+        //兼容Android Q和以下版本
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
+            //android Q中不再使用DATA字段，而用RELATIVE_PATH代替
+            //RELATIVE_PATH是相对路径不是绝对路径
+            //DCIM是系统文件夹，关于系统文件夹可以到系统自带的文件管理器中查看，不可以写没存在的名字
+            contentValues.put(MediaStore.Images.Media.RELATIVE_PATH, Environment.DIRECTORY_DCIM + "/zzqSAF")
+            //contentValues.put(MediaStore.Images.Media.RELATIVE_PATH, "Music/signImage");
+        } else {
+            contentValues.put(MediaStore.Images.Media.DATA,
+                    Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES).path)
         }
-        return result
+        //设置文件类型
+        contentValues.put(MediaStore.Images.Media.MIME_TYPE, "image/JPEG")
+        contentValues.put(MediaStore.Images.Media.DESCRIPTION, "created from zzqSAF")
+//                contentValues.put(MediaStore.Files.FileColumns.TITLE, publicFileName)
+        //执行insert操作，向系统文件夹中添加文件
+        //EXTERNAL_CONTENT_URI代表外部存储器，该值不变
+        val uri = context.contentResolver.insert(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, contentValues)
+        if (uri == null) {
+            return@withContext null
+        } else {
+            Log.e("tetetetete", "insert image uri: ${uri.toString()}")
+            //若生成了uri，则表示该文件添加成功。使用流将内容写入该uri中即可
+            val outputStream = context.contentResolver.openOutputStream(uri)
+            if (outputStream != null) {
+                bitmap.compress(Bitmap.CompressFormat.JPEG, 100, outputStream)
+                outputStream.flush()
+                outputStream.close()
+            }
+            return@withContext uri
+        }
     }
 
     private suspend fun writeData(file: File, content: String): File {
-        withContext(Dispatchers.IO) {
+
             try {
                 //在原文件内容基础上增加新的内容，而不是直接覆盖原有内容
                 val writer = BufferedWriter(FileWriter(file, true))
@@ -140,7 +133,7 @@ object WriteUtil {
                 e.printStackTrace()
                 Log.e("tetetetete", "writeData IOException!! ${e.message}")
             }
-        }
+
         return file
     }
 

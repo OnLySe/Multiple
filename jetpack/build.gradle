@@ -51,14 +51,10 @@ dependencies {
     implementation "androidx.lifecycle:lifecycle-service:$versions.lifecycle"
     //lifecycle-extensions在2.2.0就被弃用，将使用lifecycle-process
     implementation "androidx.lifecycle:lifecycle-process:$versions.lifecycle"
-    implementation 'androidx.appcompat:appcompat:1.2.0'
     implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
-    implementation 'androidx.constraintlayout:constraintlayout:2.0.4'
 
     //viewpager2
     implementation "androidx.viewpager2:viewpager2:1.0.0"
-    implementation 'androidx.navigation:navigation-fragment-ktx:2.3.2'
-    implementation 'androidx.navigation:navigation-ui-ktx:2.3.2'
 
     implementation 'com.gyf.immersionbar:immersionbar:3.0.0'
     implementation 'com.gyf.immersionbar:immersionbar-components:3.0.0'

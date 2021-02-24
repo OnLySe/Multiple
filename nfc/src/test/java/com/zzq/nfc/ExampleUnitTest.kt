@@ -1,4 +1,4 @@
-package com.zzq.lifecycle
+package com.zzq.nfc
 
 import org.junit.Test
 

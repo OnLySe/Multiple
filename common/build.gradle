@@ -49,4 +49,9 @@ dependencies {
     // LiveData
     api deps.lifecycle.livedata_ktx
 
+    api deps.navigation.ui
+    api deps.navigation.ui_ktx
+    api deps.navigation.fragment
+    api deps.navigation.fragment_ktx
+
 }
