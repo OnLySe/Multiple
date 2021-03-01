@@ -2,7 +2,6 @@ package com.zzq.coroutine
 
 import android.os.Bundle
 import android.widget.TextView
-import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.*
 import com.zzq.common.utils.LogUtil.eLog
@@ -17,11 +16,14 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
         viewModel = ViewModelProvider(this).get(CoroutineViewModel::class.java)
         tvTitle = findViewById(R.id.tv_title)
-        val dialog = AlertDialog.Builder(this).setCancelable(false)
 
         val targetSdkVersion = applicationInfo.targetSdkVersion
         eLog(targetSdkVersion.toString())
-//        viewModel.getArticle()
+        firstHandCoroutineTest()
+    }
+
+    private fun firstHandCoroutineTest() {
+        //        viewModel.getArticle()
 
         viewModel.getArticle2().observe(this, Observer {
             eLog(it.toString())
@@ -38,19 +40,19 @@ class MainActivity : AppCompatActivity() {
         })
 
         //这行也是可以的，最为原始的方式
-//        viewModel.getArticle1()
+        //        viewModel.getArticle1()
 
-//        lifecycleScope.launch {
-//            //EmptyCoroutineContext默认不切换线程
-//            eLog("getData ${Thread.currentThread().name}")
-//            delay(2000)
-//            val article5 = viewModel.getArticle5()
-//            tvTitle.text = article5.toString()
-//        }
+        //        lifecycleScope.launch {
+        //            //EmptyCoroutineContext默认不切换线程
+        //            eLog("getData ${Thread.currentThread().name}")
+        //            delay(2000)
+        //            val article5 = viewModel.getArticle5()
+        //            tvTitle.text = article5.toString()
+        //        }
 
-//        testLiveData()
-//        test1()
-//        test2()
+        //        testLiveData()
+        //        test1()
+        //        test2()
 
         test3()
         test4()

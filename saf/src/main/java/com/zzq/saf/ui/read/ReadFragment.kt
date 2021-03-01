@@ -94,9 +94,7 @@ class ReadFragment : Fragment() {
         var resultUri = StringBuilder("uri.encodePath: ${uri.encodedPath}, \n\nuri.toString: ${uri.toString()}")
         // BEGIN_INCLUDE (dump_metadata)
 
-        // The query, since it only applies to a single document, will only return one row.
-        // no need to filter, sort, or select fields, since we want all fields for one
-        // document.
+        // 由于该查询仅适用于单个文档，因此将仅返回一行。 不需要过滤，排序或选择字段，因为我们希望一个文档的所有字段。
         val cursor = requireActivity().contentResolver
                 .query(uri, null, null, null, null, null)
         try {
