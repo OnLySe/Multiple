@@ -10,31 +10,38 @@ import kotlinx.coroutines.*
 class MainActivity : AppCompatActivity() {
 
     private lateinit var tvTitle: TextView
-    private lateinit var viewModel: CoroutineViewModel
+    private lateinit var firstViewModel: ExerciseViewModel
+    private lateinit var pictureViewModel: PictureViewModel
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-        viewModel = ViewModelProvider(this).get(CoroutineViewModel::class.java)
+        firstViewModel = ViewModelProvider(this).get(ExerciseViewModel::class.java)
+        pictureViewModel = ViewModelProvider(this).get(PictureViewModel::class.java)
         tvTitle = findViewById(R.id.tv_title)
 
         val targetSdkVersion = applicationInfo.targetSdkVersion
         eLog(targetSdkVersion.toString())
         firstHandCoroutineTest()
+        pictureViewModel()
+    }
+
+    private fun pictureViewModel() {
+
     }
 
     private fun firstHandCoroutineTest() {
         //        viewModel.getArticle()
 
-        viewModel.getArticle2().observe(this, Observer {
+        firstViewModel.getArticle2().observe(this, Observer {
             eLog(it.toString())
             tvTitle.text = it.toString()
         })
-        viewModel.getArticle3().observe(this, Observer {
+        firstViewModel.getArticle3().observe(this, Observer {
             eLog(it.toString())
             tvTitle.text = it.toString()
         })
 
-        viewModel.getArticle4().observe(this, Observer {
+        firstViewModel.getArticle4().observe(this, Observer {
             eLog(it.toString())
             tvTitle.text = it.toString()
         })

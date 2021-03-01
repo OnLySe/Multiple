@@ -7,7 +7,7 @@ import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
-class CoroutineViewModel : ViewModel() {
+class ExerciseViewModel : ViewModel() {
 
     private val wanApi = CoroutineApp.getWanApi()
 

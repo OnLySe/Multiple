@@ -1,18 +1,19 @@
 package com.zzq.net
 
-import com.zzq.net.url.Douban
+import com.google.gson.Gson
 import okhttp3.OkHttpClient
+import retrofit2.Converter
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import java.util.concurrent.TimeUnit
 
-object RetrofitManager {
+open class RetrofitClient {
 
     private val DEFAULT_TIME_OUT = 5
     private val DEFAULT_READ_TIME_OUT = 10;
-    private val baseUrl:String = ""
-    private lateinit var retrofit:Retrofit
-    private lateinit var douban :Douban
+    open var baseUrl: String = ""
+    protected val retrofit: Retrofit
+    private val gson = Gson()
 
     init {
         val okHttpClient = OkHttpClient.Builder()
@@ -30,8 +31,22 @@ object RetrofitManager {
         retrofit = Retrofit.Builder()
                 .client(okHttpClient)
                 .baseUrl(baseUrl)
-                .addConverterFactory(GsonConverterFactory.create())
+                .addConverterFactory(addConverterFactory())
                 .build()
-        douban = retrofit.create(Douban::class.java)
+    }
+
+    /**
+     * 默认使用[GsonConverterFactory]，可以替换为Moshi，只是它们不能同时使用。
+     */
+    protected open fun addConverterFactory(): Converter.Factory {
+        return GsonConverterFactory.create()
+    }
+
+    open fun <T> fromJson(jsonStr: String, clazz: Class<T>): T {
+        return gson.fromJson<T>(jsonStr, clazz)
+    }
+
+    open fun <T> toJson(src: T, clazz: Class<T>): String {
+        return gson.toJson(src)
     }
 }
