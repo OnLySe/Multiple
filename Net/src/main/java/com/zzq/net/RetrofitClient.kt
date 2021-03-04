@@ -12,10 +12,10 @@ open class RetrofitClient {
     private val DEFAULT_TIME_OUT = 5
     private val DEFAULT_READ_TIME_OUT = 10;
     open var baseUrl: String = ""
-    protected val retrofit: Retrofit
+    protected lateinit var retrofit: Retrofit
     private val gson = Gson()
 
-    init {
+    protected fun initRetrofit() {
         val okHttpClient = OkHttpClient.Builder()
                 .addInterceptor { chain ->
                     val request = chain.request().newBuilder()

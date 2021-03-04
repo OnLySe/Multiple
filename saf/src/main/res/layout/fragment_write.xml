@@ -16,6 +16,10 @@
         <variable
             name="writeClickListener3"
             type="android.view.View.OnClickListener" />
+
+        <variable
+            name="writeClickListener4"
+            type="android.view.View.OnClickListener" />
     </data>
 
     <androidx.core.widget.NestedScrollView
@@ -126,8 +130,8 @@
                 android:layout_marginTop="8dp"
                 android:layout_marginEnd="8dp"
                 android:gravity="center"
-                android:onClick="@{writeClickListener3}"
-                android:text="写入至公有目录"
+                android:onClick="@{writeClickListener4}"
+                android:text="写入至Document"
                 android:textSize="15sp" />
 
             <TextView
@@ -138,6 +142,7 @@
                 android:paddingStart="8dp"
                 android:paddingEnd="8dp"
                 android:text="为：" />
+
         </LinearLayout>
     </androidx.core.widget.NestedScrollView>
 

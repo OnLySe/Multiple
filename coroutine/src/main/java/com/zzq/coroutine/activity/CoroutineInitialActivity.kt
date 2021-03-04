@@ -1,65 +1,36 @@
-package com.zzq.coroutine
+package com.zzq.coroutine.activity
 
 import android.os.Bundle
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
-import androidx.lifecycle.*
+import androidx.lifecycle.MediatorLiveData
+import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.Observer
+import androidx.lifecycle.lifecycleScope
 import com.zzq.common.utils.LogUtil.eLog
+import com.zzq.coroutine.R
 import kotlinx.coroutines.*
 
-class MainActivity : AppCompatActivity() {
-
-    private lateinit var tvTitle: TextView
-    private lateinit var firstViewModel: ExerciseViewModel
-    private lateinit var pictureViewModel: PictureViewModel
+/**
+ * 学习协程的起步阶段-测试。
+ */
+class CoroutineInitialActivity : AppCompatActivity() {
+    private lateinit var tvInfo: TextView
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
-        firstViewModel = ViewModelProvider(this).get(ExerciseViewModel::class.java)
-        pictureViewModel = ViewModelProvider(this).get(PictureViewModel::class.java)
-        tvTitle = findViewById(R.id.tv_title)
+        setContentView(R.layout.activity_net_request)
+        tvInfo = findViewById(R.id.tv_info)
+        tvInfo.text = "看log"
 
         val targetSdkVersion = applicationInfo.targetSdkVersion
         eLog(targetSdkVersion.toString())
         firstHandCoroutineTest()
-        pictureViewModel()
-    }
-
-    private fun pictureViewModel() {
-
     }
 
     private fun firstHandCoroutineTest() {
-        //        viewModel.getArticle()
-
-        firstViewModel.getArticle2().observe(this, Observer {
-            eLog(it.toString())
-            tvTitle.text = it.toString()
-        })
-        firstViewModel.getArticle3().observe(this, Observer {
-            eLog(it.toString())
-            tvTitle.text = it.toString()
-        })
-
-        firstViewModel.getArticle4().observe(this, Observer {
-            eLog(it.toString())
-            tvTitle.text = it.toString()
-        })
-
-        //这行也是可以的，最为原始的方式
-        //        viewModel.getArticle1()
-
-        //        lifecycleScope.launch {
-        //            //EmptyCoroutineContext默认不切换线程
-        //            eLog("getData ${Thread.currentThread().name}")
-        //            delay(2000)
-        //            val article5 = viewModel.getArticle5()
-        //            tvTitle.text = article5.toString()
-        //        }
-
-        //        testLiveData()
-        //        test1()
-        //        test2()
+        testLiveData()
+        test1()
+        test2()
 
         test3()
         test4()

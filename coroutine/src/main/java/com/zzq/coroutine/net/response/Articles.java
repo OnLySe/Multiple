@@ -1,4 +1,4 @@
-package com.zzq.coroutine;
+package com.zzq.coroutine.net.response;
 
 import java.util.List;
 

@@ -73,6 +73,24 @@ object WriteUtil {
         writeData(outputStream, content)
     }
 
+    suspend fun documentWritePublicDirectory(context: Context, fileName: String, content: String): Uri? = withContext(Dispatchers.IO) {
+
+        val values = ContentValues()
+        values.put(MediaStore.MediaColumns.DISPLAY_NAME, fileName)
+        values.put(MediaStore.MediaColumns.RELATIVE_PATH, Environment.DIRECTORY_DOWNLOADS + "/zzqSAF")
+        val uri = context.contentResolver.insert(MediaStore.Downloads.EXTERNAL_CONTENT_URI, values)
+        if (uri != null) {
+            val outputStream = context.contentResolver.openOutputStream(uri)
+            if (outputStream != null) {
+                val bos = BufferedOutputStream(outputStream)
+                bos.write(content.toByteArray(), 0, content.length)
+                bos.flush()
+                bos.close()
+            }
+        }
+        return@withContext uri
+    }
+
     /**
      * 将图片写入到外部存储的公共目录下
      */
@@ -118,21 +136,21 @@ object WriteUtil {
 
     private suspend fun writeData(file: File, content: String): File {
 
-            try {
-                //在原文件内容基础上增加新的内容，而不是直接覆盖原有内容
-                val writer = BufferedWriter(FileWriter(file, true))
+        try {
+            //在原文件内容基础上增加新的内容，而不是直接覆盖原有内容
+            val writer = BufferedWriter(FileWriter(file, true))
 //                val writer = file.bufferedWriter()
-                writer.write(content)
-                writer.flush()
-                writer.close()
-                Log.e("tetetetete", "writeData File Path= " + file.absolutePath)
-            } catch (e: FileNotFoundException) {
-                e.printStackTrace()
-                Log.e("tetetetete", "writeData FileNotFoundException!! ${e.message}")
-            } catch (e: IOException) {
-                e.printStackTrace()
-                Log.e("tetetetete", "writeData IOException!! ${e.message}")
-            }
+            writer.write(content)
+            writer.flush()
+            writer.close()
+            Log.e("tetetetete", "writeData File Path= " + file.absolutePath)
+        } catch (e: FileNotFoundException) {
+            e.printStackTrace()
+            Log.e("tetetetete", "writeData FileNotFoundException!! ${e.message}")
+        } catch (e: IOException) {
+            e.printStackTrace()
+            Log.e("tetetetete", "writeData IOException!! ${e.message}")
+        }
 
         return file
     }

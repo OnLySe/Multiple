@@ -1,7 +1,9 @@
-package com.zzq.coroutine
+package com.zzq.coroutine.vm
 
 import androidx.lifecycle.*
 import com.zzq.common.utils.LogUtil.eLog
+import com.zzq.coroutine.net.NetManager
+import com.zzq.coroutine.net.response.Articles
 import kotlinx.coroutines.*
 import retrofit2.Call
 import retrofit2.Callback
@@ -9,7 +11,7 @@ import retrofit2.Response
 
 class ExerciseViewModel : ViewModel() {
 
-    private val wanApi = CoroutineApp.getWanApi()
+    private val wanApi = NetManager.wanApi
 
     private val exceptionHandler = CoroutineExceptionHandler { coroutineContext, throwable ->
         eLog("出现了个异常： ${Thread.currentThread().name} $throwable")

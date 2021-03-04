@@ -1,5 +1,6 @@
-package com.zzq.coroutine
+package com.zzq.coroutine.net
 
+import com.zzq.coroutine.net.response.Articles
 import kotlinx.coroutines.Deferred
 import retrofit2.Call
 import retrofit2.http.GET

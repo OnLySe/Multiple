@@ -12,6 +12,7 @@ import android.view.ViewGroup
 import android.widget.Button
 import android.widget.TextView
 import androidx.databinding.DataBindingUtil
+import androidx.documentfile.provider.DocumentFile
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
@@ -27,10 +28,10 @@ class ReadFragment : Fragment() {
 
     private lateinit var btnRead1: Button
     private lateinit var btnRead2: Button
-    private lateinit var tvReadInfo:TextView
+    private lateinit var tvReadInfo: TextView
 
-    private val CODE_1= 0x200
-    private val CODE_2= 0x300
+    private val CODE_1 = 0x200
+    private val CODE_2 = 0x300
 
     override fun onCreateView(
             inflater: LayoutInflater,
@@ -50,10 +51,12 @@ class ReadFragment : Fragment() {
             intent.type = "*/*"
             startActivityForResult(intent, CODE_1)
         }
-        dataBinding.read2Listener = View.OnClickListener { val intent = Intent(Intent.ACTION_OPEN_DOCUMENT)
+        dataBinding.read2Listener = View.OnClickListener {
+            val intent = Intent(Intent.ACTION_OPEN_DOCUMENT)
             // you can set type to filter files to show
             intent.type = "*/*"
-            startActivityForResult(intent, CODE_2) }
+            startActivityForResult(intent, CODE_2)
+        }
 
         printStorageInfo()
         return dataBinding.root
@@ -89,7 +92,7 @@ class ReadFragment : Fragment() {
      *
      * @param uri The uri for the document whose metadata should be printed.
      */
-    fun dumpImageMetaData(uri: Uri):String {
+    fun dumpImageMetaData(uri: Uri): String {
 
         var resultUri = StringBuilder("uri.encodePath: ${uri.encodedPath}, \n\nuri.toString: ${uri.toString()}")
         // BEGIN_INCLUDE (dump_metadata)
@@ -106,7 +109,16 @@ class ReadFragment : Fragment() {
                 val displayName = cursor.getString(
                         cursor.getColumnIndex(OpenableColumns.DISPLAY_NAME))
                 Log.i("ReadFragment", "Display Name: $displayName")
-                resultUri.append("\n\nDisplayName: $displayName")
+                resultUri.append("\n\nContentResolver DisplayName: $displayName")
+
+                val documentFile = DocumentFile.fromSingleUri(requireContext(), uri)
+                val documentName = if (documentFile == null) {
+                    "UnKnown"
+                } else {
+                    documentFile.name
+                }
+                resultUri.append("\n\nDocumentFile DisplayName: $documentName")
+                Log.i("ReadFragment", "DocumentFile: Display Name: $displayName")
 
                 val sizeIndex = cursor.getColumnIndex(OpenableColumns.SIZE)
                 // 如果大小未知，则存储的值为null。但是由于int在java中不能为null，因此行为是特定于实现的，
