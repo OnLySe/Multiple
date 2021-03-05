@@ -8,7 +8,7 @@ import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import retrofit2.awaitResponse
 
-class PictureViewModel : ViewModel() {
+class GankViewModel : ViewModel() {
 
     init {
         viewModelScope.launch {

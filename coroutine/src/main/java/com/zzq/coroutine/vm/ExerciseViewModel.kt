@@ -5,9 +5,6 @@ import com.zzq.common.utils.LogUtil.eLog
 import com.zzq.coroutine.net.NetManager
 import com.zzq.coroutine.net.response.Articles
 import kotlinx.coroutines.*
-import retrofit2.Call
-import retrofit2.Callback
-import retrofit2.Response
 
 class ExerciseViewModel : ViewModel() {
 
@@ -25,21 +22,7 @@ class ExerciseViewModel : ViewModel() {
         }
     }
 
-    fun getArticle1() {
-        wanApi.getArticles1().enqueue(object : Callback<Articles> {
-
-            override fun onResponse(call: Call<Articles>, response: Response<Articles>) {
-                eLog("getArticle1 onResponse")
-            }
-
-
-            override fun onFailure(call: Call<Articles>, t: Throwable) {
-                eLog("getArticle1 onFailure")
-            }
-        })
-    }
-
-    fun getArticle2(): LiveData<Articles> {
+    fun getArticle1(): LiveData<Articles> {
         return liveData {
             eLog("liveData: constructor: " + Thread.currentThread().name)
             val data = withContext(Dispatchers.IO + exceptionHandler) {
@@ -51,11 +34,11 @@ class ExerciseViewModel : ViewModel() {
 
     fun getArticle3(): LiveData<List<Articles.DataBean>> {
         //在build.gradle中增加配置：kotlinOptions {jvmTarget = "1.8"}
-        return getArticle2().switchMap { liveData { emit(it.data) } }
+        return getArticle1().switchMap { liveData { emit(it.data) } }
     }
 
     fun getArticle4(): LiveData<List<Articles.DataBean>> {
-        return getArticle2().map { it.data }
+        return getArticle1().map { it.data }
     }
 
     suspend fun getArticle5(): List<Articles.DataBean> {

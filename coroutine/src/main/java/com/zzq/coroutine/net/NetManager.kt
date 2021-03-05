@@ -6,21 +6,9 @@ import com.zzq.net.RetrofitClient
 
 object NetManager : RetrofitClient() {
 
-//    override var baseUrl = "https://gank.io/api/v2/"
-    override var baseUrl = "https://wanandroid.com/"
+    val gankApi: GankApi = addRetrofit("https://gank.io/api/v2/").create(GankApi::class.java)
+    val wanApi: WanApi = addRetrofit("https://wanandroid.com/").create(WanApi::class.java)
     private val moshi = Moshi.Builder().build()
-    val gankApi: GankApi
-    val wanApi: WanApi
-
-    init {
-        initRetrofit()
-        gankApi = retrofit.create(GankApi::class.java)
-        wanApi = retrofit.create(WanApi::class.java)
-    }
-
-//    override fun addConverterFactory(): Converter.Factory {
-//        return MoshiConverterFactory.create()
-//    }
 
     override fun <T> fromJson(jsonStr: String, clazz: Class<T>): T {
         return moshi.adapter<T>(clazz).fromJson(jsonStr)!!
