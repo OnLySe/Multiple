@@ -32,10 +32,13 @@ android {
 dependencies {
     api fileTree(dir: 'libs', include: ['*.jar'])
     api deps.androidx_view.constraintlayout
+    api deps.androidx_view.recyclerview
     testApi deps.test.junit
     androidTestApi deps.test.ext_junit
     androidTestApi deps.espresso.core
 
+    api deps.google.material
+    api deps.lifecycle.extension
     api deps.app_compat
     api deps.core_ktx
     api deps.kotlin.stdlib

@@ -35,27 +35,8 @@ android {
 dependencies {
 
     implementation fileTree(dir: "libs", include: ["*.jar"])
-    implementation deps.app_compat
     implementation project(path: ':common')
-    implementation project(path: ':Net')
-    testImplementation deps.test.junit
-    androidTestImplementation deps.test.ext_junit
-    androidTestImplementation deps.espresso.core
-    implementation project(path: ':common')
-
-    implementation deps.core_ktx
-    implementation deps.kotlin.stdlib
-
-    implementation deps.androidx_view.constraintlayout
-    implementation deps.google.material
-
-    implementation deps.lifecycle.runtime_ktx
-    // ViewModel
-    implementation deps.lifecycle.viewmodel_ktx
-    // LiveData
-    implementation deps.lifecycle.livedata_ktx
     //注解
     implementation deps.annotation
-
 
 }

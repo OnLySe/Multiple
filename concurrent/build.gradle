@@ -30,17 +30,5 @@ android {
 
 dependencies {
     implementation fileTree(dir: "libs", include: ["*.jar"])
-    testImplementation deps.test.junit
-    androidTestImplementation deps.test.ext_junit
-    androidTestImplementation deps.espresso.core
-    implementation deps.app_compat
-
-    implementation deps.core_ktx
-//    implementation deps.kotlin.stdlib
-    implementation deps.kotlin.stdlib_jdk7
-
-    implementation deps.app_compat
-    implementation deps.androidx_view.constraintlayout
-    implementation deps.google.material
     implementation project(path: ':common')
 }
