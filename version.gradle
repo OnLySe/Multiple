@@ -89,6 +89,7 @@ kotlin.stdlib_jdk7 = "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$versions.kotlin_v
 kotlin.stdlib_jdk8 = "org.jetbrains.kotlin:kotlin-stdlib-jdk8:$versions.kotlin_version"
 kotlin.test = "org.jetbrains.kotlin:kotlin-test-junit:$versions.kotlin_version"
 kotlin.plugin = "org.jetbrains.kotlin:kotlin-gradle-plugin:$versions.kotlin_version"
+kotlin.plugin_android_extension = "org.jetbrains.kotlin:kotlin-android-extensions:$versions.kotlin_version"
 deps.kotlin = kotlin
 
 def kotlin_coroutines = [:]
