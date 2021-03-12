@@ -1,3 +1,8 @@
+import com.zzq.buildsrc.Depend
+import com.zzq.buildsrc.Extension
+import com.zzq.buildsrc.KotlinCoroutines
+import com.zzq.buildsrc.Retrofit
+
 apply plugin: 'com.android.application'
 apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
@@ -43,29 +48,27 @@ dependencies {
     implementation project(path: ':common')
     implementation project(path: ':Net')
 
-    implementation deps.kotlin_coroutines.core
-    implementation deps.kotlin_coroutines.android
+    implementation KotlinCoroutines.core
+    implementation KotlinCoroutines.android
 
     // Saved state module for ViewModel
-    implementation deps.lifecycle.viewmodel_savedstate
+    implementation Extension.viewmodel_savedstate
     // alternately - if using Java8, use the following instead of lifecycle-compiler
-    implementation deps.lifecycle.common_java8
+    implementation Extension.common_java8
     // optional - helpers for implementing LifecycleOwner in a Service
-    implementation deps.lifecycle.service
+    implementation Extension.service
     // optional - ProcessLifecycleOwner provides a lifecycle for the whole application process
-    implementation deps.lifecycle.process
+    implementation Extension.process
     // optional - Test helpers for LiveData
 //    testImplementation "androidx.arch.core:core-testing:2.1.0"
 
-    implementation 'com.squareup.retrofit2:retrofit:2.9.0'
-    implementation 'com.squareup.retrofit2:converter-gson:2.9.0'
-    implementation 'com.squareup.okhttp3:okhttp:4.7.2'
+    implementation Retrofit.runtime
+    implementation Retrofit.gson
     //gson
-    implementation 'com.google.code.gson:gson:2.8.6'
+    implementation Depend.gson
 
     implementation "com.squareup.moshi:moshi:1.11.0"
-    implementation "com.squareup.retrofit2:converter-moshi:2.4.0"
+    implementation Retrofit.moshi
 
-    testImplementation 'org.junit.jupiter:junit-jupiter'
     testImplementation 'org.junit.jupiter:junit-jupiter'
 }

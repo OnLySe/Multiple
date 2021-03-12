@@ -1,3 +1,7 @@
+import com.zzq.buildsrc.Extension
+import com.zzq.buildsrc.Kotlin
+import com.zzq.buildsrc.Room
+
 apply plugin: 'com.android.application'
 apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
@@ -45,12 +49,12 @@ dependencies {
     implementation project(path: ':common')
 
     // alternately - if using Java8, use the following instead of lifecycle-compiler
-    implementation deps.lifecycle.common_java8
+    implementation Extension.common_java8
     // optional - helpers for implementing LifecycleOwner in a Service
-    implementation "androidx.lifecycle:lifecycle-service:$versions.lifecycle"
+    implementation Extension.service
     //lifecycle-extensions在2.2.0就被弃用，将使用lifecycle-process
-    implementation "androidx.lifecycle:lifecycle-process:$versions.lifecycle"
-    implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
+    implementation Extension.process
+    implementation Kotlin.stdlib
 
     //viewpager2
     implementation "androidx.viewpager2:viewpager2:1.0.0"
@@ -59,8 +63,8 @@ dependencies {
     implementation 'com.gyf.immersionbar:immersionbar-components:3.0.0'
 
     //Room
-    kapt deps.room.compiler
-    implementation deps.room.runtime
-    implementation deps.room.ktx
-    implementation deps.room.testing
+    kapt Room.compiler
+    implementation Room.runtime
+    implementation Room.ktx
+    implementation Room.testing
 }
