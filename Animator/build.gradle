@@ -62,15 +62,61 @@ android {
         }
     }
 
+    signingConfigs {
+        release {
+            def releaseKeyFile = file('../keyStore/release.properties')
+            if (releaseKeyFile.canRead()) {
+                Properties props = new Properties()
+                props.load(new FileInputStream(releaseKeyFile))
+                if (props != null && props.containsKey('STORE_FILE') && props.containsKey('STORE_PASSWORD') &&
+                        props.containsKey('KEY_ALIAS') && props.containsKey('KEY_PASSWORD')) {
+                    storeFile = file(props['STORE_FILE'])
+                    storePassword = props['STORE_PASSWORD']
+                    keyAlias = props['KEY_ALIAS']
+                    keyPassword = props['KEY_PASSWORD']
+                } else {
+                    println 'signing.properties found but some entries are missing'
+                    android.buildTypes.release.signingConfig = null
+                }
+            } else {
+                println 'signing.properties not found'
+                android.buildTypes.release.signingConfig = null
+            }
+        }
+
+        debug {
+            def debugKeyFile = file('../keyStore/debug.properties')
+            if (debugKeyFile.canRead()) {
+                Properties props = new Properties()
+                props.load(new FileInputStream(debugKeyFile))
+                if (props != null && props.containsKey('STORE_FILE') && props.containsKey('STORE_PASSWORD') &&
+                        props.containsKey('KEY_ALIAS') && props.containsKey('KEY_PASSWORD')) {
+                    storeFile = file(props['STORE_FILE'])
+                    storePassword = props['STORE_PASSWORD']
+                    keyAlias = props['KEY_ALIAS']
+                    keyPassword = props['KEY_PASSWORD']
+                } else {
+                    println 'signing.properties found but some entries are missing'
+                    android.buildTypes.debug.signingConfig = null
+                }
+            } else {
+                println 'signing.properties not found'
+                android.buildTypes.debug.signingConfig = null
+            }
+        }
+    }
+
     buildTypes {
         release {
             minifyEnabled false
+            signingConfig  signingConfigs.release
             buildConfigField "boolean", "isDebug", "false"
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
 
         debug {
             minifyEnabled false
+            signingConfig  signingConfigs.debug
             buildConfigField "boolean", "isDebug", "true"
         }
     }
@@ -111,21 +157,6 @@ android {
 
 dependencies {
     implementation fileTree(dir: "libs", include: ["*.jar"])
-    testImplementation deps.test.junit
-    androidTestImplementation deps.test.ext_junit
-    androidTestImplementation deps.espresso.core
     implementation project(path: ':common')
-
-    implementation deps.kotlin.stdlib
-    implementation deps.core_ktx
-    implementation deps.app_compat
-    implementation deps.androidx_view.constraintlayout
-
-    implementation deps.google.material
-    implementation deps.navigation.fragment
-    implementation deps.navigation.ui
-    implementation deps.navigation.fragment_ktx
-    implementation deps.navigation.ui_ktx
-    implementation deps.lifecycle.extension
 
 }

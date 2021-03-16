@@ -4,7 +4,7 @@ ext.deps = [:]
 def versions = [:]
 versions.activity = '1.1.0'
 versions.android_gradle_plugin = '4.1.2'
-versions.annotations = "1.0.0"
+versions.annotations = '1.1.0'
 versions.apache_commons = "2.5"
 versions.appcompat = "1.2.0"
 versions.arch_core = "2.1.0"
@@ -13,7 +13,7 @@ versions.test_core = "1.2.0"
 versions.test_junit_ext = "1.1.2"
 versions.test_rules = "1.2.0"
 versions.test_runner = "1.2.0"
-versions.test_junit = '4.13.1'
+versions.test_junit = '4.13.2'
 
 versions.benchmark = "1.1.0-alpha01"
 versions.cardview = "1.0.0"
@@ -51,7 +51,7 @@ versions.transition = "1.3.0"
 versions.truth = "1.0.1"
 versions.work = "2.2.0"
 
-versions.kotlin_version = '1.4.30'
+versions.kotlin_version = '1.4.31'
 versions.kotlin_coroutines = '1.3.7'
 
 ext.versions = versions
@@ -89,6 +89,7 @@ kotlin.stdlib_jdk7 = "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$versions.kotlin_v
 kotlin.stdlib_jdk8 = "org.jetbrains.kotlin:kotlin-stdlib-jdk8:$versions.kotlin_version"
 kotlin.test = "org.jetbrains.kotlin:kotlin-test-junit:$versions.kotlin_version"
 kotlin.plugin = "org.jetbrains.kotlin:kotlin-gradle-plugin:$versions.kotlin_version"
+kotlin.plugin_android_extension = "org.jetbrains.kotlin:kotlin-android-extensions:$versions.kotlin_version"
 deps.kotlin = kotlin
 
 def kotlin_coroutines = [:]

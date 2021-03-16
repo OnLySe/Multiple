@@ -16,6 +16,10 @@
         <variable
             name="writeClickListener3"
             type="android.view.View.OnClickListener" />
+
+        <variable
+            name="writeClickListener4"
+            type="android.view.View.OnClickListener" />
     </data>
 
     <androidx.core.widget.NestedScrollView
@@ -112,6 +116,33 @@
                 android:paddingStart="8dp"
                 android:paddingEnd="8dp"
                 android:text="为：" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@color/colorPrimary" />
+
+            <Button
+                android:id="@+id/btn_write_4"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="8dp"
+                android:gravity="center"
+                android:onClick="@{writeClickListener4}"
+                android:text="写入至Document"
+                android:textSize="15sp" />
+
+            <TextView
+                android:id="@+id/tv_info_4"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="5dp"
+                android:paddingStart="8dp"
+                android:paddingEnd="8dp"
+                android:text="为：" />
+
         </LinearLayout>
     </androidx.core.widget.NestedScrollView>
 

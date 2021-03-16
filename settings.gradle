@@ -1,6 +1,7 @@
+//include ':buildSrc'
+include ':nfc'
 include ':jetpack'
 include ':concurrent'
-include ':Lifecycle'
 include ':Bitmap'
 include ':Net'
 include ':common'

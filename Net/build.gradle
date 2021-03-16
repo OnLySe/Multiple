@@ -1,3 +1,11 @@
+import com.zzq.buildsrc.Androidx
+import com.zzq.buildsrc.Depend
+import com.zzq.buildsrc.DependTest
+import com.zzq.buildsrc.Espresso
+import com.zzq.buildsrc.Kotlin
+import com.zzq.buildsrc.Ktx
+import com.zzq.buildsrc.Retrofit
+
 plugins {
     id 'com.android.library'
     id 'kotlin-android'
@@ -34,19 +42,20 @@ android {
 
 dependencies {
     implementation fileTree(dir: "libs", include: ["*.jar"])
-    testImplementation deps.test.junit
-    androidTestImplementation deps.test.ext_junit
-    androidTestImplementation deps.espresso.core
-    implementation deps.app_compat
+    testImplementation DependTest.junit
+    androidTestImplementation DependTest.ext_junit
+    androidTestImplementation Espresso.core
 
-    implementation deps.core_ktx
-    implementation deps.kotlin.stdlib
+    implementation Androidx.app_compat
+    implementation Ktx.core_ktx
+    implementation Kotlin.stdlib
+    implementation Kotlin.stdlib_jdk8
 
-    implementation deps.retrofit.runtime
-    implementation deps.retrofit.gson
-    implementation deps.retrofit.rxjava
-    implementation deps.google.gson
+    implementation Retrofit.runtime
+    implementation Retrofit.gson
+    implementation Retrofit.rxjava
+    implementation Depend.gson
 
-    implementation deps.androidx_view.constraintlayout
+    implementation Androidx.constraintlayout
     implementation project(path: ':common')
 }

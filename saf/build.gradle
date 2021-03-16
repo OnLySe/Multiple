@@ -1,17 +1,23 @@
+import com.zzq.buildsrc.Androidx
+import com.zzq.buildsrc.DependTest
+import com.zzq.buildsrc.Espresso
+import com.zzq.buildsrc.Extension
+import com.zzq.buildsrc.KotlinCoroutines
+
 apply plugin: 'com.android.application'
 apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
 
 android {
-    compileSdkVersion 29
-    buildToolsVersion "29.0.3"
+    compileSdkVersion 30
+    buildToolsVersion "30.0.0"
 
     defaultConfig {
         applicationId "com.zzq.saf"
         minSdkVersion 23
-        targetSdkVersion 29
+        targetSdkVersion 30
         versionCode 1
-        versionName "1.0"
+        versionName "2.0"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
@@ -38,29 +44,17 @@ android {
 
 dependencies {
     implementation fileTree(dir: "libs", include: ["*.jar"])
-    implementation deps.kotlin.stdlib
-    implementation deps.core_ktx
-    implementation deps.kotlin_coroutines.core
-    implementation deps.kotlin_coroutines.android
+    implementation KotlinCoroutines.core
+    implementation KotlinCoroutines.android
 
-    implementation deps.lifecycle.runtime
-    implementation deps.lifecycle.viewmodel_ktx
-    implementation deps.lifecycle.livedata_ktx
+    implementation Extension.runtime
+    implementation Extension.viewmodel_ktx
+    implementation Extension.livedata_ktx
 
-    implementation deps.app_compat
-    implementation deps.androidx_view.constraintlayout
+    testImplementation DependTest.junit
+    androidTestImplementation DependTest.ext_junit
+    androidTestImplementation Espresso.core
 
-    implementation deps.navigation.fragment
-    implementation deps.navigation.ui
-    implementation deps.navigation.fragment_ktx
-    implementation deps.navigation.ui_ktx
-    testImplementation deps.test.junit
-    androidTestImplementation deps.test.ext_junit
-    androidTestImplementation deps.espresso.core
     implementation project(path: ':common')
-    implementation deps.google.material
-    // ViewModel and LiveData
-    implementation deps.lifecycle.extension
-
-    implementation deps.documentFile
+    implementation Androidx.documentFile
 }
