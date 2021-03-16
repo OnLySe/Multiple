@@ -1,14 +1,16 @@
+import com.zzq.buildsrc.*
+
 apply plugin: 'com.android.library'
 apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
 
 android {
-    compileSdkVersion 30
-    buildToolsVersion "30.0.2"
+    compileSdkVersion BuildVersions.compileSdkVersion
+    buildToolsVersion BuildVersions.buildToolsVersion
 
     defaultConfig {
-        minSdkVersion 18
-        targetSdkVersion 30
+        minSdkVersion BuildVersions.minSdkVersion
+        targetSdkVersion BuildVersions.targetSdkVersion
         versionCode 1
         versionName "1.0"
 
@@ -21,27 +23,42 @@ android {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
+
+        debug {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
     }
 }
 
 dependencies {
     api fileTree(dir: 'libs', include: ['*.jar'])
-    api deps.androidx_view.constraintlayout
-    testApi deps.test.junit
-    androidTestApi deps.test.ext_junit
-    androidTestApi deps.espresso.core
+    api Androidx.constraintlayout
+    api Androidx.recyclerview
+    testApi DependTest.junit
+    androidTestApi DependTest.ext_junit
+    androidTestApi Espresso.core
 
-    api deps.app_compat
-    api deps.core_ktx
-    api deps.kotlin.stdlib
-    api deps.kotlin.stdlib_jdk8
+    api Androidx.material
+    api Extension.lifecycle
+    api Androidx.app_compat
+    api Ktx.core_ktx
+    api Kotlin.stdlib
+    api Kotlin.stdlib_jdk8
 
-    api deps.google.material
+    api Androidx.material
 
-    api deps.lifecycle.runtime_ktx
+    api Extension.runtime_ktx
     // ViewModel
-    api deps.lifecycle.viewmodel_ktx
+    api Extension.viewmodel_ktx
     // LiveData
-    api deps.lifecycle.livedata_ktx
+    api Extension.livedata_ktx
+
+    api Navigation.ui
+    api Navigation.ui_ktx
+    api Navigation.fragment
+    api Navigation.fragment_ktx
+
+
 
 }

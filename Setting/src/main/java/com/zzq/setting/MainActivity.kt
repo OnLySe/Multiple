@@ -35,17 +35,38 @@ class MainActivity : AppCompatActivity() {
 
         binding.clickListener2 = object : OnClickListener {
             override fun onClick(v: View?) {
-                val packageURI: Uri = Uri.parse("package:" + "com.tencent.wework")
-                val intent = Intent(Settings.ACTION_APPLICATION_DETAILS_SETTINGS, packageURI)
-                startActivity(intent)
+                //企业微信
+                goToSpecifyAppSetting("com.tencent.wework")
             }
-
         }
 
-        wifiFunction()
+        binding.clickListener3 = object : OnClickListener {
+            override fun onClick(v: View?) {
+                //淘宝
+                goToSpecifyAppSetting("com.taobao.taobao")
+            }
+        }
+
+        binding.clickListener4 = object : OnClickListener {
+            override fun onClick(v: View?) {
+                //美团
+                goToSpecifyAppSetting("com.sankuai.meituan")
+            }
+        }
+
+//        wifiFunction()
 
     }
 
+    private fun goToSpecifyAppSetting(appPackage: String) {
+        val packageURI: Uri = Uri.parse("package:$appPackage")
+        val intent = Intent(Settings.ACTION_APPLICATION_DETAILS_SETTINGS, packageURI)
+        startActivity(intent)
+    }
+
+    /**
+     * wifi扫描需要位置权限
+     */
     private fun wifiFunction() {
         wifiManager = applicationContext.getSystemService(Context.WIFI_SERVICE) as WifiManager
         if (!wifiManager.isWifiEnabled) {

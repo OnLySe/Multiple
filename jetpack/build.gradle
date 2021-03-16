@@ -1,7 +1,11 @@
-plugins {
-    id 'com.android.application'
-    id 'kotlin-android'
-}
+import com.zzq.buildsrc.Extension
+import com.zzq.buildsrc.Kotlin
+import com.zzq.buildsrc.Room
+
+apply plugin: 'com.android.application'
+apply plugin: 'kotlin-android'
+apply plugin: 'kotlin-android-extensions'
+apply plugin: 'kotlin-kapt'
 
 android {
     compileSdkVersion 30
@@ -32,28 +36,35 @@ android {
     kotlinOptions {
         jvmTarget = '1.8'
     }
+
+    buildFeatures{
+        viewBinding = true
+        //不需要databinding！！未来该库可能会被移除！
+//        dataBinding = true
+    }
 }
 
 dependencies {
-
-    implementation deps.google.material
+    implementation fileTree(dir: "libs", include: ["*.jar"])
     implementation project(path: ':common')
 
     // alternately - if using Java8, use the following instead of lifecycle-compiler
-    implementation deps.lifecycle.common_java8
+    implementation Extension.common_java8
     // optional - helpers for implementing LifecycleOwner in a Service
-    implementation "androidx.lifecycle:lifecycle-service:$versions.lifecycle"
+    implementation Extension.service
     //lifecycle-extensions在2.2.0就被弃用，将使用lifecycle-process
-    implementation "androidx.lifecycle:lifecycle-process:$versions.lifecycle"
-    implementation 'androidx.appcompat:appcompat:1.2.0'
-    implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
-    implementation 'androidx.constraintlayout:constraintlayout:2.0.4'
+    implementation Extension.process
+    implementation Kotlin.stdlib
 
     //viewpager2
     implementation "androidx.viewpager2:viewpager2:1.0.0"
-    implementation 'androidx.navigation:navigation-fragment-ktx:2.3.2'
-    implementation 'androidx.navigation:navigation-ui-ktx:2.3.2'
 
     implementation 'com.gyf.immersionbar:immersionbar:3.0.0'
     implementation 'com.gyf.immersionbar:immersionbar-components:3.0.0'
+
+    //Room
+    kapt Room.compiler
+    implementation Room.runtime
+    implementation Room.ktx
+    implementation Room.testing
 }

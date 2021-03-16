@@ -27,8 +27,8 @@ public class LogPrintIntercepter implements Interceptor {
         Charset charset = Charset.forName("UTF-8");
 
         String bodyString = buffer.clone().readString(charset);
-        Log.e("esl_network", request.url().url().toString());
-        Log.e("esl_network", bodyString);
+        Log.e("zzqNet", request.url().url().toString());
+        Log.e("zzqNet", bodyString);
         return response;
     }
 }

@@ -3,7 +3,7 @@ package com.zzq.jetpack.view.activity
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import com.zzq.jetpack.R
-import com.zzq.jetpack.module.LifeCycleModel
+import com.zzq.jetpack.lifecycle.LifeCycleModel
 
 class TestLifecycleActivity : AppCompatActivity() {
 

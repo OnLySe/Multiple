@@ -6,13 +6,14 @@ import android.view.ViewGroup
 import android.widget.Button
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
-import com.zzq.jetpack.Config
+import com.zzq.jetpack.app.Config
 import com.zzq.jetpack.R
+import com.zzq.jetpack.base.MainViewHolder
 import com.zzq.jetpack.bean.ClickFunction
 
-class FunctionsAdapter(private val data: List<ClickFunction>) : RecyclerView.Adapter<BaseViewHolder>() {
+class FunctionsAdapter(private val data: List<ClickFunction>) : RecyclerView.Adapter<MainViewHolder>() {
 
-    class FunctionViewHolder(itemView: View) : BaseViewHolder(itemView) {
+    class FunctionViewHolder(itemView: View) : MainViewHolder(itemView) {
         val btn = itemView.findViewById<Button>(R.id.btn_function)
         override fun bindData(itemData: ClickFunction) {
             btn.text = itemData.title
@@ -20,7 +21,7 @@ class FunctionsAdapter(private val data: List<ClickFunction>) : RecyclerView.Ada
         }
     }
 
-    class TitleHolder(itemView: View) : BaseViewHolder(itemView) {
+    class TitleHolder(itemView: View) : MainViewHolder(itemView) {
         val tvTitle = itemView.findViewById<TextView>(R.id.tv_title)
         override fun bindData(itemData: ClickFunction) {
             tvTitle.text = itemData.title
@@ -32,7 +33,7 @@ class FunctionsAdapter(private val data: List<ClickFunction>) : RecyclerView.Ada
         return data[position].type
     }
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): BaseViewHolder {
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MainViewHolder {
         return if (viewType == Config.TYPE_TITLE) {
             TitleHolder(LayoutInflater.from(parent.context).inflate(R.layout.item_title, parent, false))
         } else if (viewType == Config.TYPE_FIRST) {
@@ -47,7 +48,7 @@ class FunctionsAdapter(private val data: List<ClickFunction>) : RecyclerView.Ada
         }
     }
 
-    override fun onBindViewHolder(holder: BaseViewHolder, position: Int) {
+    override fun onBindViewHolder(holder: MainViewHolder, position: Int) {
         holder.bindData(data[holder.adapterPosition])
     }
 
