@@ -1,5 +1,7 @@
+import com.zzq.buildsrc.DataStore
 import com.zzq.buildsrc.Depend
 import com.zzq.buildsrc.Extension
+import com.zzq.buildsrc.Hilt
 import com.zzq.buildsrc.KotlinCoroutines
 import com.zzq.buildsrc.Retrofit
 
@@ -7,6 +9,7 @@ apply plugin: 'com.android.application'
 apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
 apply plugin: 'kotlin-kapt'
+apply plugin: 'dagger.hilt.android.plugin'
 
 android {
     compileSdkVersion 29
@@ -71,4 +74,10 @@ dependencies {
     implementation Retrofit.moshi
 
     testImplementation 'org.junit.jupiter:junit-jupiter'
+    
+    implementation DataStore.preferencesDataStore
+    implementation DataStore.preferencesDataStoreRxJava3
+
+    implementation Hilt.runTime
+    kapt Hilt.kapt
 }

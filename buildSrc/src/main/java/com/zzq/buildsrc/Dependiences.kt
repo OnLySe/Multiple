@@ -71,7 +71,7 @@ object Work {
     const val runtime_ktx = "androidx.work:work-runtime-ktx:${Versions.work}"
 }
 
-object Navigation{
+object Navigation {
     const val runtime = "androidx.navigation:navigation-runtime:${Versions.navigation}"
     const val runtime_ktx = "androidx.navigation:navigation-runtime-ktx:${Versions.navigation}"
     const val fragment = "androidx.navigation:navigation-fragment:${Versions.navigation}"
@@ -82,23 +82,57 @@ object Navigation{
     const val safe_args_plugin = "androidx.navigation:navigation-safe-args-gradle-plugin:${Versions.navigation}"
 }
 
+object DataStore {
+    //偏好设置DataStore
+    const val preferencesDataStore = "androidx.datastore:datastore-preferences:${Versions.dataStore}"
+
+    // optional - RxJava2 support
+    const val preferencesDataStoreRxJava2 = "androidx.datastore:datastore-preferences-rxjava2:${Versions.dataStore}"
+
+    // optional - RxJava3 support
+    const val preferencesDataStoreRxJava3 = "androidx.datastore:datastore-preferences-rxjava3:${Versions.dataStore}"
+
+
+    //类型存储----------------------------------------------------------------------------------
+    const val typeDataStore = "androidx.datastore:datastore:${Versions.dataStore}"
+
+    // optional - RxJava2 support
+    const val typeDataStoreRxJava2 = "androidx.datastore:datastore-rxjava2:${Versions.dataStore}"
+
+    // optional - RxJava3 support
+    const val typeDataStoreRxJava3 = "androidx.datastore:datastore-rxjava3:${Versions.dataStore}"
+}
+
+object Hilt {
+    const val classPath = "com.google.dagger:hilt-android-gradle-plugin:${Versions.hilt}"
+    const val runTime =  "com.google.dagger:hilt-android:${Versions.hilt}"
+    const val kapt =  "com.google.dagger:hilt-android-compiler:${Versions.hilt}"
+}
+
 object Extension {
     const val lifecycle = "androidx.lifecycle:lifecycle-extensions:${Versions.lifecycle}"
     const val runtime = "androidx.lifecycle:lifecycle-runtime:${Versions.lifecycle}"
     const val runtime_ktx = "androidx.lifecycle:lifecycle-runtime-ktx:${Versions.lifecycle}"
+
     //ViewModel
     const val viewmodel_ktx = "androidx.lifecycle:lifecycle-viewmodel-ktx:${Versions.lifecycle}"
+
     //LiveData
     const val livedata_ktx = "androidx.lifecycle:lifecycle-livedata-ktx:${Versions.lifecycle}"
+
     //Saved state module for ViewModel
     const val viewmodel_savedstate = "androidx.lifecycle:lifecycle-viewmodel-savedstate:${Versions.lifecycle}"
+
     //alternately - if using Java8, use the following instead of lifecycle-compiler
     const val common_java8 = "androidx.lifecycle:lifecycle-common-java8:${Versions.lifecycle}"
+
     //optional - helpers for implementing LifecycleOwner in a Service
     const val service = "androidx.lifecycle:lifecycle-service:${Versions.lifecycle}"
+
     //optional - ProcessLifecycleOwner provides a lifecycle for the whole application process
     //lifecycle-extensions在2.2.0就被弃用，将使用lifecycle-process
     const val process = "androidx.lifecycle:lifecycle-process:${Versions.lifecycle}"
+
     //optional - Test helpers for LiveData
     const val core_testing = "androidx.arch.core:core-testing:${Versions.arch_core}"
 }

@@ -37,6 +37,8 @@ object Versions {
     const val mockito_android = "2.25.0"
     const val mockwebserver = "3.8.1"
     const val navigation = "2.3.1"
+    const val dataStore = "1.0.0-alpha06"
+    const val hilt = "2.28-alpha"
     const val okhttp_logging_interceptor = "3.9.0"
     const val paging = "3.0.0-alpha05"
     const val recyclerview = "1.2.0-alpha06"
@@ -52,5 +54,5 @@ object Versions {
     const val work = "2.2.0"
 
     const val kotlin_version = "1.4.31"
-    const val kotlin_coroutines = "1.3.7"
+    const val kotlin_coroutines = "1.4.2"
 }
