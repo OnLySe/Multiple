@@ -1,7 +1,0 @@
-<resources>
-    <string name="app_name">SAF</string>
-    <string name="title_activity_main2">MainActivity</string>
-    <string name="title_home">读</string>
-    <string name="title_dashboard">写</string>
-    <string name="title_notifications">其他</string>
-</resources>
