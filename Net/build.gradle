@@ -56,6 +56,5 @@ dependencies {
     implementation Retrofit.rxjava
     implementation Depend.gson
 
-    implementation Androidx.constraintlayout
     implementation project(path: ':common')
 }

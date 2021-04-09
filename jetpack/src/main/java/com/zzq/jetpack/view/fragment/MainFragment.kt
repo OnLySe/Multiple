@@ -36,6 +36,9 @@ class MainFragment : BaseFragment() {
         list.add(ClickFunction("startService", { requireContext().startService(serviceIntent) }, Config.TYPE_SECOND))
         list.add(ClickFunction("stopService", { requireContext().stopService(serviceIntent) }, Config.TYPE_SECOND))
 
+        list.add(ClickFunction("LiveData", {}, Config.TYPE_TITLE))
+        list.add(ClickFunction("LiveData initial", { navigate(R.id.action_mainFragment_to_liveDataMainFragment) }, Config.TYPE_FIRST))
+
         list.add(ClickFunction("ViewPager2", {}, Config.TYPE_TITLE))
 
         list.add(ClickFunction("Navigation", {}, Config.TYPE_TITLE))

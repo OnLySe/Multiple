@@ -151,6 +151,7 @@ androidx_view.swiperefreshlayout = "androidx.swiperefreshlayout:swiperefreshlayo
 deps.androidx_view = androidx_view
 
 def lifecycle = [:]
+//extension已经弃用！
 lifecycle.extension = "androidx.lifecycle:lifecycle-extensions:$versions.lifecycle"
 lifecycle.runtime = "androidx.lifecycle:lifecycle-runtime:$versions.lifecycle"
 lifecycle.runtime_ktx = "androidx.lifecycle:lifecycle-runtime-ktx:$versions.lifecycle"

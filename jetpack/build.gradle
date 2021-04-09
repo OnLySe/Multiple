@@ -1,5 +1,7 @@
+import com.zzq.buildsrc.DataStore
 import com.zzq.buildsrc.Extension
 import com.zzq.buildsrc.Kotlin
+import com.zzq.buildsrc.KotlinCoroutines
 import com.zzq.buildsrc.Room
 
 apply plugin: 'com.android.application'
@@ -59,6 +61,8 @@ dependencies {
     //viewpager2
     implementation "androidx.viewpager2:viewpager2:1.0.0"
 
+    implementation DataStore.preferencesDataStore
+
     implementation 'com.gyf.immersionbar:immersionbar:3.0.0'
     implementation 'com.gyf.immersionbar:immersionbar-components:3.0.0'
 
@@ -67,4 +71,12 @@ dependencies {
     implementation Room.runtime
     implementation Room.ktx
     implementation Room.testing
+
+    implementation KotlinCoroutines.core
+    implementation KotlinCoroutines.android
+    api Extension.runtime_ktx
+    // ViewModel
+    api Extension.viewmodel_ktx
+    // LiveData
+    api Extension.livedata_ktx
 }

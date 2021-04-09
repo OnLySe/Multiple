@@ -22,6 +22,9 @@
         <action
             android:id="@+id/action_mainFragment_to_roomMainFragment"
             app:destination="@id/roomMainFragment" />
+        <action
+            android:id="@+id/action_mainFragment_to_liveDataMainFragment"
+            app:destination="@id/liveDataMainFragment" />
     </fragment>
     <fragment
         android:id="@+id/homeFragment"
@@ -46,6 +49,11 @@
         android:name="com.zzq.jetpack.room.RoomMainFragment"
         android:label="RoomMainFragment"
         tools:layout="@layout/fragment_room_main" />
+    <fragment
+        android:id="@+id/liveDataMainFragment"
+        android:name="com.zzq.jetpack.livedata.LiveDataMainFragment"
+        tools:layout="@layout/fragment_livedata_initial"
+        android:label="LiveDataMainFragment" />
 
 
 </navigation>

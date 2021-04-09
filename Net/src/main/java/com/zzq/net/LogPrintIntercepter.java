@@ -23,7 +23,7 @@ public class LogPrintIntercepter implements Interceptor {
         ResponseBody responseBody = response.body();
         BufferedSource source = responseBody.source();
         source.request(Long.MAX_VALUE); // Buffer the entire body.
-        Buffer buffer = source.buffer();
+        Buffer buffer = source.getBuffer();
         Charset charset = Charset.forName("UTF-8");
 
         String bodyString = buffer.clone().readString(charset);
