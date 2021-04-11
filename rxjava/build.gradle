@@ -1,16 +1,18 @@
+import com.zzq.buildsrc.BuildVersions
+
 apply plugin: 'com.android.application'
 apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
 apply plugin: 'kotlin-kapt'
 
 android {
-    compileSdkVersion 30
-    buildToolsVersion "30.0.1"
+    compileSdkVersion BuildVersions.compileSdkVersion
+    buildToolsVersion BuildVersions.buildToolsVersion
 
     defaultConfig {
         applicationId "com.zzq.rxjava3"
         minSdkVersion 21
-        targetSdkVersion 30
+        targetSdkVersion BuildVersions.targetSdkVersion
         versionCode 1
         versionName "1.0.0"
 

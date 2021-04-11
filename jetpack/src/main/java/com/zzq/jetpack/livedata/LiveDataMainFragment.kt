@@ -50,6 +50,10 @@ class LiveDataMainFragment : BaseFragment(), View.OnClickListener {
             textLiveData.observe(this@LiveDataMainFragment, {
                 addListData("2号收到$it!")
             })
+            delay(100)
+            textLiveData.observeForever {
+                addListData("forever 收到$it")
+            }
         }
     }
 

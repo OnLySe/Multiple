@@ -1,3 +1,4 @@
+import com.zzq.buildsrc.BuildVersions
 import com.zzq.buildsrc.DataStore
 import com.zzq.buildsrc.Extension
 import com.zzq.buildsrc.Kotlin
@@ -10,13 +11,13 @@ apply plugin: 'kotlin-android-extensions'
 apply plugin: 'kotlin-kapt'
 
 android {
-    compileSdkVersion 30
-    buildToolsVersion "30.0.3"
+    compileSdkVersion BuildVersions.compileSdkVersion
+    buildToolsVersion BuildVersions.buildToolsVersion
 
     defaultConfig {
         applicationId "com.zzq.jetpack"
         minSdkVersion 23
-        targetSdkVersion 30
+        targetSdkVersion BuildVersions.targetSdkVersion
         versionCode 1
         versionName "1.0"
 

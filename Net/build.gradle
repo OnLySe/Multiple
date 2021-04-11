@@ -1,4 +1,5 @@
 import com.zzq.buildsrc.Androidx
+import com.zzq.buildsrc.BuildVersions
 import com.zzq.buildsrc.Depend
 import com.zzq.buildsrc.DependTest
 import com.zzq.buildsrc.Espresso
@@ -12,12 +13,12 @@ plugins {
 }
 
 android {
-    compileSdkVersion 30
-    buildToolsVersion "30.0.2"
+    compileSdkVersion BuildVersions.compileSdkVersion
+    buildToolsVersion BuildVersions.buildToolsVersion
 
     defaultConfig {
         minSdkVersion 18
-        targetSdkVersion 30
+        targetSdkVersion BuildVersions.targetSdkVersion
         versionCode 1
         versionName "1.0"
 
