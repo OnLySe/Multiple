@@ -2,7 +2,9 @@ package com.zzq.jetpack.livedata
 
 import android.view.View
 import android.widget.Button
+import androidx.fragment.app.viewModels
 import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.Observer
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -11,6 +13,8 @@ import com.zzq.common.utils.showToast
 import com.zzq.jetpack.R
 import com.zzq.jetpack.adapter.TextAdapter
 import com.zzq.jetpack.base.BaseFragment
+import com.zzq.jetpack.livedata.vm.LiveDataViewModel
+import com.zzq.jetpack.livedata.vm.LiveDataViewModelFactory
 import com.zzq.jetpack.utils.RandomDataUtil
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay
@@ -20,7 +24,10 @@ class LiveDataMainFragment : BaseFragment(), View.OnClickListener {
 
     private lateinit var btnPostValue: Button
     private lateinit var btnClearData: Button
-    private lateinit var rvItems:RecyclerView
+    private lateinit var btn3: Button
+    private lateinit var rvItems: RecyclerView
+
+    private val liveDataViewModel: LiveDataViewModel by viewModels { LiveDataViewModelFactory }
 
     private val textAdapter = TextAdapter()
 
@@ -36,18 +43,20 @@ class LiveDataMainFragment : BaseFragment(), View.OnClickListener {
         btnPostValue.setOnClickListener(ClickProxy(this))
         btnClearData = view.findViewById(R.id.btn2)
         btnClearData.setOnClickListener(ClickProxy(this))
+        btn3 = view.findViewById(R.id.btn3)
+        btn3.setOnClickListener(ClickProxy(this))
 
         rvItems = view.findViewById(R.id.rv_items)
         rvItems.layoutManager = LinearLayoutManager(requireContext())
         rvItems.adapter = textAdapter
 
-        textLiveData.observe(this, {
+        textLiveData.observe(this, Observer {
             addListData("1号收到$it!")
         })
 
         lifecycleScope.launch(Dispatchers.Main) {
             delay(1000)
-            textLiveData.observe(this@LiveDataMainFragment, {
+            textLiveData.observe(this@LiveDataMainFragment, Observer {
                 addListData("2号收到$it!")
             })
             delay(100)
@@ -72,8 +81,14 @@ class LiveDataMainFragment : BaseFragment(), View.OnClickListener {
                 clearAllData()
                 showToast("清除数据完成")
             }
+            R.id.btn3 -> {
+                addListData("开始Flow！")
+                liveDataViewModel.currentResult.observe(this, Observer {
+                    addListData(it)
+                })
+            }
         }
-   }
+    }
 
     private fun addListData(data: String) {
         textAdapter.addItemData(data)

@@ -1,0 +1,47 @@
+import com.zzq.buildsrc.BuildVersions
+import com.zzq.buildsrc.DependTest
+import com.zzq.buildsrc.Espresso
+
+plugins {
+    id 'com.android.application'
+    id 'kotlin-android'
+}
+
+android {
+    compileSdkVersion BuildVersions.compileSdkVersion
+    buildToolsVersion BuildVersions.buildToolsVersion
+
+    defaultConfig {
+        applicationId "com.zzq.annotation"
+        minSdkVersion 18
+        targetSdkVersion BuildVersions.targetSdkVersion
+        versionCode 1
+        versionName "1.0.0"
+
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+    }
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+    kotlinOptions {
+        jvmTarget = '1.8'
+    }
+}
+
+dependencies {
+
+    implementation fileTree(dir: "libs", include: ["*.jar"])
+    testImplementation DependTest.junit
+    androidTestImplementation DependTest.ext_junit
+    androidTestImplementation Espresso.core
+    implementation project(path: ':common')
+
+}
