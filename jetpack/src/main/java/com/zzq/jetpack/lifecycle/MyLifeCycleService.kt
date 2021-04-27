@@ -5,7 +5,7 @@ import androidx.lifecycle.LifecycleService
 
 class MyLifeCycleService : LifecycleService() {
 
-    private lateinit var lifecycleModel: LifeCycleModel
+    private lateinit var lifecycleModel: LifecycleModel
 
     init {
         Log.d("LifeCycleModel","MyLifeCycleService init")
@@ -13,7 +13,7 @@ class MyLifeCycleService : LifecycleService() {
 
     override fun onCreate() {
         super.onCreate()
-        lifecycleModel = LifeCycleModel(this)
+        lifecycleModel = LifecycleModel(this)
         lifecycle.addObserver(lifecycleModel)
         Log.d("LifeCycleModel","MyLifeCycleService onCreate")
     }

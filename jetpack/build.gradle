@@ -80,4 +80,8 @@ dependencies {
     api Extension.viewmodel_ktx
     // LiveData
     api Extension.livedata_ktx
+
+
+//    implementation 'com.android.tools.lint:lint-api:27.1.0'
+//    implementation 'com.android.tools.lint:lint-checks:27.1.0'
 }

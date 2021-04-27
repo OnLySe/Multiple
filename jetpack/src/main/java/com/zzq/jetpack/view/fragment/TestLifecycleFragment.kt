@@ -5,7 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import com.zzq.jetpack.lifecycle.LifeCycleModel
+import com.zzq.jetpack.lifecycle.LifecycleModel
 
 class TestLifecycleFragment : Fragment() {
 
@@ -14,7 +14,7 @@ class TestLifecycleFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        val lifecycleModel = LifeCycleModel(this)
+        val lifecycleModel = LifecycleModel(this)
         lifecycle.addObserver(lifecycleModel)
         return super.onCreateView(inflater, container, savedInstanceState)
     }
