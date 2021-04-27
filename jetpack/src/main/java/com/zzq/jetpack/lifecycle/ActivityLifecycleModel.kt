@@ -8,7 +8,6 @@ import androidx.lifecycle.OnLifecycleEvent
 class ActivityLifecycleModel(activity: AppCompatActivity) :
     LifecycleModel(activity, "ActivityLifecycleModel") {
 
-
     @OnLifecycleEvent(Lifecycle.Event.ON_RESUME)
     fun whenOnResume() {
         Log.d(specialName, "whenOnResume create $owner")
