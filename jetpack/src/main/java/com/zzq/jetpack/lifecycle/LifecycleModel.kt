@@ -15,6 +15,10 @@ open class LifecycleModel : LifecycleObserver {
 
     protected var specialName: String = defaultName
 
+    init {
+        Log.d(specialName, "对象创建！")
+    }
+
     constructor(activity: AppCompatActivity, name: String = defaultName) {
         owner = activity
         specialName = name
@@ -28,10 +32,6 @@ open class LifecycleModel : LifecycleObserver {
     constructor(service: LifecycleService, name: String = defaultName) {
         owner = service
         specialName = name
-    }
-
-    init {
-        Log.d(specialName, "对象创建！")
     }
 
     @OnLifecycleEvent(Lifecycle.Event.ON_CREATE)
