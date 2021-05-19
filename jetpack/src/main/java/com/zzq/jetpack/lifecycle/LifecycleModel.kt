@@ -19,18 +19,8 @@ open class LifecycleModel : LifecycleObserver {
         Log.d(specialName, "对象创建！")
     }
 
-    constructor(activity: AppCompatActivity, name: String = defaultName) {
+    constructor(activity: LifecycleOwner, name: String = defaultName) {
         owner = activity
-        specialName = name
-    }
-
-    constructor(fragment: Fragment, name: String = defaultName) {
-        owner = fragment
-        specialName = name
-    }
-
-    constructor(service: LifecycleService, name: String = defaultName) {
-        owner = service
         specialName = name
     }
 
@@ -40,17 +30,17 @@ open class LifecycleModel : LifecycleObserver {
     }
 
     @OnLifecycleEvent(Lifecycle.Event.ON_START)
-    fun start() {
+    open fun start() {
         Log.d(specialName, "start $owner")
     }
 
     @OnLifecycleEvent(Lifecycle.Event.ON_RESUME)
-    fun resume() {
+    open fun resume() {
         Log.d(specialName, "resume $owner")
     }
 
     @OnLifecycleEvent(Lifecycle.Event.ON_PAUSE)
-    fun pause() {
+    open fun pause() {
         Log.d(specialName, "pause $owner")
     }
 

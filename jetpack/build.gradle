@@ -7,7 +7,6 @@ import com.zzq.buildsrc.Room
 
 apply plugin: 'com.android.application'
 apply plugin: 'kotlin-android'
-apply plugin: 'kotlin-android-extensions'
 apply plugin: 'kotlin-kapt'
 
 android {
@@ -81,6 +80,7 @@ dependencies {
     // LiveData
     api Extension.livedata_ktx
 
+    implementation "androidx.lifecycle:lifecycle-common-java8:2.3.0"
 
 //    implementation 'com.android.tools.lint:lint-api:27.1.0'
 //    implementation 'com.android.tools.lint:lint-checks:27.1.0'

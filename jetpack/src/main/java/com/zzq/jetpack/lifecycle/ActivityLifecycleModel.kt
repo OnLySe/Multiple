@@ -10,7 +10,13 @@ class ActivityLifecycleModel(activity: AppCompatActivity) :
 
     @OnLifecycleEvent(Lifecycle.Event.ON_RESUME)
     fun whenOnResume() {
-        Log.d(specialName, "whenOnResume create $owner")
+        Log.d(specialName, "whenOnResume $owner")
+        owner.lifecycle.addObserver(LifecycleModel(owner, "innerLifecycleModel"))
+    }
+
+    @OnLifecycleEvent(Lifecycle.Event.ON_START)
+    override fun start() {
+        Log.d(specialName, "overload start $owner")
     }
 
 }
