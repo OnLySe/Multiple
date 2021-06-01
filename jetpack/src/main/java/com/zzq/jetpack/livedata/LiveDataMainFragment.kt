@@ -22,9 +22,6 @@ import kotlinx.coroutines.launch
 
 class LiveDataMainFragment : BaseFragment(), View.OnClickListener {
 
-    private lateinit var btnPostValue: Button
-    private lateinit var btnClearData: Button
-    private lateinit var btn3: Button
     private lateinit var rvItems: RecyclerView
 
     private val liveDataViewModel: LiveDataViewModel by viewModels { LiveDataViewModelFactory }
@@ -39,12 +36,10 @@ class LiveDataMainFragment : BaseFragment(), View.OnClickListener {
 
     override fun initView(view: View) {
         setToolbarReturnFun()
-        btnPostValue = view.findViewById(R.id.btn1)
-        btnPostValue.setOnClickListener(ClickProxy(this))
-        btnClearData = view.findViewById(R.id.btn2)
-        btnClearData.setOnClickListener(ClickProxy(this))
-        btn3 = view.findViewById(R.id.btn3)
-        btn3.setOnClickListener(ClickProxy(this))
+        view.findViewById<Button>(R.id.btn1).setOnClickListener(ClickProxy(this))
+        view.findViewById<Button>(R.id.btn2).setOnClickListener(ClickProxy(this))
+        view.findViewById<Button>(R.id.btn3).setOnClickListener(ClickProxy(this))
+        view.findViewById<Button>(R.id.btn4).setOnClickListener(ClickProxy(this))
 
         rvItems = view.findViewById(R.id.rv_items)
         rvItems.layoutManager = LinearLayoutManager(requireContext())
@@ -54,15 +49,16 @@ class LiveDataMainFragment : BaseFragment(), View.OnClickListener {
             addListData("1号收到$it!")
         })
 
-        lifecycleScope.launch(Dispatchers.Main) {
+        textLiveData.observeForever {
+            addListData("forever 收到$it")
+        }
+
+    }
+
+    override fun onResume() {
+        super.onResume()
+        lifecycleScope.launch {
             delay(1000)
-            textLiveData.observe(this@LiveDataMainFragment, Observer {
-                addListData("2号收到$it!")
-            })
-            delay(100)
-            textLiveData.observeForever {
-                addListData("forever 收到$it")
-            }
         }
     }
 
@@ -86,6 +82,10 @@ class LiveDataMainFragment : BaseFragment(), View.OnClickListener {
                 liveDataViewModel.currentResult.observe(this, Observer {
                     addListData(it)
                 })
+            }
+            R.id.btn4 -> {
+                val mutableLiveData = MutableLiveData<Int>()
+                mutableLiveData.observe(this,{})
             }
         }
     }

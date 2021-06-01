@@ -82,6 +82,15 @@ dependencies {
 
     implementation "androidx.lifecycle:lifecycle-common-java8:2.3.0"
 
+    implementation "androidx.paging:paging-runtime:3.0.0"
+
+    def retrofitVersion = "2.9.0"
+    def okhttpLoggingInterceptorVersion = "4.9.0"
+    implementation "com.squareup.retrofit2:retrofit:$retrofitVersion"
+    implementation "com.squareup.retrofit2:converter-gson:$retrofitVersion"
+    implementation "com.squareup.retrofit2:retrofit-mock:$retrofitVersion"
+    implementation "com.squareup.okhttp3:logging-interceptor:$okhttpLoggingInterceptorVersion"
+
 //    implementation 'com.android.tools.lint:lint-api:27.1.0'
 //    implementation 'com.android.tools.lint:lint-checks:27.1.0'
 }

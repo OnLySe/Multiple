@@ -23,6 +23,7 @@
                 android:gravity="center"
                 android:padding="3dp"
                 android:text="通用" />
+
             <Button
                 android:id="@+id/btn1"
                 android:layout_width="match_parent"
@@ -34,6 +35,12 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="清除数据" />
+
+            <Button
+                android:id="@+id/btn4"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="创建LiveData" />
 
             <TextView
                 android:layout_width="match_parent"
